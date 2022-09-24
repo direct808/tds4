@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "useUnknownInCatchVariables": false,
+    "esModuleInterop": true,
+    "target": "ES2020",
+    "lib": [
+      "ES2020"
+    ],
+    "allowJs": true,
+    "sourceMap": true,
+    "incremental": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "baseUrl": "./",
+    "outDir": "./dist",
+    "paths": {
+      "@tds/common": [
+        "libs/common/src"
+      ],
+      "@tds/common/*": [
+        "libs/common/src/*"
+      ]
+    }
+  }
+}

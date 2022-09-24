@@ -1,0 +1,8 @@
+type Query {
+    campaignList: [Campaign!]!
+}
+
+type Campaign @key(fields: "id") {
+    id: ID!
+    name: String!
+}

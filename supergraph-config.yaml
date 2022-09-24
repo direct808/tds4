@@ -1,0 +1,11 @@
+federation_version: 2 # Without this line, Rover uses Federation 1
+subgraphs:
+  administration:
+    routing_url: http://localhost:3000/graphql
+    schema:
+      file: ./services/administration/administration.graphql
+  campaign:
+    routing_url: https://rover.apollo.dev/quickstart/reviews/graphql
+    schema:
+      file: ./services/campaign/campaign.graphql
+
