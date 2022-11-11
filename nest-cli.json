@@ -1,7 +1,7 @@
 {
   "collection": "@nestjs/schematics",
   "root": "services/api-gateway",
-  "sourceRoot": "services/api-gateway",
+  "sourceRoot": "services/api-gateway/src",
   "monorepo": true,
   "compilerOptions": {
     "webpack": false,
@@ -12,7 +12,7 @@
       "type": "application",
       "root": "services/api-gateway",
       "entryFile": "main",
-      "sourceRoot": "services/api-gateway",
+      "sourceRoot": "services/api-gateway/src",
       "compilerOptions": {
         "tsConfigPath": "services/api-gateway/tsconfig.app.json",
         "assets": [
@@ -24,7 +24,7 @@
       "type": "application",
       "root": "services/administration",
       "entryFile": "main",
-      "sourceRoot": "services/administration",
+      "sourceRoot": "services/administration/src",
       "compilerOptions": {
         "tsConfigPath": "services/administration/tsconfig.app.json",
         "assets": [
@@ -35,11 +35,11 @@
     },
     "campaign": {
       "type": "application",
-      "root": "services\\campaign",
-      "entryFile": "src\\main",
-      "sourceRoot": "services\\campaign",
+      "root": "services/campaign",
+      "entryFile": "main",
+      "sourceRoot": "services/campaign/src",
       "compilerOptions": {
-        "tsConfigPath": "services\\campaign\\tsconfig.app.json",
+        "tsConfigPath": "services/campaign/tsconfig.app.json",
         "assets": [
           {"include": ".env", "outDir": "dist/services/campaign"},
           {"include": "campaign.graphql", "outDir": "dist/services/campaign"}

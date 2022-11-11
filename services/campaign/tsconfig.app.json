@@ -1,13 +1,9 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../dist"
+    "declaration": false,
+    "outDir": "../../dist/services/campaign"
   },
   "include": ["src/**/*"],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "test",
-    "**/*spec.ts"
-  ]
+  "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
 }

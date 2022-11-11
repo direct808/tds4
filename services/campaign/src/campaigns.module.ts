@@ -12,9 +12,7 @@ import {
   imports: [
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
-      typePaths: [
-        '/mnt/d/direct/PhpStormProjects/tds4/backend/services/campaign/campaign.graphql',
-      ],
+      typePaths: ['./campaign.graphql'],
       // debug: false,
       // playground: false,
     }),
