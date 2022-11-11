@@ -24,7 +24,7 @@
       "type": "application",
       "root": "services/administration",
       "entryFile": "main",
-      "sourceRoot": "services/administration/src",
+      "sourceRoot": "services/administration",
       "compilerOptions": {
         "tsConfigPath": "services/administration/tsconfig.app.json",
         "assets": [
@@ -37,7 +37,7 @@
       "type": "application",
       "root": "services/campaign",
       "entryFile": "main",
-      "sourceRoot": "services/campaign/src",
+      "sourceRoot": "services/campaign",
       "compilerOptions": {
         "tsConfigPath": "services/campaign/tsconfig.app.json",
         "assets": [

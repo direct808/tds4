@@ -7,12 +7,13 @@ import {
   ApolloFederationDriver,
   ApolloFederationDriverConfig,
 } from '@nestjs/apollo';
+import path from 'path';
 
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
-      typePaths: ['./campaign.graphql'],
+      typePaths: [path.resolve(__dirname, '../campaign.graphql')],
       // debug: false,
       // playground: false,
     }),
@@ -21,5 +22,3 @@ import {
   providers: [CampaignsService, QueryService],
 })
 export class CampaignsModule {}
-
-// 8928 27 52 825
