@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "rover": "rover supergraph compose --config ./supergraph-config.yaml > schema.graphql",
+    "buld:schema": "rover supergraph compose --elv2-license accept --config ./supergraph-config.yaml > ./services/api-gateway/schema.graphql",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
@@ -23,11 +23,12 @@
     "start:dev admin": "nest start --watch administration",
     "start:dev api-gateway": "nest start --watch api-gateway",
     "start:dev campaign": "nest start --watch campaign",
+    "start:dev an": "nest start --watch an",
     "generate": "graphql-codegen"
   },
   "dependencies": {
     "@apollo/gateway": "^2.0.2",
-    "@apollo/rover": "^0.9.1",
+    "@apollo/rover": "^0.10.0",
     "@apollo/subgraph": "^2.0.2",
     "@graphql-codegen/add": "^3.1.1",
     "@graphql-codegen/cli": "^2.6.2",
@@ -60,6 +61,7 @@
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
+    "cross-env": "^7.0.3",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
@@ -70,7 +72,7 @@
     "ts-jest": "^29.0.3",
     "ts-loader": "^9.2.3",
     "ts-node": "^10.0.0",
-    "tsconfig-paths": "4.0.0",
+    "tsconfig-paths": "^4.1.0",
     "typescript": "^4.3.5"
   },
   "jest": {

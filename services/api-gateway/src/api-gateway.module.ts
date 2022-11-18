@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloGatewayDriver, ApolloGatewayDriverConfig } from '@nestjs/apollo';
 import { readFileSync } from 'fs';
+import path from 'path';
 
 @Module({
   imports: [
@@ -11,7 +12,9 @@ import { readFileSync } from 'fs';
         cors: true,
       },
       gateway: {
-        supergraphSdl: readFileSync('./schema.graphql').toString(),
+        supergraphSdl: readFileSync(
+          path.resolve(__dirname, '../schema.graphql'),
+        ).toString(),
       },
     }),
   ],

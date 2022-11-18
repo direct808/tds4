@@ -5,7 +5,11 @@ subgraphs:
     schema:
       file: ./services/administration/administration.graphql
   campaign:
-    routing_url: https://rover.apollo.dev/quickstart/reviews/graphql
+    routing_url: http://localhost:3001/graphql
     schema:
       file: ./services/campaign/campaign.graphql
+  an:
+    routing_url: http://localhost:4002/graphql
+    schema:
+      file: ./services/an/affiliate-network.graphql
 
