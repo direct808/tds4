@@ -1,14 +1,14 @@
-import { Module } from '@nestjs/common';
-import { UserService } from './user.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { TypeOrmConfigService } from './config/typeorm-config.service';
-import { GraphQLModule } from '@nestjs/graphql';
+import { Module } from '@nestjs/common'
+import { UserService } from './user.service'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { TypeOrmConfigService } from './config/typeorm-config.service'
+import { GraphQLModule } from '@nestjs/graphql'
 import {
   ApolloFederationDriver,
   ApolloFederationDriverConfig,
-} from '@nestjs/apollo';
-import path from 'path';
-import { ConfigModule } from './config/config.module';
+} from '@nestjs/apollo'
+import path from 'path'
+import { ConfigModule } from './config/config.module'
 
 @Module({
   imports: [

@@ -1,15 +1,15 @@
-import { Module } from '@nestjs/common';
-import { QueryService } from './query.service';
-import { GraphQLModule } from '@nestjs/graphql';
+import { Module } from '@nestjs/common'
+import { QueryService } from './query.service'
+import { GraphQLModule } from '@nestjs/graphql'
 import {
   ApolloFederationDriver,
   ApolloFederationDriverConfig,
-} from '@nestjs/apollo';
-import path from 'path';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from './config/config.module';
-import { TypeOrmConfigService } from './config/typeorm-config.service';
-import { AffiliateNetworkService } from './affiliate-network.service';
+} from '@nestjs/apollo'
+import path from 'path'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { ConfigModule } from './config/config.module'
+import { TypeOrmConfigService } from './config/typeorm-config.service'
+import { AffiliateNetworkService } from './affiliate-network.service'
 
 @Module({
   imports: [

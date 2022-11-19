@@ -1,13 +1,13 @@
-import { Module } from '@nestjs/common';
-import { CampaignsController } from './campaigns.controller';
-import { CampaignsService } from './campaigns.service';
-import { QueryService } from './query.service';
-import { GraphQLModule } from '@nestjs/graphql';
+import { Module } from '@nestjs/common'
+import { CampaignsController } from './campaigns.controller'
+import { CampaignsService } from './campaigns.service'
+import { QueryService } from './query.service'
+import { GraphQLModule } from '@nestjs/graphql'
 import {
   ApolloFederationDriver,
   ApolloFederationDriverConfig,
-} from '@nestjs/apollo';
-import path from 'path';
+} from '@nestjs/apollo'
+import path from 'path'
 
 @Module({
   imports: [

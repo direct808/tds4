@@ -1,5 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
-import { CampaignsService } from './campaigns.service';
+import { Controller, Get } from '@nestjs/common'
+import { CampaignsService } from './campaigns.service'
 
 @Controller()
 export class CampaignsController {
@@ -7,6 +7,6 @@ export class CampaignsController {
 
   @Get()
   getHello(): string {
-    return this.campaignsService.getHello();
+    return this.campaignsService.getHello()
   }
 }

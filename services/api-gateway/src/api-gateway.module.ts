@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloGatewayDriver, ApolloGatewayDriverConfig } from '@nestjs/apollo';
-import { readFileSync } from 'fs';
-import path from 'path';
+import { Module } from '@nestjs/common'
+import { GraphQLModule } from '@nestjs/graphql'
+import { ApolloGatewayDriver, ApolloGatewayDriverConfig } from '@nestjs/apollo'
+import { readFileSync } from 'fs'
+import path from 'path'
 
 @Module({
   imports: [

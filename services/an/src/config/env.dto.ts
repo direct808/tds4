@@ -1,11 +1,11 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { Expose, Transform } from 'class-transformer';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator'
+import { Expose, Transform } from 'class-transformer'
 
 export class EnvDto {
   @Expose()
   @IsString()
   @IsNotEmpty()
-  DB_HOST!: string;
+  DB_HOST!: string
 
   @Expose()
   @IsNumber()
@@ -13,13 +13,13 @@ export class EnvDto {
   @Transform(({ value }: { value: string | undefined }) =>
     value ? Number(value) : undefined,
   )
-  DB_PORT!: number;
+  DB_PORT!: number
 
   @Expose()
   @IsString()
-  DB_USER!: string;
+  DB_USER!: string
 
   @Expose()
   @IsString()
-  DB_PASS!: string;
+  DB_PASS!: string
 }

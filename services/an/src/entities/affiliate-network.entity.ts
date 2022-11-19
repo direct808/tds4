@@ -1,16 +1,16 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity } from 'typeorm'
 
 @Entity()
 export class AffiliateNetwork {
   @Column('uuid', { generated: 'uuid', primary: true })
-  declare id: string;
+  declare id: string
 
   @Column()
-  declare name: string;
+  declare name: string
 
   @Column({ nullable: true })
-  declare offerParam: string;
+  declare offerParam: string
 
   @Column({ nullable: true })
-  declare postbackUrl: string;
+  declare postbackUrl: string
 }
