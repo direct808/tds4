@@ -10,21 +10,9 @@ export class QueryService {
   ) {}
 
   @Query()
-  affiliateNetworkList() {
-    return [
-      { id: '123123', name: '333333333333' },
-      { id: '123123', name: '333333333333' },
-      { id: '123123', name: '333333333333' },
-      { id: '123123', name: '333333333333' },
-      { id: '123123', name: '333333333333' },
-      { id: '123123', name: '333333333333' },
-      { id: '123123', name: '333333333333' },
-      { id: '123123', name: '333333333333' },
-      { id: '123123', name: '333333333333' },
-      { id: '123123', name: '333333333333' },
-      { id: '123123', name: '333333333333' },
-      { id: '123123', name: '333333333333' },
-    ]
+  async affiliateNetworkList() {
+    const [items, totalCount] = await this.affiliateNetworkService.find()
+    return { items, totalCount }
   }
 
   @Mutation()

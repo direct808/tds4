@@ -1,5 +1,5 @@
 extend type Query {
-    affiliateNetworkList: [AffiliateNetwork!]!
+    affiliateNetworkList: AffiliateNetworkListData!
 }
 
 extend type Mutation {
@@ -20,3 +20,7 @@ type AffiliateNetwork @key(fields: "id") {
     postbackUrl: String
 }
 
+type AffiliateNetworkListData {
+    items: [AffiliateNetwork!]!
+    totalCount: Int!
+}

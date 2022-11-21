@@ -7,6 +7,10 @@ import { Injectable } from '@nestjs/common'
 export class AffiliateNetworkService {
   constructor(private readonly entityManager: EntityManager) {}
 
+  async find() {
+    return this.entityManager.findAndCount(AffiliateNetwork)
+  }
+
   async save(input: AffiliateNetworkSaveDTO) {
     if (input.id) {
       await this.entityManager.findOneByOrFail(AffiliateNetwork, {
