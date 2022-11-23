@@ -1,5 +1,5 @@
-import { AffiliateNetworkSaveDTO } from './dto/affiliate-network-save.DTO'
-import { AffiliateNetwork } from './entities/affiliate-network.entity'
+import { AffiliateNetworkSaveDTO } from './dto'
+import { AffiliateNetwork } from './entities'
 import { EntityManager } from 'typeorm'
 import { Injectable } from '@nestjs/common'
 

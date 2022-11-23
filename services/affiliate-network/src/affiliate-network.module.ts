@@ -6,25 +6,18 @@ import {
   ApolloFederationDriverConfig,
 } from '@nestjs/apollo'
 import path from 'path'
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { ConfigModule } from './config/config.module'
-import { TypeOrmConfigService } from './config/typeorm-config.service'
 import { AffiliateNetworkService } from './affiliate-network.service'
+import { DatabaseModule } from '@tds/common'
+import { AffiliateNetwork } from './entities'
 
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
       typePaths: [path.resolve(__dirname, '../affiliate-network.graphql')],
-      debug: true,
-      // playground: false,
     }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useClass: TypeOrmConfigService,
-    }),
+    DatabaseModule.forRoot([AffiliateNetwork], 'affiliate_network'),
   ],
-  controllers: [],
   providers: [QueryService, AffiliateNetworkService],
 })
 export class AffiliateNetworkModule {}

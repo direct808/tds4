@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator'
 import { Expose, Transform } from 'class-transformer'
 
-export class EnvDto {
+export class DatabaseEnvDTO {
   @Expose()
   @IsString()
   @IsNotEmpty()

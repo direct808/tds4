@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { Args, Mutation, Query } from '@nestjs/graphql'
 import { AffiliateNetworkService } from './affiliate-network.service'
-import { AffiliateNetworkSaveDTO } from './dto/affiliate-network-save.DTO'
+import { AffiliateNetworkSaveDTO } from './dto'
 
 @Injectable()
 export class QueryService {

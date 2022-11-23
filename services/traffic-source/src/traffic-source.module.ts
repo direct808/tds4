@@ -6,25 +6,18 @@ import {
   ApolloFederationDriverConfig,
 } from '@nestjs/apollo'
 import path from 'path'
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { ConfigModule } from './config/config.module'
-import { TypeOrmConfigService } from './config/typeorm-config.service'
 import { TrafficSourceService } from './traffic-source.service'
+import { DatabaseModule } from '@tds/common/database.module'
+import { TrafficSource } from './entities/traffic-source.entity'
 
 @Module({
   imports: [
+    DatabaseModule.forRoot([TrafficSource], 'traffic_source'),
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
       typePaths: [path.resolve(__dirname, '../traffic-source.graphql')],
-      debug: true,
-      // playground: false,
-    }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useClass: TypeOrmConfigService,
     }),
   ],
-  controllers: [],
   providers: [QueryService, TrafficSourceService],
 })
 export class TrafficSourceModule {}

@@ -1,7 +1,7 @@
 import { EntityManager } from 'typeorm'
 import { Injectable } from '@nestjs/common'
 import { TrafficSource } from './entities/traffic-source.entity'
-import { TrafficSourceSaveDTO } from './dto/traffic-source-save.DTO'
+import { TrafficSourceSaveDTO } from './dto'
 
 @Injectable()
 export class TrafficSourceService {

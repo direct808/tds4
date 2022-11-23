@@ -21,36 +21,10 @@
         ]
       }
     },
-    "administration": {
-      "type": "application",
-      "root": "services/administration",
-      "entryFile": "main",
-      "sourceRoot": "services/administration",
-      "compilerOptions": {
-        "tsConfigPath": "services/administration/tsconfig.app.json",
-        "assets": [
-          {"include": ".env", "outDir": "dist/services/administration"},
-          {"include": "administration.graphql", "outDir": "dist/services/administration"}
-        ]
-      }
-    },
-    "campaign": {
-      "type": "application",
-      "root": "services/campaign",
-      "entryFile": "main",
-      "sourceRoot": "services/campaign",
-      "compilerOptions": {
-        "tsConfigPath": "services/campaign/tsconfig.app.json",
-        "assets": [
-          {"include": ".env", "outDir": "dist/services/campaign"},
-          {"include": "campaign.graphql", "outDir": "dist/services/campaign"}
-        ]
-      }
-    },
     "affiliate-network": {
       "type": "application",
       "root": "services/affiliate-network",
-      "entryFile": "main",
+      "entryFile": "src/main",
       "sourceRoot": "services/affiliate-network",
       "compilerOptions": {
         "tsConfigPath": "services/affiliate-network/tsconfig.app.json",
@@ -63,7 +37,7 @@
     "traffic-source": {
       "type": "application",
       "root": "services/traffic-source",
-      "entryFile": "main",
+      "entryFile": "src/main",
       "sourceRoot": "services/traffic-source",
       "compilerOptions": {
         "tsConfigPath": "services/traffic-source/tsconfig.app.json",
@@ -71,6 +45,15 @@
           {"include": ".env", "outDir": "dist/services/traffic-source"},
           {"include": "traffic-source.graphql", "outDir": "dist/services/traffic-source"}
         ]
+      }
+    },
+    "common": {
+      "type": "lib",
+      "root": "libs/common",
+      "entryFile": "index",
+      "sourceRoot": "libs/common",
+      "compilerOptions": {
+        "tsConfigPath": "libs/common/tsconfig.lib.json"
       }
     }
   }

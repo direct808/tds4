@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { Args, Mutation, Query } from '@nestjs/graphql'
-import { TrafficSourceSaveDTO } from './dto/traffic-source-save.DTO'
+import { TrafficSourceSaveDTO } from './dto'
 import { TrafficSourceService } from './traffic-source.service'
 
 @Injectable()

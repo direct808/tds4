@@ -20,9 +20,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./apps/backend/test/jest-e2e.json",
-    "start:dev admin": "nest start --watch administration",
     "start:dev api-gateway": "nest start --watch api-gateway",
-    "start:dev campaign": "nest start --watch campaign",
     "start:dev affiliate-network": "nest start --watch affiliate-network",
     "start:dev traffic-source": "nest start --watch traffic-source",
     "generate": "graphql-codegen"
@@ -97,7 +95,7 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^tds/common(|/.*)$": "<rootDir>/libs/common/src/$1"
+      "^@tds/common(|/.*)$": "<rootDir>/libs/common/src/$1"
     }
   }
 }
