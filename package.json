@@ -24,6 +24,7 @@
     "start:dev api-gateway": "nest start --watch api-gateway",
     "start:dev campaign": "nest start --watch campaign",
     "start:dev affiliate-network": "nest start --watch affiliate-network",
+    "start:dev traffic-source": "nest start --watch traffic-source",
     "generate": "graphql-codegen"
   },
   "dependencies": {

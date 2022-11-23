@@ -59,6 +59,19 @@
           {"include": "affiliate-network.graphql", "outDir": "dist/services/affiliate-network"}
         ]
       }
+    },
+    "traffic-source": {
+      "type": "application",
+      "root": "services/traffic-source",
+      "entryFile": "main",
+      "sourceRoot": "services/traffic-source",
+      "compilerOptions": {
+        "tsConfigPath": "services/traffic-source/tsconfig.app.json",
+        "assets": [
+          {"include": ".env", "outDir": "dist/services/traffic-source"},
+          {"include": "traffic-source.graphql", "outDir": "dist/services/traffic-source"}
+        ]
+      }
     }
   }
 }
