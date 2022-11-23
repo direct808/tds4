@@ -23,7 +23,7 @@
     "start:dev admin": "nest start --watch administration",
     "start:dev api-gateway": "nest start --watch api-gateway",
     "start:dev campaign": "nest start --watch campaign",
-    "start:dev an": "nest start --watch an",
+    "start:dev affiliate-network": "nest start --watch affiliate-network",
     "generate": "graphql-codegen"
   },
   "dependencies": {

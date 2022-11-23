@@ -47,16 +47,16 @@
         ]
       }
     },
-    "an": {
+    "affiliate-network": {
       "type": "application",
-      "root": "services/an",
+      "root": "services/affiliate-network",
       "entryFile": "main",
-      "sourceRoot": "services/an",
+      "sourceRoot": "services/affiliate-network",
       "compilerOptions": {
-        "tsConfigPath": "services/an/tsconfig.app.json",
+        "tsConfigPath": "services/affiliate-network/tsconfig.app.json",
         "assets": [
-          {"include": ".env", "outDir": "dist/services/an"},
-          {"include": "affiliate-network.graphql", "outDir": "dist/services/an"}
+          {"include": ".env", "outDir": "dist/services/affiliate-network"},
+          {"include": "affiliate-network.graphql", "outDir": "dist/services/affiliate-network"}
         ]
       }
     }
