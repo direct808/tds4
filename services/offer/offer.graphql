@@ -1,0 +1,22 @@
+extend type Query {
+    offerList: OfferListData!
+}
+
+extend type Mutation {
+    offerSave(input: OfferInput!): Offer!
+}
+
+input OfferInput {
+    id: ID
+    name: String
+}
+
+type Offer @key(fields: "id") {
+    id: ID!
+    name: String!
+}
+
+type OfferListData {
+    items: [Offer!]!
+    totalCount: Int!
+}

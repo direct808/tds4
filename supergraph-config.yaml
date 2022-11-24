@@ -1,11 +1,14 @@
 federation_version: 2 # Without this line, Rover uses Federation 1
 subgraphs:
   traffic-source:
-    routing_url: http://localhost:3001/graphql
+    routing_url: http://localhost:4003/graphql
     schema:
       file: ./services/traffic-source/traffic-source.graphql
   affiliate-network:
     routing_url: http://localhost:4002/graphql
     schema:
       file: ./services/affiliate-network/affiliate-network.graphql
-
+  offer:
+    routing_url: http://localhost:4004/graphql
+    schema:
+      file: ./services/offer/offer.graphql

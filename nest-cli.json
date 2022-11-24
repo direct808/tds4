@@ -16,8 +16,14 @@
       "compilerOptions": {
         "tsConfigPath": "services/api-gateway/tsconfig.app.json",
         "assets": [
-          {"include": ".env", "outDir": "dist/services/api-gateway"},
-          {"include": "schema.graphql", "outDir": "dist/services/api-gateway"}
+          {
+            "include": ".env",
+            "outDir": "dist/services/api-gateway"
+          },
+          {
+            "include": "schema.graphql",
+            "outDir": "dist/services/api-gateway"
+          }
         ]
       }
     },
@@ -29,8 +35,14 @@
       "compilerOptions": {
         "tsConfigPath": "services/affiliate-network/tsconfig.app.json",
         "assets": [
-          {"include": ".env", "outDir": "dist/services/affiliate-network"},
-          {"include": "affiliate-network.graphql", "outDir": "dist/services/affiliate-network"}
+          {
+            "include": ".env",
+            "outDir": "dist/services/affiliate-network"
+          },
+          {
+            "include": "affiliate-network.graphql",
+            "outDir": "dist/services/affiliate-network"
+          }
         ]
       }
     },
@@ -42,8 +54,14 @@
       "compilerOptions": {
         "tsConfigPath": "services/traffic-source/tsconfig.app.json",
         "assets": [
-          {"include": ".env", "outDir": "dist/services/traffic-source"},
-          {"include": "traffic-source.graphql", "outDir": "dist/services/traffic-source"}
+          {
+            "include": ".env",
+            "outDir": "dist/services/traffic-source"
+          },
+          {
+            "include": "traffic-source.graphql",
+            "outDir": "dist/services/traffic-source"
+          }
         ]
       }
     },
@@ -54,6 +72,25 @@
       "sourceRoot": "libs/common",
       "compilerOptions": {
         "tsConfigPath": "libs/common/tsconfig.lib.json"
+      }
+    },
+    "offer": {
+      "type": "application",
+      "root": "services/offer",
+      "entryFile": "src/main",
+      "sourceRoot": "services/offer",
+      "compilerOptions": {
+        "tsConfigPath": "services/offer/tsconfig.app.json",
+        "assets": [
+          {
+            "include": ".env",
+            "outDir": "dist/services/offer"
+          },
+          {
+            "include": "offer.graphql",
+            "outDir": "dist/services/offer"
+          }
+        ]
       }
     }
   }
