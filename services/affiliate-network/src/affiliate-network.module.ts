@@ -9,6 +9,7 @@ import path from 'path'
 import { AffiliateNetworkService } from './affiliate-network.service'
 import { DatabaseModule } from '@tds/common'
 import { AffiliateNetwork } from './entities'
+import { AffiliateNetworkController } from './affiliate-network.controller'
 
 @Module({
   imports: [
@@ -19,5 +20,6 @@ import { AffiliateNetwork } from './entities'
     DatabaseModule.forRoot([AffiliateNetwork], 'affiliate_network'),
   ],
   providers: [QueryService, AffiliateNetworkService],
+  controllers: [AffiliateNetworkController],
 })
 export class AffiliateNetworkModule {}

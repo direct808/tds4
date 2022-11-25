@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package tds.affiliate_network;
+
+service AffiliateNetworkService {
+  rpc GetAffiliateNetworkList(GetAffiliateNetworkListRequest) returns (GetAffiliateNetworkListResponse);
+}
+
+
+message GetAffiliateNetworkListRequest {
+  uint32 skip = 1;
+  uint32 take = 2;
+  string id = 3;
+}
+
+message GetAffiliateNetworkListResponse {
+  repeated AffiliateNetwork result = 1;
+  uint32 total_count = 2;
+}
+
+message AffiliateNetwork {
+  string id = 1;
+  string name = 2;
+}

@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { DatabaseEnvDTO } from './database-env.DTO'
 import { plainToClass } from 'class-transformer'
 import { validateSync } from 'class-validator'
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 
 @Module({})
 export class DatabaseModule {
@@ -32,6 +33,7 @@ export class DatabaseModule {
               schema,
               synchronize: true,
               logging: 'all',
+              namingStrategy: new SnakeNamingStrategy(),
             }
           },
         }),

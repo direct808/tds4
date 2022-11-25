@@ -7,4 +7,7 @@ export class Offer {
 
   @Column()
   declare name: string
+
+  @Column({ nullable: true })
+  declare affiliateNetworkId: string
 }

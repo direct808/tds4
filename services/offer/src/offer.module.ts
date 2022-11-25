@@ -9,6 +9,7 @@ import {
 import path from 'path'
 import { Offer } from './entities'
 import { QueryService } from './query.service'
+import { AffiliateNetworkService } from './affiliate-network.service'
 
 @Module({
   imports: [
@@ -20,6 +21,6 @@ import { QueryService } from './query.service'
       logger: console,
     }),
   ],
-  providers: [OfferService, QueryService],
+  providers: [OfferService, AffiliateNetworkService, QueryService],
 })
 export class OfferModule {}
