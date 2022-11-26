@@ -1,2 +1,3 @@
 export * from './types'
-export { DatabaseModule } from './database.module'
+export * from './grpc-client'
+export * from './database.module'

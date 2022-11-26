@@ -9,7 +9,8 @@ import {
 import path from 'path'
 import { Offer } from './entities'
 import { QueryService } from './query.service'
-import { AffiliateNetworkService } from './affiliate-network.service'
+import { ForeignService } from './foreign.service'
+import { ConfigService } from './config.service'
 
 @Module({
   imports: [
@@ -21,6 +22,6 @@ import { AffiliateNetworkService } from './affiliate-network.service'
       logger: console,
     }),
   ],
-  providers: [OfferService, AffiliateNetworkService, QueryService],
+  providers: [ConfigService, OfferService, QueryService, ForeignService],
 })
 export class OfferModule {}

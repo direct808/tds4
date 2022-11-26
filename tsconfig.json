@@ -19,6 +19,12 @@
     "baseUrl": "./",
     "outDir": "./dist",
     "paths": {
+      "@tds/contracts": [
+        "contracts/src"
+      ],
+      "@tds/contracts/*": [
+        "contracts/src/*"
+      ],
       "@tds/common": [
         "libs/common/src"
       ],

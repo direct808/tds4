@@ -1,0 +1,11 @@
+{
+  "name": "@tds/contracts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build:pbjs": "pbjs -t static-module -w commonjs -o src/grpc/compiled.js grpc/*.proto",
+    "build:pbts": "pbts -o src/grpc/compiled.d.ts src/grpc/compiled.js",
+    "build": "yarn run build:pbjs && yarn run build:pbts"
+  }
+}

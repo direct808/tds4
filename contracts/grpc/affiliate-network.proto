@@ -10,7 +10,7 @@ service AffiliateNetworkService {
 message GetAffiliateNetworkListRequest {
   uint32 skip = 1;
   uint32 take = 2;
-  string id = 3;
+  repeated string ids = 3;
 }
 
 message GetAffiliateNetworkListResponse {

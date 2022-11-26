@@ -9,6 +9,7 @@ extend type Mutation {
 input OfferInput {
     id: ID
     name: String
+    affiliateNetworkId: String
 }
 
 type Offer @key(fields: "id") {

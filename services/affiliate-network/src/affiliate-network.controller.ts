@@ -1,6 +1,7 @@
 import { GrpcMethod } from '@nestjs/microservices'
 import { Controller } from '@nestjs/common'
 import { AffiliateNetworkService } from './affiliate-network.service'
+import { affiliateNetwork } from '@tds/contracts'
 
 @Controller()
 export class AffiliateNetworkController {
@@ -9,8 +10,12 @@ export class AffiliateNetworkController {
   ) {}
 
   @GrpcMethod('AffiliateNetworkService')
-  async getAffiliateNetworkList() {
-    const [result, totalCount] = await this.affiliateNetworkService.find()
+  async getAffiliateNetworkList(
+    // todo: need dto
+    // args: affiliateNetwork.IGetAffiliateNetworkListRequest,
+    args: any,
+  ): Promise<affiliateNetwork.IGetAffiliateNetworkListResponse> {
+    const [result, totalCount] = await this.affiliateNetworkService.find(args)
     return { result, totalCount }
   }
 }

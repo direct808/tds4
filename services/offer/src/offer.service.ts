@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common'
 import { EntityManager } from 'typeorm'
 import { Offer } from './entities'
 import { OfferSaveDTO } from './dto'
-import { AffiliateNetworkService } from './affiliate-network.service'
+import { ForeignService } from './foreign.service'
 
 @Injectable()
 export class OfferService {
   constructor(
     private readonly entityManager: EntityManager,
-    private readonly affiliateNetworkService: AffiliateNetworkService,
+    private readonly foreignService: ForeignService,
   ) {}
 
   async find() {
@@ -22,7 +22,15 @@ export class OfferService {
       })
     }
 
-    const af = await this.affiliateNetworkService.getAffiliateNetworkList()
+    if (input.affiliateNetworkId) {
+      const ans = await this.foreignService.getAffiliateNetworkList({
+        ids: [input.affiliateNetworkId],
+      })
+      if (ans.length === 0) {
+        throw new Error('affiliateNetwork not found')
+      }
+      console.log('ans.length', ans.length)
+    }
 
     return this.entityManager.save(Offer, input)
   }

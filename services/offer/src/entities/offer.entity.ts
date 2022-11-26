@@ -8,6 +8,6 @@ export class Offer {
   @Column()
   declare name: string
 
-  @Column({ nullable: true })
-  declare affiliateNetworkId: string
+  @Column('uuid', { nullable: true })
+  declare affiliateNetworkId: string | null
 }

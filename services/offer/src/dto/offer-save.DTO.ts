@@ -6,4 +6,8 @@ export class OfferSaveDTO {
   id!: string
 
   name!: string
+
+  @IsUUID('4')
+  @IsOptional()
+  declare affiliateNetworkId: string
 }
