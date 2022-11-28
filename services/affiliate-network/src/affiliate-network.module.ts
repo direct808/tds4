@@ -10,6 +10,7 @@ import { AffiliateNetworkService } from './affiliate-network.service'
 import { DatabaseModule } from '@tds/common'
 import { AffiliateNetwork } from './entities'
 import { AffiliateNetworkController } from './affiliate-network.controller'
+import { AfResolver } from './af.resolver'
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { AffiliateNetworkController } from './affiliate-network.controller'
     }),
     DatabaseModule.forRoot([AffiliateNetwork], 'affiliate_network'),
   ],
-  providers: [QueryService, AffiliateNetworkService],
+  providers: [QueryService, AffiliateNetworkService, AfResolver],
   controllers: [AffiliateNetworkController],
 })
 export class AffiliateNetworkModule {}

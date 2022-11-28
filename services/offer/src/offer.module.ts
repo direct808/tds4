@@ -1,4 +1,4 @@
-import { Logger, Module } from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { OfferService } from './offer.service'
 import { DatabaseModule } from '@tds/common'
 import { GraphQLModule } from '@nestjs/graphql'
@@ -11,6 +11,7 @@ import { Offer } from './entities'
 import { QueryService } from './query.service'
 import { ForeignService } from './foreign.service'
 import { ConfigService } from './config.service'
+import { OfferResolver } from './offer.resolver'
 
 @Module({
   imports: [
@@ -22,6 +23,12 @@ import { ConfigService } from './config.service'
       logger: console,
     }),
   ],
-  providers: [ConfigService, OfferService, QueryService, ForeignService],
+  providers: [
+    ConfigService,
+    OfferService,
+    QueryService,
+    ForeignService,
+    OfferResolver,
+  ],
 })
 export class OfferModule {}
