@@ -1,4 +1,10 @@
-import { IsIn, IsOptional, IsString, IsUUID, ValidateIf } from 'class-validator'
+import {
+  IsEnum,
+  IsOptional,
+  IsString,
+  IsUUID,
+  ValidateIf,
+} from 'class-validator'
 import { OfferActionType, OfferRedirectType, OfferType } from '../entities'
 
 export class OfferSaveDTO {
@@ -13,7 +19,7 @@ export class OfferSaveDTO {
   @IsOptional()
   affiliateNetworkId?: string | null
 
-  @IsIn(Object.values(OfferType))
+  @IsEnum(OfferType)
   type!: OfferType
 
   @ValidateIf((data: OfferSaveDTO) => data.type === OfferType.local)
@@ -21,7 +27,7 @@ export class OfferSaveDTO {
   file?: string
 
   @ValidateIf((data: OfferSaveDTO) => data.type === OfferType.redirect)
-  @IsIn(Object.values(OfferRedirectType))
+  @IsEnum(OfferRedirectType)
   redirectType?: OfferRedirectType
 
   @ValidateIf((data: OfferSaveDTO) => data.type === OfferType.redirect)
@@ -33,7 +39,7 @@ export class OfferSaveDTO {
   preloadUrl?: string
 
   @ValidateIf((data: OfferSaveDTO) => data.type === OfferType.action)
-  @IsIn(Object.values(OfferActionType))
+  @IsEnum(OfferActionType)
   actionType?: OfferActionType
 
   @ValidateIf(
