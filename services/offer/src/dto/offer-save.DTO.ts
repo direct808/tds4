@@ -2,6 +2,7 @@ import {
   IsEnum,
   IsOptional,
   IsString,
+  IsUrl,
   IsUUID,
   ValidateIf,
 } from 'class-validator'
@@ -31,11 +32,11 @@ export class OfferSaveDTO {
   redirectType?: OfferRedirectType
 
   @ValidateIf((data: OfferSaveDTO) => data.type === OfferType.redirect)
-  @IsString()
+  @IsUrl()
   redirectUrl?: string
 
   @ValidateIf((data: OfferSaveDTO) => data.type === OfferType.preload)
-  @IsString()
+  @IsUrl()
   preloadUrl?: string
 
   @ValidateIf((data: OfferSaveDTO) => data.type === OfferType.action)
