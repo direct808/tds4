@@ -3,7 +3,7 @@ import { AffiliateNetworkLoader } from './loaders'
 import { gql } from '@tds/contracts'
 
 @Resolver(gql.AffiliateNetwork)
-export class AfResolver {
+export class AffiliateNetworkResolver {
   constructor(private readonly loader: AffiliateNetworkLoader) {}
 
   @ResolveReference()

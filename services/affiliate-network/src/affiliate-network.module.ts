@@ -10,8 +10,8 @@ import { AffiliateNetworkService } from './affiliate-network.service'
 import { DatabaseModule } from '@tds/common'
 import { AffiliateNetwork } from './entities'
 import { AffiliateNetworkController } from './affiliate-network.controller'
-import { AfResolver } from './af.resolver'
 import { AffiliateNetworkLoader } from './loaders'
+import { AffiliateNetworkResolver } from './affiliate-network.resolver'
 
 @Module({
   imports: [
@@ -29,7 +29,7 @@ import { AffiliateNetworkLoader } from './loaders'
   providers: [
     QueryService,
     AffiliateNetworkService,
-    AfResolver,
+    AffiliateNetworkResolver,
     AffiliateNetworkLoader,
   ],
   controllers: [AffiliateNetworkController],
