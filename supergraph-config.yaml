@@ -3,12 +3,12 @@ subgraphs:
   traffic-source:
     routing_url: http://localhost:4003/graphql
     schema:
-      file: ./services/traffic-source/traffic-source.graphql
+      file: ./contracts/graphql/traffic-source.graphql
   affiliate-network:
     routing_url: http://localhost:4002/graphql
     schema:
-      file: ./services/affiliate-network/affiliate-network.graphql
+      file: ./contracts/graphql/affiliate-network.graphql
   offer:
     routing_url: http://localhost:4004/graphql
     schema:
-      file: ./services/offer/offer.graphql
+      file: ./contracts/graphql/offer.graphql

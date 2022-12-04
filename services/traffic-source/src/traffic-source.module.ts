@@ -15,7 +15,12 @@ import { TrafficSource } from './entities/traffic-source.entity'
     DatabaseModule.forRoot([TrafficSource], 'traffic_source'),
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
-      typePaths: [path.resolve(__dirname, '../traffic-source.graphql')],
+      typePaths: [
+        path.resolve(
+          __dirname,
+          '../../../../contracts/graphql/traffic-source.graphql',
+        ),
+      ],
     }),
   ],
   providers: [QueryService, TrafficSourceService],

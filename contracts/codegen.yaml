@@ -1,18 +1,18 @@
-schema: ./services/administration/administration.graphql
+schema: ./graphql/*.graphql
 generates:
-  ./services/administration/src/graphql.ts:
+  ./src/gql/index.ts:
     plugins:
     - typescript
 #    - typescript-resolvers
-#    - add:
-#        content: '// @ts-nocheck'
+    - add:
+        content: '// @ts-nocheck'
     config:
 #      defaultScalarType: 'unknown'
-#      maybeValue: 'T | undefined'
+      maybeValue: 'T | undefined'
 #      scalars:
 #        DateTime: 'any'
 #        DateString: 'any'
-#      declarationKind: 'class'
+      declarationKind: 'class'
       skipTypename: true
 #      namingConvention:
 #        enumValues: upper-case#upperCase

@@ -16,7 +16,12 @@ import { AfResolver } from './af.resolver'
   imports: [
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
-      typePaths: [path.resolve(__dirname, '../affiliate-network.graphql')],
+      typePaths: [
+        path.resolve(
+          __dirname,
+          '../../../../contracts/graphql/affiliate-network.graphql',
+        ),
+      ],
     }),
     DatabaseModule.forRoot([AffiliateNetwork], 'affiliate_network'),
   ],

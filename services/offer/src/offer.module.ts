@@ -10,15 +10,15 @@ import path from 'path'
 import { Offer } from './entities'
 import { QueryService } from './query.service'
 import { ForeignService } from './foreign.service'
-import { ConfigService } from './config.service'
-import { OfferResolver } from './offer.resolver'
+import { ConfigService, contractsPath } from './config.service'
+import { OfferResolver } from './resolvers'
 
 @Module({
   imports: [
     DatabaseModule.forRoot([Offer], 'offer'),
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
-      typePaths: [path.resolve(__dirname, '../offer.graphql')],
+      typePaths: [path.resolve(contractsPath, 'graphql/offer.graphql')],
       debug: true,
       logger: console,
     }),
