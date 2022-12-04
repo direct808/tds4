@@ -1,4 +1,5 @@
-import { Column, Entity } from 'typeorm'
+import { Column, Entity, ManyToOne } from 'typeorm'
+import { OfferGroup } from './offer-group.entity'
 
 export enum OfferType {
   local = 'local',
@@ -36,6 +37,12 @@ export class Offer {
 
   @Column('uuid', { nullable: true })
   declare affiliateNetworkId: string | null
+
+  @Column('uuid', { nullable: true })
+  declare groupId: string | null
+
+  @ManyToOne(() => OfferGroup, (group) => group.offers)
+  declare group: OfferGroup
 
   @Column('enum', { nullable: false, enum: OfferType })
   declare type: OfferType

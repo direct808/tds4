@@ -3,12 +3,14 @@ import { EntityManager } from 'typeorm'
 import { Offer } from './entities'
 import { OfferSaveDTO } from './dto'
 import { ForeignService } from './foreign.service'
+import { OfferGroupService } from './offer-group.service'
 
 @Injectable()
 export class OfferService {
   constructor(
     private readonly entityManager: EntityManager,
     private readonly foreignService: ForeignService,
+    private readonly offerGroup: OfferGroupService,
   ) {}
 
   async find() {
@@ -30,6 +32,15 @@ export class OfferService {
         throw new Error('affiliateNetwork not found')
       }
       console.log('ans.length', ans.length)
+    }
+
+    if (input.groupId) {
+      const groups = await this.offerGroup.find({
+        ids: [input.groupId],
+      })
+      if (groups.length === 0) {
+        throw new Error('Offer group not found')
+      }
     }
 
     return this.entityManager.save(Offer, input)

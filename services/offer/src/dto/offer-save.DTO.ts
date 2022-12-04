@@ -20,6 +20,10 @@ export class OfferSaveDTO {
   @IsOptional()
   affiliateNetworkId?: string | null
 
+  @IsUUID('4')
+  @IsOptional()
+  groupId?: string | null
+
   @IsEnum(OfferType)
   type!: OfferType
 

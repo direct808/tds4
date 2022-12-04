@@ -4,6 +4,7 @@ extend type Query {
 
 extend type Mutation {
     offerSave(input: OfferInput!): Offer!
+    offerGroupSave(input: OfferGroupInput!): OfferGroup!
 }
 
 input OfferInput {
@@ -18,6 +19,12 @@ input OfferInput {
     actionType: OfferActionType
     actionCampaignId: String
     actionContent: String
+    groupId: String
+}
+
+input OfferGroupInput {
+    id: ID
+    name: String
 }
 
 type Offer @key(fields: "id") {
@@ -32,6 +39,12 @@ type Offer @key(fields: "id") {
     actionType: OfferActionType
     actionCampaignId: String
     actionContent: String
+    group: OfferGroup
+}
+
+type OfferGroup @key(fields: "id") {
+    id: ID!
+    name: String!
 }
 
 type OfferListData {
