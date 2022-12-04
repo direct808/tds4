@@ -1,17 +1,13 @@
 import { Resolver, ResolveReference } from '@nestjs/graphql'
-import { AffiliateNetworkService } from './affiliate-network.service'
+import { AffiliateNetworkLoader } from './loaders'
+import { gql } from '@tds/contracts'
 
-@Resolver('AffiliateNetwork')
+@Resolver(gql.AffiliateNetwork)
 export class AfResolver {
-  constructor(
-    private readonly affiliateNetworkService: AffiliateNetworkService,
-  ) {}
+  constructor(private readonly loader: AffiliateNetworkLoader) {}
 
   @ResolveReference()
-  async resolveReference(reference: { __typename: string; id: string }) {
-    const [[af]] = await this.affiliateNetworkService.find({
-      ids: [reference.id],
-    })
-    return af
+  resolveReference(reference: { __typename: string; id: string }) {
+    return this.loader.load(reference.id)
   }
 }

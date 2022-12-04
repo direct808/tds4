@@ -11,7 +11,16 @@ type FindArgs = {
 export class AffiliateNetworkService {
   constructor(private readonly entityManager: EntityManager) {}
 
-  async find(args: FindArgs) {
+  async find(args: Readonly<FindArgs>) {
+    const { ids } = args
+    return this.entityManager.find(AffiliateNetwork, {
+      where: {
+        ...(ids ? { id: Any(ids) } : {}),
+      },
+    })
+  }
+
+  async findAndCount(args: FindArgs) {
     const { ids } = args
     return this.entityManager.findAndCount(AffiliateNetwork, {
       where: {

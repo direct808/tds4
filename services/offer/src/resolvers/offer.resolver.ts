@@ -1,11 +1,11 @@
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql'
 import { gql } from '@tds/contracts'
 import { TGqlOffers, TOfferResolver } from './common'
-import { OfferGroupService } from '../offer-group.service'
+import { OfferGroupLoader } from '../loaders'
 
 @Resolver(gql.Offer)
 export class OfferResolver implements TOfferResolver {
-  constructor(private readonly offerGroupService: OfferGroupService) {}
+  constructor(private readonly offerGroupDataLoader: OfferGroupLoader) {}
 
   @ResolveField('affiliateNetwork')
   async affiliateNetwork(
@@ -18,14 +18,10 @@ export class OfferResolver implements TOfferResolver {
   }
 
   @ResolveField('group')
-  async group(@Parent() offer: TGqlOffers['flat']) {
+  group(@Parent() offer: TGqlOffers['flat']) {
     if (!offer.groupId) {
       return null
     }
-    const groups = await this.offerGroupService.find({ ids: [offer.groupId] })
-    if (!groups.length) {
-      return null
-    }
-    return groups[0]
+    return this.offerGroupDataLoader.load(offer.groupId)
   }
 }

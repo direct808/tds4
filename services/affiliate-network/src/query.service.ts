@@ -11,7 +11,9 @@ export class QueryService {
 
   @Query()
   async affiliateNetworkList() {
-    const [items, totalCount] = await this.affiliateNetworkService.find({})
+    const [items, totalCount] = await this.affiliateNetworkService.findAndCount(
+      {},
+    )
     return { items, totalCount }
   }
 

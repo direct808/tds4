@@ -15,7 +15,8 @@ export class AffiliateNetworkController {
     // args: affiliateNetwork.IGetAffiliateNetworkListRequest,
     args: any,
   ): Promise<affiliateNetwork.IGetAffiliateNetworkListResponse> {
-    const [result, totalCount] = await this.affiliateNetworkService.find(args)
+    const [result, totalCount] =
+      await this.affiliateNetworkService.findAndCount(args)
     return { result, totalCount }
   }
 }

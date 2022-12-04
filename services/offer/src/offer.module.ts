@@ -13,6 +13,7 @@ import { ForeignService } from './foreign.service'
 import { ConfigService, contractsPath } from './config.service'
 import { OfferResolver } from './resolvers'
 import { OfferGroupService } from './offer-group.service'
+import { OfferGroupLoader } from './loaders'
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { OfferGroupService } from './offer-group.service'
     QueryService,
     ForeignService,
     OfferResolver,
+    OfferGroupLoader,
   ],
 })
 export class OfferModule {}
