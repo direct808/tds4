@@ -71,3 +71,7 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Documentations for modules
+
+- @graphql-codegen/ - [https://the-guild.dev](https://the-guild.dev/graphql/codegen/docs/getting-started) 

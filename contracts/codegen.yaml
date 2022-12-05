@@ -8,13 +8,13 @@ generates:
         content: '// @ts-nocheck'
     config:
 #      defaultScalarType: 'unknown'
-      maybeValue: 'T | undefined'
+#      maybeValue: 'T | undefined'
 #      scalars:
 #        DateTime: 'any'
 #        DateString: 'any'
       declarationKind: 'class'
       skipTypename: true
-#      namingConvention:
-#        enumValues: upper-case#upperCase
+      namingConvention:
+        enumValues: change-case-all#camelCase
 #        transformUnderscore: true
 #      avoidOptionals: false

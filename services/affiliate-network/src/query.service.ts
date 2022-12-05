@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { Args, Mutation, Query } from '@nestjs/graphql'
 import { AffiliateNetworkService } from './affiliate-network.service'
 import { AffiliateNetworkSaveDTO } from './dto'
+import { gql } from '@tds/contracts'
 
 @Injectable()
 export class QueryService {
@@ -10,7 +11,7 @@ export class QueryService {
   ) {}
 
   @Query()
-  async affiliateNetworkList() {
+  async affiliateNetworkList(): Promise<gql.Query['affiliateNetworkList']> {
     const [items, totalCount] = await this.affiliateNetworkService.findAndCount(
       {},
     )
@@ -18,7 +19,9 @@ export class QueryService {
   }
 
   @Mutation()
-  affiliateNetworkSave(@Args('input') input: AffiliateNetworkSaveDTO) {
+  affiliateNetworkSave(
+    @Args('input') input: AffiliateNetworkSaveDTO,
+  ): Promise<gql.Mutation['affiliateNetworkSave']> {
     return this.affiliateNetworkService.save(input)
   }
 }
