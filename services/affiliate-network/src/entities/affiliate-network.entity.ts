@@ -8,9 +8,9 @@ export class AffiliateNetwork {
   @Column()
   declare name: string
 
-  @Column({ nullable: true })
-  declare offerParam: string
+  @Column('text', { nullable: true })
+  declare offerParam: string | null
 
-  @Column({ nullable: true })
-  declare postbackUrl: string
+  @Column('text', { nullable: true })
+  declare postbackUrl: string | null
 }

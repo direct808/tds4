@@ -7,7 +7,7 @@ import { OfferGroupLoader } from '../loaders'
 export class OfferResolver implements TOfferResolver {
   constructor(private readonly offerGroupDataLoader: OfferGroupLoader) {}
 
-  @ResolveField('affiliateNetwork')
+  @ResolveField()
   async affiliateNetwork(
     @Parent() offer: TGqlOffers['flat'],
   ): Promise<Pick<gql.AffiliateNetwork, 'id'> | null> {
@@ -17,8 +17,8 @@ export class OfferResolver implements TOfferResolver {
     return { id: offer.affiliateNetworkId }
   }
 
-  @ResolveField('group')
-  group(@Parent() offer: TGqlOffers['flat']) {
+  @ResolveField()
+  async group(@Parent() offer: TGqlOffers['flat']) {
     if (!offer.groupId) {
       return null
     }

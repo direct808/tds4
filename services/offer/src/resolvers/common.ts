@@ -6,7 +6,7 @@ export type TGqlOffers = TGqlTypeGenerator<
     affiliateNetworkId?: string
     groupId?: string
   },
-  'affiliateNetwork'
+  'affiliateNetwork' | 'group'
 >
 
 export type TOfferResolver = TGqlOffers['resolver']

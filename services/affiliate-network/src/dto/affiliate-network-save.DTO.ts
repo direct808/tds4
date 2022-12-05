@@ -1,10 +1,20 @@
-import { IsOptional, IsUUID, MinLength } from 'class-validator'
+import { IsOptional, IsString, IsUrl, IsUUID } from 'class-validator'
+import { gql } from '@tds/contracts'
 
-export class AffiliateNetworkSaveDTO {
+export class AffiliateNetworkSaveDTO
+  implements Record<keyof gql.AffiliateNetworkInput, unknown>
+{
   @IsUUID('4')
   @IsOptional()
   id!: string
 
-  // @MinLength(100)
+  @IsString()
   name!: string
+
+  @IsOptional()
+  offerParam: string | null | undefined
+
+  @IsUrl()
+  @IsOptional()
+  postbackUrl: string | null | undefined
 }
