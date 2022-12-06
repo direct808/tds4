@@ -19,10 +19,6 @@
           {
             "include": ".env",
             "outDir": "dist/services/api-gateway"
-          },
-          {
-            "include": "schema.graphql",
-            "outDir": "dist/services/api-gateway"
           }
         ]
       }
@@ -37,10 +33,6 @@
         "assets": [
           {
             "include": ".env",
-            "outDir": "dist/services/affiliate-network"
-          },
-          {
-            "include": "affiliate-network.graphql",
             "outDir": "dist/services/affiliate-network"
           }
         ]
@@ -57,10 +49,6 @@
           {
             "include": ".env",
             "outDir": "dist/services/traffic-source"
-          },
-          {
-            "include": "traffic-source.graphql",
-            "outDir": "dist/services/traffic-source"
           }
         ]
       }
@@ -76,10 +64,21 @@
           {
             "include": ".env",
             "outDir": "dist/services/offer"
-          },
+          }
+        ]
+      }
+    },
+    "campaign": {
+      "type": "application",
+      "root": "services/campaign",
+      "entryFile": "src/main",
+      "sourceRoot": "services/campaign",
+      "compilerOptions": {
+        "tsConfigPath": "services/campaign/tsconfig.app.json",
+        "assets": [
           {
-            "include": "offer.graphql",
-            "outDir": "dist/services/offer"
+            "include": ".env",
+            "outDir": "dist/services/campaign"
           }
         ]
       }

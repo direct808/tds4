@@ -1,0 +1,22 @@
+extend type Query {
+    campaignList: CampaignListData!
+}
+
+extend type Mutation {
+    campaignSave(input: CampaignInput!): Campaign!
+}
+
+input CampaignInput {
+    id: ID
+    name: String
+}
+
+type Campaign @key(fields: "id") {
+    id: ID!
+    name: String!
+}
+
+type CampaignListData {
+    items: [Campaign!]!
+    totalCount: Int!
+}
