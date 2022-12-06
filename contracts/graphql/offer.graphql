@@ -3,11 +3,15 @@ extend type Query {
 }
 
 extend type Mutation {
-    offerSave(input: OfferInput!): Offer!
+    offerSave(input: OfferSaveInput!): OfferSaveData!
     offerGroupSave(input: OfferGroupInput!): OfferGroup!
 }
 
-input OfferInput {
+type OfferSaveData {
+    result: Offer!
+}
+
+input OfferSaveInput {
     id: ID
     name: String
     affiliateNetworkId: String

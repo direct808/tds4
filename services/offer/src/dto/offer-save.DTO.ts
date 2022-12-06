@@ -9,7 +9,7 @@ import {
 import { OfferActionType, OfferRedirectType, OfferType } from '../entities'
 import { gql } from '@tds/contracts'
 
-export class OfferSaveDTO implements Record<keyof gql.OfferInput, unknown> {
+export class OfferSaveDTO implements Record<keyof gql.OfferSaveInput, unknown> {
   @IsUUID('4')
   @IsOptional()
   id: string | undefined

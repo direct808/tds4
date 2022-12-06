@@ -19,10 +19,10 @@ export class QueryService {
   }
 
   @Mutation()
-  offerSave(
+  async offerSave(
     @Args('input') input: OfferSaveDTO,
   ): Promise<gql.Mutation['offerSave']> {
-    return this.offerService.save(input)
+    return { result: await this.offerService.save(input) }
   }
 
   @Mutation()
