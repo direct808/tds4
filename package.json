@@ -6,7 +6,8 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "buld:schema": "rover supergraph compose --elv2-license accept --config ./supergraph-config.yaml > ./services/api-gateway/schema.graphql",
+    "supergraph:compose": "rover supergraph compose --elv2-license accept --config ./supergraph-config.yaml > ./services/api-gateway/schema.graphql",
+    "supergraph:compose:dev": "nodemon -e graphql --watch contracts/graphql --exec \"yarn run supergraph:compose\"",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
