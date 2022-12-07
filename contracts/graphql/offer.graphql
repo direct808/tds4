@@ -28,7 +28,7 @@ input OfferSaveInput {
 
 input OfferGroupInput {
     id: ID
-    name: String
+    name: String!
 }
 
 type Offer @key(fields: "id") {

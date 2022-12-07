@@ -1,13 +1,24 @@
-import { IsOptional, IsString, IsUUID } from 'class-validator'
+import { IsBoolean, IsOptional, IsString, IsUUID } from 'class-validator'
 import { gql } from '@tds/contracts'
 
 export class CampaignSaveDTO
-  implements Record<keyof gql.CampaignInput, unknown>
+  implements Record<keyof gql.CampaignSaveInput, unknown>
 {
   @IsUUID('4')
   @IsOptional()
-  id!: string
+  id: string | undefined
 
   @IsString()
   name!: string
+
+  @IsUUID('4')
+  @IsOptional()
+  groupId: string | undefined | null
+
+  @IsUUID('4')
+  @IsOptional()
+  affiliateNetworkId: string | undefined | null
+
+  @IsBoolean()
+  active = true
 }

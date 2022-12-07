@@ -19,6 +19,10 @@
           {
             "include": ".env",
             "outDir": "dist/services/api-gateway"
+          },
+          {
+            "include": "schema.graphql",
+            "outDir": "dist/services/api-gateway"
           }
         ]
       }

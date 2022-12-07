@@ -1,14 +1,14 @@
 import { Column, Entity, OneToMany } from 'typeorm'
-import { Offer } from './offer.entity'
+import { Campaign } from './campaign.entity'
 
 @Entity()
-export class OfferGroup {
+export class CampaignGroup {
   @Column('uuid', { generated: 'uuid', primary: true })
   declare id: string
 
   @Column()
   declare name: string
 
-  @OneToMany(() => Offer, (offer) => offer.groupId)
-  declare offers: Offer[]
+  @OneToMany(() => Campaign, (campaign) => campaign.groupId)
+  declare campaigns: Campaign[]
 }
