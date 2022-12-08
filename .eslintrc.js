@@ -2,7 +2,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: 'tsconfig.json',
-    tsconfigRootDir : __dirname, 
+    tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint/eslint-plugin'],
@@ -22,4 +22,21 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
   },
-};
+  overrides: [
+    {
+      files: ['*.graphql'],
+      parser: '@graphql-eslint/eslint-plugin',
+      plugins: ['@graphql-eslint'],
+      rules: {
+        '@graphql-eslint/require-description': 0,
+        '@graphql-eslint/no-unreachable-types': 0,
+        '@graphql-eslint/naming-convention': 0,
+        '@graphql-eslint/strict-id-in-types': 0,
+      },
+      parserOptions: {
+        schema: 'contracts/graphql/*.graphql',
+      },
+      extends: 'plugin:@graphql-eslint/schema-recommended',
+    },
+  ],
+}

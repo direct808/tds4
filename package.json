@@ -10,12 +10,12 @@
     "supergraph:compose:dev": "nodemon -e graphql --watch contracts/graphql --exec \"yarn run supergraph:compose\"",
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
+    "format": "prettier --write \"services/**/*.ts\" \"libs/**/*.ts\" \"contracts/**/*.graphql\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "lint": "eslint \"{src,services,libs,test}/**/*.ts\" --fix",
+    "lint": "eslint \"{contracts/graphql,services,libs}/**/*.{ts,graphql}\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
@@ -53,6 +53,7 @@
     "typeorm-naming-strategies": "^4.1.0"
   },
   "devDependencies": {
+    "@graphql-eslint/eslint-plugin": "^3.13.1",
     "@nestjs/cli": "^9.1.5",
     "@nestjs/schematics": "^9.0.3",
     "@nestjs/testing": "^9.2.0",
