@@ -1,24 +1,24 @@
 #extend schema @link(url: "https://specs.apollo.dev/federation/v2.0", import: ["@key", "@shareable"])
 
 extend type Query {
-    trafficSourceList: TrafficSourceListData!
+  trafficSourceList: TrafficSourceListData!
 }
 
 extend type Mutation {
-    trafficSourceSave(input: TrafficSourceInput!): TrafficSource!
+  trafficSourceSave(input: TrafficSourceInput!): TrafficSource!
 }
 
 input TrafficSourceInput {
-    id: ID
-    name: String
+  id: ID
+  name: String
 }
 
 type TrafficSource @key(fields: "id") {
-    id: ID!
-    name: String!
+  id: ID!
+  name: String!
 }
 
 type TrafficSourceListData {
-    items: [TrafficSource!]!
-    totalCount: Int!
+  items: [TrafficSource!]!
+  totalCount: Int!
 }

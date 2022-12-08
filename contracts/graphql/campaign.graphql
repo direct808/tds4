@@ -1,43 +1,43 @@
 extend type Query {
-    campaignList: CampaignListData!
+  campaignList: CampaignListData!
 }
 
 extend type Mutation {
-    campaignSave(input: CampaignSaveInput!): Campaign!
-    campaignGroupSave(input: CampaignGroupSaveInput!): CampaignGroup!
+  campaignSave(input: CampaignSaveInput!): Campaign!
+  campaignGroupSave(input: CampaignGroupSaveInput!): CampaignGroup!
 }
 
 input CampaignSaveInput {
-    id: ID
-    name: String!
-    affiliateNetworkId: String
-    groupId: String
-    active: Boolean
+  id: ID
+  name: String!
+  affiliateNetworkId: String
+  groupId: String
+  active: Boolean
 }
 
 type Campaign @key(fields: "id") {
-    id: ID!
-    name: String!
-    affiliateNetwork: AffiliateNetwork
-    group: CampaignGroup
-    active: Boolean!
+  id: ID!
+  name: String!
+  affiliateNetwork: AffiliateNetwork
+  group: CampaignGroup
+  active: Boolean!
 }
 
 type CampaignListData {
-    items: [Campaign!]!
-    totalCount: Int!
+  items: [Campaign!]!
+  totalCount: Int!
 }
 
 extend type AffiliateNetwork @key(fields: "id") {
-    id: ID! @external
+  id: ID! @external
 }
 
 type CampaignGroup @key(fields: "id") {
-    id: ID!
-    name: String!
+  id: ID!
+  name: String!
 }
 
 input CampaignGroupSaveInput {
-    id: ID
-    name: String!
+  id: ID
+  name: String!
 }

@@ -10,7 +10,7 @@
     "supergraph:compose:dev": "nodemon -e graphql --watch contracts/graphql --exec \"yarn run supergraph:compose\"",
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
+    "format": "prettier --write \"services/**/*.ts\" \"libs/**/*.ts\" \"contracts/**/*.graphql\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",

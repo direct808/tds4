@@ -1,26 +1,26 @@
 extend type Query {
-    affiliateNetworkList: AffiliateNetworkListData!
+  affiliateNetworkList: AffiliateNetworkListData!
 }
 
 extend type Mutation {
-    affiliateNetworkSave(input: AffiliateNetworkInput!): AffiliateNetwork!
+  affiliateNetworkSave(input: AffiliateNetworkInput!): AffiliateNetwork!
 }
 
 input AffiliateNetworkInput {
-    id: ID
-    name: String
-    offerParam: String
-    postbackUrl: String
+  id: ID
+  name: String
+  offerParam: String
+  postbackUrl: String
 }
 
 type AffiliateNetwork @key(fields: "id") {
-    id: ID!
-    name: String!
-    offerParam: String
-    postbackUrl: String
+  id: ID!
+  name: String!
+  offerParam: String
+  postbackUrl: String
 }
 
 type AffiliateNetworkListData {
-    items: [AffiliateNetwork!]!
-    totalCount: Int!
+  items: [AffiliateNetwork!]!
+  totalCount: Int!
 }

@@ -1,88 +1,88 @@
 extend type Query {
-    offerList: OfferListData!
+  offerList: OfferListData!
 }
 
 extend type Mutation {
-    offerSave(input: OfferSaveInput!): OfferSaveData!
-    offerGroupSave(input: OfferGroupInput!): OfferGroup!
+  offerSave(input: OfferSaveInput!): OfferSaveData!
+  offerGroupSave(input: OfferGroupInput!): OfferGroup!
 }
 
 type OfferSaveData {
-    result: Offer!
+  result: Offer!
 }
 
 input OfferSaveInput {
-    id: ID
-    name: String
-    affiliateNetworkId: String
-    type: OfferType
-    file: String
-    redirectType: OfferRedirectType
-    redirectUrl: String
-    preloadUrl: String
-    actionType: OfferActionType
-    actionCampaignId: String
-    actionContent: String
-    groupId: String
+  id: ID
+  name: String
+  affiliateNetworkId: String
+  type: OfferType
+  file: String
+  redirectType: OfferRedirectType
+  redirectUrl: String
+  preloadUrl: String
+  actionType: OfferActionType
+  actionCampaignId: String
+  actionContent: String
+  groupId: String
 }
 
 input OfferGroupInput {
-    id: ID
-    name: String!
+  id: ID
+  name: String!
 }
 
 type Offer @key(fields: "id") {
-    id: ID!
-    name: String!
-    affiliateNetwork: AffiliateNetwork
-    type: OfferType!
-    file: String
-    redirectType: OfferRedirectType
-    redirectUrl: String
-    preloadUrl: String
-    actionType: OfferActionType
-    actionCampaignId: String
-    actionContent: String
-    group: OfferGroup
+  id: ID!
+  name: String!
+  affiliateNetwork: AffiliateNetwork
+  type: OfferType!
+  file: String
+  redirectType: OfferRedirectType
+  redirectUrl: String
+  preloadUrl: String
+  actionType: OfferActionType
+  actionCampaignId: String
+  actionContent: String
+  group: OfferGroup
 }
 
 type OfferGroup @key(fields: "id") {
-    id: ID!
-    name: String!
+  id: ID!
+  name: String!
 }
 
 type OfferListData {
-    items: [Offer!]!
-    totalCount: Int!
+  items: [Offer!]!
+  totalCount: Int!
 }
 
 extend type AffiliateNetwork @key(fields: "id") {
-    id: ID! @external
+  id: ID! @external
 }
 
 enum OfferType {
-    local
-    redirect
-    preload
-    action
+  local
+  redirect
+  preload
+  action
 }
 
 enum OfferRedirectType {
-    http
-    meta
-    js
-    withoutReferer
-    curl
-    meta2
-    formSubmit
-    iframe
-    remote
+  http
+  meta
+  js
+  withoutReferer
+  curl
+  meta2
+  formSubmit
+  iframe
+  remote
 }
 
 enum OfferActionType {
-    toCampaign
-    show404
-    showText
-    showHtml
-    nothing
+  toCampaign
+  show404
+  showText
+  showHtml
+  nothing
 }
