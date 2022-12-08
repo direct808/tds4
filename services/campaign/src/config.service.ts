@@ -1,6 +1,6 @@
 import { join, resolve } from 'path'
 import { makeGrpcService } from '@tds/common'
-import { affiliateNetwork } from '@tds/contracts'
+import { trafficSource } from '@tds/contracts'
 import { Injectable } from '@nestjs/common'
 import dotenv from 'dotenv'
 
@@ -10,13 +10,13 @@ dotenv.config({ path: resolve(__dirname + './../../../../.env') })
 
 @Injectable()
 export class ConfigService {
-  getGrpcAffiliateNetworkService() {
-    return makeGrpcService<affiliateNetwork.AffiliateNetworkService>(
-      'AffiliateNetworkService',
+  getGrpcTrafficSourceService() {
+    return makeGrpcService<trafficSource.TrafficSourceService>(
+      'TrafficSourceService',
       {
-        url: 'localhost:4014',
-        package: 'tds.affiliate_network',
-        protoPath: join(contractsPath, 'grpc/affiliate-network.proto'),
+        url: 'localhost:4013',
+        package: 'tds.traffic_source',
+        protoPath: join(contractsPath, 'grpc/traffic-source.proto'),
       },
     )
   }

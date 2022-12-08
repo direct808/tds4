@@ -8,13 +8,13 @@ export class CampaignResolver implements TCampaignResolver {
   constructor(private readonly campaignGroupDataLoader: CampaignGroupLoader) {}
 
   @ResolveField()
-  async affiliateNetwork(
+  async trafficSource(
     @Parent() campaign: TGqlCampaign['flat'],
-  ): Promise<Pick<gql.AffiliateNetwork, 'id'> | null> {
-    if (!campaign.affiliateNetworkId) {
+  ): Promise<Pick<gql.TrafficSource, 'id'> | null> {
+    if (!campaign.trafficSourceId) {
       return null
     }
-    return { id: campaign.affiliateNetworkId }
+    return { id: campaign.trafficSourceId }
   }
 
   @ResolveField()

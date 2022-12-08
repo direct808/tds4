@@ -10,8 +10,8 @@ export class QueryService {
 
   @Query()
   async trafficSourceList(): Promise<gql.Query['trafficSourceList']> {
-    const [items, totalCount] = await this.affiliateNetworkService.find()
-    return { items, totalCount }
+    const items = await this.affiliateNetworkService.find()
+    return { items, totalCount: 0 }
   }
 
   @Mutation()

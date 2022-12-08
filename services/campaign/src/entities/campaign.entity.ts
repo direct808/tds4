@@ -10,7 +10,7 @@ export class Campaign {
   declare name: string
 
   @Column('uuid', { nullable: true })
-  declare affiliateNetworkId: string | null
+  declare trafficSourceId: string | null
 
   @Column('uuid', { nullable: true })
   declare groupId: string | null

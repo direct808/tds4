@@ -3,10 +3,10 @@ import { gql } from '@tds/contracts'
 
 export type TGqlCampaign = TGqlTypeGenerator<
   gql.Campaign & {
-    affiliateNetworkId?: string
+    trafficSourceId?: string
     groupId?: string
   },
-  'affiliateNetwork' | 'group'
+  'trafficSource' | 'group'
 >
 
 export type TCampaignResolver = TGqlCampaign['resolver']

@@ -10,7 +10,7 @@ extend type Mutation {
 input CampaignSaveInput {
   id: ID
   name: String!
-  affiliateNetworkId: String
+  trafficSourceId: String
   groupId: String
   active: Boolean
 }
@@ -18,7 +18,7 @@ input CampaignSaveInput {
 type Campaign @key(fields: "id") {
   id: ID!
   name: String!
-  affiliateNetwork: AffiliateNetwork
+  trafficSource: TrafficSource
   group: CampaignGroup
   active: Boolean!
 }
@@ -28,7 +28,7 @@ type CampaignListData {
   totalCount: Int!
 }
 
-extend type AffiliateNetwork @key(fields: "id") {
+extend type TrafficSource @key(fields: "id") {
   id: ID! @external
 }
 

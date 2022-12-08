@@ -11,7 +11,7 @@ import { DatabaseModule } from '@tds/common'
 import { AffiliateNetwork } from './entities'
 import { AffiliateNetworkController } from './affiliate-network.controller'
 import { AffiliateNetworkLoader } from './loaders'
-import { AffiliateNetworkResolver } from './affiliate-network.resolver'
+import { AffiliateNetworkResolver } from './resolvers'
 
 @Module({
   imports: [

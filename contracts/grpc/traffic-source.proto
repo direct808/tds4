@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package tds.traffic_source;
+
+service TrafficSourceService {
+  rpc GetTrafficSourceList(GetTrafficSourceListRequest) returns (GetTrafficSourceListResponse);
+}
+
+message GetTrafficSourceListRequest {
+  uint32 skip = 1;
+  uint32 take = 2;
+  repeated string ids = 3;
+}
+
+message GetTrafficSourceListResponse {
+  repeated TrafficSource result = 1;
+  uint32 total_count = 2;
+}
+
+message TrafficSource {
+  string id = 1;
+  string name = 2;
+}

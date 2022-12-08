@@ -17,7 +17,7 @@ export class CampaignSaveDTO
 
   @IsUUID('4')
   @IsOptional()
-  affiliateNetworkId: string | undefined | null
+  trafficSourceId: string | undefined | null
 
   @IsBoolean()
   active = true

@@ -1,20 +1,20 @@
-import { affiliateNetwork } from '@tds/contracts'
+import { trafficSource } from '@tds/contracts'
 import { ConfigService } from './config.service'
 import { firstValueFrom } from 'rxjs'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ForeignService {
-  private readonly affiliateNetworkService =
-    this.configService.getGrpcAffiliateNetworkService()
+  private readonly trafficSourceService =
+    this.configService.getGrpcTrafficSourceService()
 
   constructor(private readonly configService: ConfigService) {}
 
-  async getAffiliateNetworkList(
-    args: affiliateNetwork.IGetAffiliateNetworkListRequest,
-  ): Promise<affiliateNetwork.IAffiliateNetwork[]> {
+  async getTrafficSourceList(
+    args: trafficSource.IGetTrafficSourceListRequest,
+  ): Promise<trafficSource.ITrafficSource[]> {
     const result = await firstValueFrom(
-      this.affiliateNetworkService.getAffiliateNetworkList(args),
+      this.trafficSourceService.getTrafficSourceList(args),
     )
     return result.result
   }

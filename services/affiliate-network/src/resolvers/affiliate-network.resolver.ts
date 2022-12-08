@@ -1,13 +1,16 @@
 import { Resolver, ResolveReference } from '@nestjs/graphql'
-import { AffiliateNetworkLoader } from './loaders'
 import { gql } from '@tds/contracts'
+import { AffiliateNetworkLoader } from '../loaders'
 
 @Resolver(gql.AffiliateNetwork)
 export class AffiliateNetworkResolver {
   constructor(private readonly loader: AffiliateNetworkLoader) {}
 
   @ResolveReference()
-  resolveReference(reference: { __typename: string; id: string }) {
+  resolveReference(reference: {
+    __typename: string
+    id: string
+  }): Promise<gql.AffiliateNetwork> {
     return this.loader.load(reference.id)
   }
 }

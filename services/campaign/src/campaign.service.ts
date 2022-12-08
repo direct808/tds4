@@ -51,14 +51,14 @@ export class CampaignService {
       }
     }
 
-    if (input.affiliateNetworkId) {
-      const ans = await this.foreignService.getAffiliateNetworkList({
-        ids: [input.affiliateNetworkId],
+    if (input.trafficSourceId) {
+      const trafficSources = await this.foreignService.getTrafficSourceList({
+        ids: [input.trafficSourceId],
       })
-      if (ans.length === 0) {
-        throw new Error('affiliateNetwork not found')
+      if (trafficSources.length === 0) {
+        throw new Error('trafficSource not found')
       }
-      console.log('ans.length', ans.length)
+      console.log('trafficSources.length', trafficSources.length)
     }
 
     return this.entityManager.save(Campaign, input)
