@@ -5,7 +5,7 @@ import { CampaignGroupService } from '../campaign-group.service'
 
 @Injectable({ scope: Scope.REQUEST })
 export class CampaignGroupLoader extends DataLoader<string, CampaignGroup> {
-  constructor(private readonly campaignGroupService: CampaignGroupService) {
+  constructor(campaignGroupService: CampaignGroupService) {
     super((ids) => campaignGroupService.find({ ids: [...ids] }))
   }
 }

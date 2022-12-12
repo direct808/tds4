@@ -6,7 +6,7 @@ export type TGqlCampaign = TGqlTypeGenerator<
     trafficSourceId?: string
     groupId?: string
   },
-  'trafficSource' | 'group'
+  'trafficSource' | 'group' | 'streams'
 >
 
 export type TCampaignResolver = TGqlCampaign['resolver']

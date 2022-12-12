@@ -8,12 +8,13 @@ import {
 import path from 'path'
 import { CampaignService } from './campaign.service'
 import { DatabaseModule } from '@tds/common'
-import { Campaign, CampaignGroup } from './entities'
+import { Campaign, CampaignGroup, CampaignStream } from './entities'
 import { CampaignGroupService } from './campaign-group.service'
 import { ForeignService } from './foreign.service'
 import { ConfigService } from './config.service'
 import { CampaignResolver } from './resolvers'
-import { CampaignGroupLoader } from './loaders'
+import { CampaignGroupLoader, CampaignStreamLoader } from './loaders'
+import { CampaignStreamService } from './campaign-stream.service'
 
 @Module({
   imports: [
@@ -26,7 +27,10 @@ import { CampaignGroupLoader } from './loaders'
         ),
       ],
     }),
-    DatabaseModule.forRoot([Campaign, CampaignGroup], 'campaign'),
+    DatabaseModule.forRoot(
+      [Campaign, CampaignGroup, CampaignStream],
+      'campaign',
+    ),
   ],
   providers: [
     QueryService,
@@ -36,6 +40,8 @@ import { CampaignGroupLoader } from './loaders'
     ConfigService,
     CampaignResolver,
     CampaignGroupLoader,
+    CampaignStreamService,
+    CampaignStreamLoader,
   ],
 })
 export class CampaignModule {}

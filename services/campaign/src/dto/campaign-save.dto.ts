@@ -1,5 +1,14 @@
-import { IsBoolean, IsOptional, IsString, IsUUID } from 'class-validator'
+import {
+  IsArray,
+  IsBoolean,
+  IsOptional,
+  IsString,
+  IsUUID,
+  ValidateNested,
+} from 'class-validator'
 import { gql } from '@tds/contracts'
+import { CampaignStreamInputDTO } from './campaign-stream-input.DTO'
+import { Type } from 'class-transformer'
 
 export class CampaignSaveDTO
   implements Record<keyof gql.CampaignSaveInput, unknown>
@@ -21,4 +30,9 @@ export class CampaignSaveDTO
 
   @IsBoolean()
   active = true
+
+  @IsArray()
+  @ValidateNested()
+  @Type(() => CampaignStreamInputDTO)
+  streams: CampaignStreamInputDTO[] = []
 }

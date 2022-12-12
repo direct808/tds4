@@ -13,6 +13,7 @@ input CampaignSaveInput {
   trafficSourceId: String
   groupId: String
   active: Boolean
+  streams: [CampaignStreamInput!]!
 }
 
 type Campaign @key(fields: "id") {
@@ -20,6 +21,7 @@ type Campaign @key(fields: "id") {
   name: String!
   trafficSource: TrafficSource
   group: CampaignGroup
+  streams: [CampaignStream!]!
   active: Boolean!
 }
 
@@ -38,6 +40,16 @@ type CampaignGroup @key(fields: "id") {
 }
 
 input CampaignGroupSaveInput {
+  id: ID
+  name: String!
+}
+
+type CampaignStream @key(fields: "id") {
+  id: ID!
+  name: String!
+}
+
+input CampaignStreamInput {
   id: ID
   name: String!
 }

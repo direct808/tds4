@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToOne } from 'typeorm'
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm'
 import { CampaignGroup } from './campaign-group.entity'
+import { CampaignStream } from './campaign-stream.entity'
 
 @Entity()
 export class Campaign {
@@ -17,6 +18,9 @@ export class Campaign {
 
   @ManyToOne(() => CampaignGroup, (group) => group.campaigns)
   declare group: CampaignGroup
+
+  @OneToMany(() => CampaignStream, (stream) => stream.campaign)
+  declare streams: CampaignStream[]
 
   @Column()
   declare active: boolean

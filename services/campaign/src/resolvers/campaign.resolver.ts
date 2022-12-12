@@ -1,11 +1,16 @@
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql'
 import { gql } from '@tds/contracts'
 import { TCampaignResolver, TGqlCampaign } from './common'
-import { CampaignGroupLoader } from '../loaders'
+import { CampaignGroupLoader, CampaignStreamLoader } from '../loaders'
+import { CampaignStreamService } from '../campaign-stream.service'
 
 @Resolver(gql.Campaign)
 export class CampaignResolver implements TCampaignResolver {
-  constructor(private readonly campaignGroupDataLoader: CampaignGroupLoader) {}
+  constructor(
+    private readonly campaignGroupLoader: CampaignGroupLoader,
+    private readonly campaignStreamService: CampaignStreamService,
+    private readonly streamLoader: CampaignStreamLoader,
+  ) {}
 
   @ResolveField()
   async trafficSource(
@@ -22,6 +27,13 @@ export class CampaignResolver implements TCampaignResolver {
     if (!campaign.groupId) {
       return null
     }
-    return this.campaignGroupDataLoader.load(campaign.groupId)
+    return this.campaignGroupLoader.load(campaign.groupId)
+  }
+
+  @ResolveField()
+  async streams(
+    @Parent() campaign: TGqlCampaign['flat'],
+  ): Promise<gql.CampaignStream[]> {
+    return this.streamLoader.load(campaign.id)
   }
 }

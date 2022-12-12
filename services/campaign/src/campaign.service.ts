@@ -1,9 +1,11 @@
 import { CampaignSaveDTO } from './dto'
 import { Campaign } from './entities'
-import { Any, EntityManager } from 'typeorm'
+import { Any, ConnectionManager, EntityManager } from 'typeorm'
 import { Injectable } from '@nestjs/common'
 import { CampaignGroupService } from './campaign-group.service'
 import { ForeignService } from './foreign.service'
+import { Transaction } from '@nestjs/microservices/external/kafka.interface'
+import { CampaignStreamService } from './campaign-stream.service'
 
 type FindArgs = {
   ids?: string[]
@@ -15,6 +17,7 @@ export class CampaignService {
     private readonly entityManager: EntityManager,
     private readonly campaignGroupService: CampaignGroupService,
     private readonly foreignService: ForeignService,
+    private readonly campaignStreamService: CampaignStreamService,
   ) {}
 
   async find(args: Readonly<FindArgs>) {
@@ -35,7 +38,15 @@ export class CampaignService {
     })
   }
 
-  async save(input: CampaignSaveDTO) {
+  async save(
+    input: CampaignSaveDTO,
+    manager?: EntityManager,
+  ): Promise<Campaign> {
+    if (!manager) {
+      return this.entityManager.connection.transaction((manager) => {
+        return this.save(input, manager)
+      })
+    }
     if (input.id) {
       await this.entityManager.findOneByOrFail(Campaign, {
         id: input.id,
@@ -61,6 +72,18 @@ export class CampaignService {
       console.log('trafficSources.length', trafficSources.length)
     }
 
-    return this.entityManager.save(Campaign, input)
+    const { streams, ...campaignData } = input
+
+    const campaign = await this.entityManager.save(Campaign, campaignData)
+
+    await this.campaignStreamService.saveMany(
+      {
+        campaignId: campaign.id,
+        streams,
+      },
+      manager,
+    )
+
+    return campaign
   }
 }
