@@ -2,29 +2,29 @@ import { Column, Entity, ManyToOne } from 'typeorm'
 import { OfferGroup } from './offer-group.entity'
 
 export enum OfferType {
-  local = 'local',
-  redirect = 'redirect',
-  preload = 'preload',
-  action = 'action',
+  LOCAL = 'LOCAL',
+  REDIRECT = 'REDIRECT',
+  PRELOAD = 'PRELOAD',
+  ACTION = 'ACTION',
 }
 
 export enum OfferRedirectType {
-  http = 'http',
-  meta = 'meta',
-  js = 'js',
-  withoutReferer = 'withoutReferer',
-  curl = 'curl',
-  meta2 = 'meta2',
-  formSubmit = 'formSubmit',
-  iframe = 'iframe',
-  remote = 'remote',
+  HTTP = 'HTTP',
+  META = 'META',
+  JS = 'JS',
+  WITHOUT_REFERER = 'WITHOUT_REFERER',
+  CURL = 'CURL',
+  META2 = 'META2',
+  FORM_SUBMIT = 'FORM_SUBMIT',
+  IFRAME = 'IFRAME',
+  REMOTE = 'REMOTE',
 }
 export enum OfferActionType {
-  toCampaign = 'toCampaign',
-  show404 = 'show404',
-  showText = 'showText',
-  showHtml = 'showHtml',
-  nothing = 'nothing',
+  TO_CAMPAIGN = 'TO_CAMPAIGN',
+  SHOW404 = 'SHOW404',
+  SHOW_TEXT = 'SHOW_TEXT',
+  SHOW_HTML = 'SHOW_HTML',
+  NOTHING = 'NOTHING',
 }
 
 @Entity()

@@ -61,28 +61,28 @@ extend type AffiliateNetwork @key(fields: "id") {
 }
 
 enum OfferType {
-  local
-  redirect
-  preload
-  action
+  LOCAL
+  REDIRECT
+  PRELOAD
+  ACTION
 }
 
 enum OfferRedirectType {
-  http
-  meta
-  js
-  withoutReferer
-  curl
-  meta2
-  formSubmit
-  iframe
-  remote
+  HTTP
+  META
+  JS
+  WITHOUT_REFERER
+  CURL
+  META2
+  FORM_SUBMIT
+  IFRAME
+  REMOTE
 }
 
 enum OfferActionType {
-  toCampaign
-  show404
-  showText
-  showHtml
-  nothing
+  TO_CAMPAIGN
+  SHOW404
+  SHOW_TEXT
+  SHOW_HTML
+  NOTHING
 }

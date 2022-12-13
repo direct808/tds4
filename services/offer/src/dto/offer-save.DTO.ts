@@ -28,34 +28,34 @@ export class OfferSaveDTO implements Record<keyof gql.OfferSaveInput, unknown> {
   @IsEnum(OfferType)
   type!: OfferType
 
-  @ValidateIf((data: OfferSaveDTO) => data.type === OfferType.local)
+  @ValidateIf((data: OfferSaveDTO) => data.type === OfferType.LOCAL)
   @IsString()
   file: string | null | undefined
 
-  @ValidateIf((data: OfferSaveDTO) => data.type === OfferType.redirect)
+  @ValidateIf((data: OfferSaveDTO) => data.type === OfferType.REDIRECT)
   @IsEnum(OfferRedirectType)
   redirectType: OfferRedirectType | undefined
 
-  @ValidateIf((data: OfferSaveDTO) => data.type === OfferType.redirect)
+  @ValidateIf((data: OfferSaveDTO) => data.type === OfferType.REDIRECT)
   @IsUrl()
   redirectUrl: string | null | undefined
 
-  @ValidateIf((data: OfferSaveDTO) => data.type === OfferType.preload)
+  @ValidateIf((data: OfferSaveDTO) => data.type === OfferType.PRELOAD)
   @IsUrl()
   preloadUrl: string | null | undefined
 
-  @ValidateIf((data: OfferSaveDTO) => data.type === OfferType.action)
+  @ValidateIf((data: OfferSaveDTO) => data.type === OfferType.ACTION)
   @IsEnum(OfferActionType)
   actionType: OfferActionType | null | undefined
 
   @ValidateIf(
-    (data: OfferSaveDTO) => data.actionType === OfferActionType.toCampaign,
+    (data: OfferSaveDTO) => data.actionType === OfferActionType.TO_CAMPAIGN,
   )
   @IsUUID('4')
   actionCampaignId: string | null | undefined
 
   @ValidateIf((data: OfferSaveDTO) =>
-    [OfferActionType.showHtml, OfferActionType.showText].includes(
+    [OfferActionType.SHOW_HTML, OfferActionType.SHOW_TEXT].includes(
       data.actionType!,
     ),
   )

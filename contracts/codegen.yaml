@@ -15,6 +15,6 @@ generates:
       declarationKind: 'class'
       skipTypename: true
       namingConvention:
-        enumValues: change-case-all#camelCase
+        enumValues: change-case-all#upperCase
 #        transformUnderscore: true
 #      avoidOptionals: false
