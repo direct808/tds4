@@ -1,4 +1,4 @@
-import { IsOptional, IsString, IsUUID } from 'class-validator'
+import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator'
 import { gql } from '@tds/contracts'
 
 export class OfferGroupSaveDTO
@@ -9,5 +9,6 @@ export class OfferGroupSaveDTO
   id: string | undefined
 
   @IsString()
+  @IsNotEmpty()
   name!: string
 }

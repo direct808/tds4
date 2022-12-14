@@ -1,5 +1,6 @@
 import {
   IsEnum,
+  IsNotEmpty,
   IsOptional,
   IsString,
   IsUrl,
@@ -15,6 +16,7 @@ export class OfferSaveDTO implements Record<keyof gql.OfferSaveInput, unknown> {
   id: string | undefined
 
   @IsString()
+  @IsNotEmpty()
   name!: string
 
   @IsUUID('4')

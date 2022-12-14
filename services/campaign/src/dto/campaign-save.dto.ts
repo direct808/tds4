@@ -1,6 +1,7 @@
 import {
   IsArray,
   IsBoolean,
+  IsNotEmpty,
   IsOptional,
   IsString,
   IsUUID,
@@ -18,6 +19,7 @@ export class CampaignSaveDTO
   id: string | undefined
 
   @IsString()
+  @IsNotEmpty()
   name!: string
 
   @IsUUID('4')
