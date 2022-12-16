@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm'
+import { Column, Entity, ManyToOne } from 'typeorm'
 import { Campaign } from './campaign.entity'
+import { gql } from '@tds/contracts'
 
 @Entity()
 export class CampaignStream {
@@ -16,4 +17,22 @@ export class CampaignStream {
 
   @Column()
   declare campaignId: string
+
+  @Column('enum', { nullable: false, enum: gql.CampaignStreamSchema })
+  declare schema: gql.CampaignStreamSchema
+
+  @Column('enum', { nullable: true, enum: gql.StreamRedirectType })
+  declare redirectType: gql.StreamRedirectType | null
+
+  @Column('text', { nullable: true })
+  declare redirectUrl: string | null
+
+  @Column('enum', { nullable: true, enum: gql.StreamActionType })
+  declare actionType: gql.StreamActionType | null
+
+  @Column('uuid', { nullable: true })
+  declare actionCampaignId: string | null
+
+  @Column('text', { nullable: true })
+  declare actionContent: string | null
 }

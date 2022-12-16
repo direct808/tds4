@@ -47,9 +47,47 @@ input CampaignGroupSaveInput {
 type CampaignStream @key(fields: "id") {
   id: ID!
   name: String!
+  schema: CampaignStreamSchema!
+  redirectType: StreamRedirectType
+  redirectUrl: String
+  actionType: StreamActionType
+  actionCampaignId: String
+  actionContent: String
 }
 
 input CampaignStreamInput {
   id: ID
   name: String!
+  schema: CampaignStreamSchema!
+  redirectType: StreamRedirectType
+  redirectUrl: String
+  actionType: StreamActionType
+  actionCampaignId: String
+  actionContent: String
+}
+
+enum CampaignStreamSchema {
+  LANDINGS_OFFERS
+  DIRECT_URL
+  ACTION
+}
+
+enum StreamRedirectType {
+  HTTP
+  META
+  JS
+  WITHOUT_REFERER
+  CURL
+  META2
+  FORM_SUBMIT
+  IFRAME
+  REMOTE
+}
+
+enum StreamActionType {
+  TO_CAMPAIGN
+  SHOW404
+  SHOW_TEXT
+  SHOW_HTML
+  NOTHING
 }
