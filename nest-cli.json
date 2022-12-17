@@ -87,6 +87,21 @@
         ]
       }
     },
+    "click": {
+      "type": "application",
+      "root": "services/click",
+      "entryFile": "src/main",
+      "sourceRoot": "services/click",
+      "compilerOptions": {
+        "tsConfigPath": "services/click/tsconfig.app.json",
+        "assets": [
+          {
+            "include": ".env",
+            "outDir": "dist/services/click"
+          }
+        ]
+      }
+    },
     "common": {
       "type": "lib",
       "root": "libs/common",

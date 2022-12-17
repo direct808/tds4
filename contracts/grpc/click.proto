@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package tds.click;
+
+service ClickService {
+  rpc AddClick(AddClickRequest) returns (AddClickResponse);
+}
+
+
+message AddClickRequest {
+  string name = 1;
+}
+
+message AddClickResponse {
+  string message = 1;
+}

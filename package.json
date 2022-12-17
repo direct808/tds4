@@ -25,7 +25,8 @@
     "start:dev affiliate-network": "nest start --watch affiliate-network",
     "start:dev traffic-source": "nest start --watch traffic-source",
     "start:dev offer": "nest start --watch offer",
-    "start:dev campaign": "nest start --watch campaign"
+    "start:dev campaign": "nest start --watch campaign",
+    "start:dev click": "nest start --watch click"
   },
   "dependencies": {
     "@apollo/gateway": "^2.0.2",
