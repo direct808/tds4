@@ -7,7 +7,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 
 @Module({})
 export class DatabaseModule {
-  static forRoot(entities: any[], schema: string): DynamicModule {
+  static forRoot(entities: string[], schema: string): DynamicModule {
     return {
       module: DatabaseModule,
       imports: [

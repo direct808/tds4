@@ -7,7 +7,6 @@ import {
   ApolloFederationDriverConfig,
 } from '@nestjs/apollo'
 import path from 'path'
-import { Offer, OfferGroup } from './entities'
 import { QueryService } from './query.service'
 import { ForeignService } from './foreign.service'
 import { ConfigService, contractsPath } from './config.service'
@@ -17,7 +16,10 @@ import { OfferGroupLoader } from './loaders'
 
 @Module({
   imports: [
-    DatabaseModule.forRoot([Offer, OfferGroup], 'offer'),
+    DatabaseModule.forRoot(
+      [path.join(__dirname, './entities/*.entity.{ts,js}')],
+      'offer',
+    ),
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
       typePaths: [path.resolve(contractsPath, 'graphql/offer.graphql')],

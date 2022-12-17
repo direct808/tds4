@@ -8,14 +8,16 @@ import {
 import path from 'path'
 import { TrafficSourceService } from './traffic-source.service'
 import { DatabaseModule } from '@tds/common/database.module'
-import { TrafficSource } from './entities/traffic-source.entity'
 import { TrafficSourceController } from './traffic-source.controller'
 import { TrafficSourceResolver } from './resolvers'
 import { TrafficSourceLoader } from './loaders'
 
 @Module({
   imports: [
-    DatabaseModule.forRoot([TrafficSource], 'traffic_source'),
+    DatabaseModule.forRoot(
+      [path.join(__dirname, './entities/*.entity.{ts,js}')],
+      'traffic_source',
+    ),
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
       typePaths: [

@@ -8,7 +8,6 @@ import {
 import path from 'path'
 import { CampaignService } from './campaign.service'
 import { DatabaseModule } from '@tds/common'
-import { Campaign, CampaignGroup, CampaignStream } from './entities'
 import { CampaignGroupService } from './campaign-group.service'
 import { ForeignService } from './foreign.service'
 import { ConfigService } from './config.service'
@@ -28,7 +27,7 @@ import { CampaignStreamService } from './campaign-stream.service'
       ],
     }),
     DatabaseModule.forRoot(
-      [Campaign, CampaignGroup, CampaignStream],
+      [path.join(__dirname, './entities/*.entity.{ts,js}')],
       'campaign',
     ),
   ],

@@ -8,7 +8,6 @@ import {
 import path from 'path'
 import { AffiliateNetworkService } from './affiliate-network.service'
 import { DatabaseModule } from '@tds/common'
-import { AffiliateNetwork } from './entities'
 import { AffiliateNetworkController } from './affiliate-network.controller'
 import { AffiliateNetworkLoader } from './loaders'
 import { AffiliateNetworkResolver } from './resolvers'
@@ -24,7 +23,10 @@ import { AffiliateNetworkResolver } from './resolvers'
         ),
       ],
     }),
-    DatabaseModule.forRoot([AffiliateNetwork], 'affiliate_network'),
+    DatabaseModule.forRoot(
+      [path.join(__dirname, './entities/*.entity.{ts,js}')],
+      'affiliate_network',
+    ),
   ],
   providers: [
     QueryService,
