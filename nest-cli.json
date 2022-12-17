@@ -11,7 +11,7 @@
     "api-gateway": {
       "type": "application",
       "root": "services/api-gateway",
-      "entryFile": "main",
+      "entryFile": "src/main",
       "sourceRoot": "services/api-gateway",
       "compilerOptions": {
         "tsConfigPath": "services/api-gateway/tsconfig.app.json",
