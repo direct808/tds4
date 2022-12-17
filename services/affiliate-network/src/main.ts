@@ -28,6 +28,5 @@ async function bootstrap() {
 dotenv.config({
   path: resolve(__dirname + './../../../../.env'),
 })
-console.log(process.env.DB_HOST)
 
 bootstrap()
