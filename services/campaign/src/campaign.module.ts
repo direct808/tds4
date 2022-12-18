@@ -14,6 +14,7 @@ import { ConfigService } from './config.service'
 import { CampaignResolver } from './resolvers'
 import { CampaignGroupLoader, CampaignStreamLoader } from './loaders'
 import { CampaignStreamService } from './campaign-stream.service'
+import { CampaignController } from './campaign.controller'
 
 @Module({
   imports: [
@@ -42,5 +43,6 @@ import { CampaignStreamService } from './campaign-stream.service'
     CampaignStreamService,
     CampaignStreamLoader,
   ],
+  controllers: [CampaignController],
 })
 export class CampaignModule {}

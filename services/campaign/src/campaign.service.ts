@@ -1,14 +1,15 @@
 import { CampaignSaveDTO } from './dto'
 import { Campaign } from './entities'
-import { Any, ConnectionManager, EntityManager } from 'typeorm'
+import { Any, EntityManager } from 'typeorm'
 import { Injectable } from '@nestjs/common'
 import { CampaignGroupService } from './campaign-group.service'
 import { ForeignService } from './foreign.service'
-import { Transaction } from '@nestjs/microservices/external/kafka.interface'
 import { CampaignStreamService } from './campaign-stream.service'
+import * as crypto from 'crypto'
 
 type FindArgs = {
   ids?: string[]
+  codes?: string[]
 }
 
 @Injectable()
@@ -21,10 +22,11 @@ export class CampaignService {
   ) {}
 
   async find(args: Readonly<FindArgs>) {
-    const { ids } = args
+    const { ids, codes } = args
     return this.entityManager.find(Campaign, {
       where: {
         ...(ids ? { id: Any(ids) } : {}),
+        ...(codes ? { code: Any(codes) } : {}),
       },
     })
   }
@@ -74,7 +76,13 @@ export class CampaignService {
 
     const { streams, ...campaignData } = input
 
-    const campaign = await this.entityManager.save(Campaign, campaignData)
+    const entity = this.entityManager.create(Campaign, campaignData) as Campaign
+
+    if (!input.id) {
+      entity.code = this.#makeCode()
+    }
+
+    const campaign = await this.entityManager.save(Campaign, entity)
 
     await this.campaignStreamService.saveMany(
       {
@@ -85,5 +93,9 @@ export class CampaignService {
     )
 
     return campaign
+  }
+
+  #makeCode() {
+    return crypto.randomUUID().substring(0, 6)
   }
 }

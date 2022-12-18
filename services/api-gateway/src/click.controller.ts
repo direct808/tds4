@@ -1,6 +1,7 @@
 import { Controller, Get, Req, Res } from '@nestjs/common'
 import { Request, Response } from 'express'
 import { ForeignService } from './foreign.service'
+import { click } from '@tds/contracts'
 
 @Controller()
 export class ClickController {
@@ -14,11 +15,9 @@ export class ClickController {
       campaignCode,
     })
 
-    console.log(result)
-
     const ret = {
-      result: 'ok111111',
-      code: campaignCode,
+      ...result,
+      type: click.ResponseType[result.type!],
     }
 
     res.send(ret)

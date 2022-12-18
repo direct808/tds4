@@ -11,8 +11,7 @@ export class ClickController {
   constructor(protected readonly clickService: ClickService) {}
 
   @GrpcMethod('ClickService')
-  async addClick(args: AddClickDTO): Promise<click.AddClickResponse> {
-    const result = await await this.clickService.add(args)
-    return { message: args.campaignCode + ' ok' }
+  addClick(args: AddClickDTO): Promise<click.AddClickResponse> {
+    return this.clickService.add(args)
   }
 }

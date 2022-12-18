@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm'
+import { Column, Entity, Index, ManyToOne, OneToMany, Unique } from 'typeorm'
 import { CampaignGroup } from './campaign-group.entity'
 import { CampaignStream } from './campaign-stream.entity'
 
@@ -9,6 +9,10 @@ export class Campaign {
 
   @Column()
   declare name: string
+
+  @Column()
+  @Index({ unique: true })
+  declare code: string
 
   @Column('uuid', { nullable: true })
   declare trafficSourceId: string | null

@@ -12,5 +12,13 @@ message AddClickRequest {
 }
 
 message AddClickResponse {
-  string message = 1;
+  ResponseType type = 1;
+  string redirectUrl = 2;
+  string content = 3;
+}
+
+enum ResponseType {
+  REDIRECT = 0;
+  CONTENT = 1;
+  NOT_FOUND =2;
 }

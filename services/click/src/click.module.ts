@@ -3,6 +3,8 @@ import { ClickController } from './click.controller'
 import { ClickService } from './click.service'
 import { DatabaseModule } from '@tds/common'
 import path from 'path'
+import { ForeignService } from './foreign.service'
+import { ConfigService } from './config.service'
 
 @Module({
   imports: [
@@ -11,7 +13,7 @@ import path from 'path'
       'click',
     ),
   ],
-  providers: [ClickService],
+  providers: [ClickService, ForeignService, ConfigService],
   controllers: [ClickController],
 })
 export class ClickModule {}
