@@ -8,7 +8,7 @@ service ClickService {
 
 
 message AddClickRequest {
-  string name = 1;
+  string campaignCode = 1;
 }
 
 message AddClickResponse {

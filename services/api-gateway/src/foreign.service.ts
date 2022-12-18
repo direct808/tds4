@@ -1,0 +1,18 @@
+import { click } from '@tds/contracts'
+import { ConfigService } from './config.service'
+import { firstValueFrom } from 'rxjs'
+import { Injectable } from '@nestjs/common'
+
+@Injectable()
+export class ForeignService {
+  private readonly clickService = this.configService.getGrpcClickService()
+
+  constructor(private readonly configService: ConfigService) {}
+
+  async addClick(
+    args: click.IAddClickRequest,
+  ): Promise<click.IAddClickResponse> {
+    const result = await firstValueFrom(this.clickService.addClick(args))
+    return result
+  }
+}
