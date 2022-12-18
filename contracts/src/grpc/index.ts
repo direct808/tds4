@@ -1,4 +1,4 @@
-// @t s-nocheck
+// @ts-nocheck
 import * as af from './affiliate-network'
 import * as cl from './click'
 import * as tf from './traffic-source'
