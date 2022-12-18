@@ -4,6 +4,7 @@ package tds.campaign;
 
 service CampaignService {
   rpc GetCampaignList(GetCampaignListRequest) returns (GetCampaignListResponse);
+  rpc GetCampaignStreamList(GetCampaignStreamListRequest) returns (GetCampaignStreamListResponse);
 }
 
 message GetCampaignListRequest {
@@ -15,6 +16,19 @@ message GetCampaignListResponse {
 }
 
 message Campaign {
+  string id = 1;
+  string name = 2;
+}
+
+message GetCampaignStreamListRequest {
+  string campaignId = 1;
+}
+
+message GetCampaignStreamListResponse {
+  repeated CampaignStream result = 1;
+}
+
+message CampaignStream {
   string id = 1;
   string name = 2;
 }

@@ -50,7 +50,7 @@ export class CampaignService {
       })
     }
     if (input.id) {
-      await this.entityManager.findOneByOrFail(Campaign, {
+      await manager.findOneByOrFail(Campaign, {
         id: input.id,
       })
     }
@@ -82,7 +82,7 @@ export class CampaignService {
       entity.code = this.#makeCode()
     }
 
-    const campaign = await this.entityManager.save(Campaign, entity)
+    const campaign = await manager.save(Campaign, entity)
 
     await this.campaignStreamService.saveMany(
       {

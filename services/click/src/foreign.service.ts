@@ -14,4 +14,13 @@ export class ForeignService {
   ): Promise<campaign.GetCampaignListResponse> {
     return firstValueFrom(this.campaignService.getCampaignList(args))
   }
+
+  async getCampaignStreamList(
+    args: campaign.GetCampaignStreamListRequest,
+  ): Promise<campaign.CampaignStream[]> {
+    const { result } = await firstValueFrom(
+      this.campaignService.getCampaignStreamList(args),
+    )
+    return result ?? []
+  }
 }
