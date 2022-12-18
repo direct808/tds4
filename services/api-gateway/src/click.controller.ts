@@ -11,7 +11,7 @@ export class ClickController {
     const campaignCode = request.url.replace('/', '')
 
     const result = await this.foreignService.addClick({
-      campaignCode: '',
+      campaignCode,
     })
 
     console.log(result)
