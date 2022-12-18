@@ -2,7 +2,7 @@ import { IsArray, IsInt, IsOptional, IsUUID } from 'class-validator'
 import { trafficSource } from '@tds/contracts'
 
 export class GetTrafficSourceListDTO
-  implements Record<keyof trafficSource.IGetTrafficSourceListRequest, unknown>
+  implements Record<keyof trafficSource.GetTrafficSourceListRequest, unknown>
 {
   @IsInt()
   @IsOptional()

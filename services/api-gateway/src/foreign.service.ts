@@ -9,9 +9,7 @@ export class ForeignService {
 
   constructor(private readonly configService: ConfigService) {}
 
-  async addClick(
-    args: click.IAddClickRequest,
-  ): Promise<click.IAddClickResponse> {
+  async addClick(args: click.AddClickRequest): Promise<click.AddClickResponse> {
     const result = await firstValueFrom(this.clickService.addClick(args))
     return result
   }

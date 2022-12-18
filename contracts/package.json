@@ -4,16 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build:pbjs": "pbjs -t static-module -w commonjs -o src/grpc/compiled.js grpc/*.proto",
-    "build:pbts": "pbts -o src/grpc/compiled.d.ts src/grpc/compiled.js",
-    "build": "yarn run build:pbjs && yarn run build:pbts",
-    "generate": "graphql-codegen"
-  },
-  "devDependencies": {
-    "@graphql-codegen/add": "^3.1.1",
-    "@graphql-codegen/cli": "^2.6.2",
-    "@graphql-codegen/typescript": "^2.4.10",
-    "@graphql-codegen/typescript-resolvers": "^2.6.3",
-    "protobufjs-cli": "^1.0.2"
+    "gen:typings:grpc": "../node_modules/.bin/tsproto --path ./grpc --output ./src/grpc",
+    "gen:typings:gql": "../node_modules/.bin/graphql-codegen",
+    "gen:typings": "yarn run gen:typings:grpc && yarn run gen:typings:gql"
   }
 }

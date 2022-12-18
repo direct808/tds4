@@ -11,11 +11,11 @@ export class ForeignService {
   constructor(private readonly configService: ConfigService) {}
 
   async getAffiliateNetworkList(
-    args: affiliateNetwork.IGetAffiliateNetworkListRequest,
-  ): Promise<affiliateNetwork.IAffiliateNetwork[]> {
+    args: affiliateNetwork.GetAffiliateNetworkListRequest,
+  ): Promise<affiliateNetwork.AffiliateNetwork[]> {
     const result = await firstValueFrom(
       this.affiliateNetworkService.getAffiliateNetworkList(args),
     )
-    return result.result
+    return result.result!
   }
 }

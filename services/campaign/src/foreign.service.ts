@@ -11,11 +11,11 @@ export class ForeignService {
   constructor(private readonly configService: ConfigService) {}
 
   async getTrafficSourceList(
-    args: trafficSource.IGetTrafficSourceListRequest,
-  ): Promise<trafficSource.ITrafficSource[]> {
+    args: trafficSource.GetTrafficSourceListRequest,
+  ): Promise<trafficSource.TrafficSource[]> {
     const result = await firstValueFrom(
       this.trafficSourceService.getTrafficSourceList(args),
     )
-    return result.result
+    return result.result!
   }
 }

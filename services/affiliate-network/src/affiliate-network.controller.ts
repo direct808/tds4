@@ -15,7 +15,7 @@ export class AffiliateNetworkController {
   @GrpcMethod('AffiliateNetworkService')
   async getAffiliateNetworkList(
     args: GetAffiliateNetworkListDTO,
-  ): Promise<affiliateNetwork.IGetAffiliateNetworkListResponse> {
+  ): Promise<affiliateNetwork.GetAffiliateNetworkListResponse> {
     console.log(args)
     const [result, totalCount] =
       await this.affiliateNetworkService.findAndCount(args)

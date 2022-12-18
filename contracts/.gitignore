@@ -1,2 +1,3 @@
-src/grpc/compiled*
+src/grpc
+!/src/grpc/index.ts
 src/gql

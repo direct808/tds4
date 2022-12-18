@@ -13,7 +13,7 @@ export class TrafficSourceController {
   @GrpcMethod('TrafficSourceService')
   async getTrafficSourceList(
     args: GetTrafficSourceListDTO,
-  ): Promise<trafficSource.IGetTrafficSourceListResponse> {
+  ): Promise<trafficSource.GetTrafficSourceListResponse> {
     const result = await this.trafficSourceService.find(args)
     return { result, totalCount: 0 }
   }
