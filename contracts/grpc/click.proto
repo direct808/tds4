@@ -21,4 +21,5 @@ enum ResponseType {
   REDIRECT = 0;
   CONTENT = 1;
   NOT_FOUND =2;
+  NOTHING =3;
 }

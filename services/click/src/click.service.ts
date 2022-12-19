@@ -4,7 +4,7 @@ import { EntityManager } from 'typeorm'
 import { Click } from './entities'
 import { ForeignService } from './foreign.service'
 import { click } from '@tds/contracts'
-import { campaign } from '@tds/contracts'
+import * as grpc from '@tds/contracts'
 
 @Injectable()
 export class ClickService {
@@ -32,6 +32,25 @@ export class ClickService {
       campaignId: campaign.id,
     })
     const stream = this.#getSelectedStream(streams)
+
+    if (stream.schema === undefined) {
+      throw new Error('Stream not found')
+    }
+
+    switch (stream.schema) {
+      case grpc.campaign.StreamSchema.ACTION:
+        console.log('schema action')
+        break
+      case grpc.campaign.StreamSchema.DIRECT_URL:
+        console.log('schema direct url')
+        break
+      case grpc.campaign.StreamSchema.LANDINGS_OFFERS:
+        throw new Error('Not implemented Schema.LANDINGS_OFFERS')
+      default:
+        const s: never = stream.schema
+        throw new Error('Unknown stream schema ' + s)
+    }
+
     console.log('select stream', stream)
     await this.entityManager.save(Click, {})
     return {
@@ -52,8 +71,8 @@ export class ClickService {
   }
 
   #getSelectedStream(
-    streams: campaign.CampaignStream[],
-  ): campaign.CampaignStream {
+    streams: grpc.campaign.CampaignStream[],
+  ): grpc.campaign.CampaignStream {
     if (streams.length == 0) {
       throw new Error('No streams')
     }
