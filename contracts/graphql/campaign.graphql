@@ -19,6 +19,7 @@ input CampaignSaveInput {
 type Campaign @key(fields: "id") {
   id: ID!
   name: String!
+  code: String!
   trafficSource: TrafficSource
   group: CampaignGroup
   streams: [CampaignStream!]!

@@ -92,7 +92,7 @@ export class CampaignService {
       manager,
     )
 
-    return campaign
+    return manager.findOneOrFail(Campaign, { where: { id: campaign.id } })
   }
 
   #makeCode() {
