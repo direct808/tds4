@@ -1,6 +1,6 @@
 import { GrpcMethod } from '@nestjs/microservices'
 import { Controller, UsePipes } from '@nestjs/common'
-import { campaign } from '@tds/contracts'
+import { campaign } from '@tds/contracts/grpc'
 import { GrpcValidationPipe } from '@tds/common'
 import { CampaignService } from './campaign.service'
 import { GetCampaignListDTO } from './dto/get-campaign-list.DTO'

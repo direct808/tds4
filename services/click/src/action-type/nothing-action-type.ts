@@ -1,8 +1,8 @@
 import { ActionType } from './action-type'
-import * as grpc from '@tds/contracts'
+import { click } from '@tds/contracts/grpc'
 
 export class NothingActionType implements ActionType {
   handle() {
-    return { type: grpc.click.AddClickResponse.Type.NOTHING }
+    return { type: click.AddClickResponse.Type.NOTHING }
   }
 }

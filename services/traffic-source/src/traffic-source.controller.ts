@@ -1,6 +1,6 @@
 import { GrpcMethod } from '@nestjs/microservices'
 import { Controller, UsePipes } from '@nestjs/common'
-import { trafficSource } from '@tds/contracts'
+import { trafficSource } from '@tds/contracts/grpc'
 import { TrafficSourceService } from './traffic-source.service'
 import { GrpcValidationPipe } from '@tds/common'
 import { GetTrafficSourceListDTO } from './dto'

@@ -1,8 +1,8 @@
 import { ActionType } from './action-type'
-import * as grpc from '@tds/contracts'
+import { click } from '@tds/contracts/grpc'
 
 export class Show404ActionType implements ActionType {
   handle() {
-    return { type: grpc.click.AddClickResponse.Type.NOT_FOUND }
+    return { type: click.AddClickResponse.Type.NOT_FOUND }
   }
 }

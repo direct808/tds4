@@ -1,6 +1,6 @@
 import { join, resolve } from 'path'
 import { makeGrpcService } from '@tds/common'
-import { campaign } from '@tds/contracts'
+import { campaign } from '@tds/contracts/grpc'
 import { Injectable } from '@nestjs/common'
 import dotenv from 'dotenv'
 

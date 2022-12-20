@@ -1,8 +1,8 @@
 import { ActionType } from './action-type'
-import * as grpc from '@tds/contracts'
+import { click } from '@tds/contracts/grpc'
 
 export class ShowTextActionType implements ActionType {
-  handle(): grpc.click.AddClickResponse {
+  handle(): click.AddClickResponse {
     throw new Error('Not realize')
   }
 }

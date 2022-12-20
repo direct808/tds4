@@ -1,5 +1,5 @@
 import { IsString, Length } from 'class-validator'
-import { click } from '@tds/contracts'
+import { click } from '@tds/contracts/grpc'
 
 export class AddClickDTO
   implements Record<keyof click.AddClickRequest, unknown>

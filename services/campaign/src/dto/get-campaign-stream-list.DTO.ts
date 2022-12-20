@@ -1,4 +1,4 @@
-import { campaign } from '@tds/contracts'
+import { campaign } from '@tds/contracts/grpc'
 import { IsUUID } from 'class-validator'
 
 export class GetCampaignStreamListDTO

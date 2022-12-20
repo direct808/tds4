@@ -1,7 +1,7 @@
 import { Controller, Get, Req, Res } from '@nestjs/common'
 import { Request, Response } from 'express'
 import { ForeignService } from './foreign.service'
-import { click } from '@tds/contracts'
+import { grpc } from '@tds/contracts'
 
 @Controller()
 export class ClickController {
@@ -17,7 +17,7 @@ export class ClickController {
 
     const ret = {
       ...result,
-      type: click.AddClickResponse.Type[result.type!],
+      type: grpc.click.AddClickResponse.Type[result.type!],
     }
 
     res.send(ret)

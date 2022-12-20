@@ -3,7 +3,7 @@ import { AddClickDTO } from './dto'
 import { EntityManager } from 'typeorm'
 import { Click } from './entities'
 import { ForeignService } from './foreign.service'
-import * as grpc from '@tds/contracts'
+import { grpc } from '@tds/contracts'
 import { ActionTypeFactory } from './action-type'
 
 @Injectable()

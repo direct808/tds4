@@ -1,6 +1,6 @@
 import { GrpcMethod } from '@nestjs/microservices'
 import { Controller, UsePipes } from '@nestjs/common'
-import { click } from '@tds/contracts'
+import { click } from '@tds/contracts/grpc'
 import { GrpcValidationPipe } from '@tds/common'
 import { AddClickDTO } from './dto'
 import { ClickService } from './click.service'

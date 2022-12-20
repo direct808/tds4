@@ -1,5 +1,5 @@
 import { ActionType } from './action-type'
-import * as grpc from '@tds/contracts'
+import { grpc } from '@tds/contracts'
 
 export class ToCampaignActionType implements ActionType {
   handle(): grpc.click.AddClickResponse {

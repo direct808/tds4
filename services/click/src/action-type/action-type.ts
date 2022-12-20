@@ -1,5 +1,5 @@
-import * as grpc from '@tds/contracts'
+import { campaign, click } from '@tds/contracts/grpc'
 
 export interface ActionType {
-  handle(stream: grpc.campaign.CampaignStream): grpc.click.AddClickResponse
+  handle(stream: campaign.CampaignStream): click.AddClickResponse
 }

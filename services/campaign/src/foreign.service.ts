@@ -1,4 +1,4 @@
-import { trafficSource } from '@tds/contracts'
+import { trafficSource } from '@tds/contracts/grpc'
 import { ConfigService } from './config.service'
 import { firstValueFrom } from 'rxjs'
 import { Injectable } from '@nestjs/common'

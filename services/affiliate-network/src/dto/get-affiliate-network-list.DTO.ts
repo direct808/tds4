@@ -1,5 +1,5 @@
 import { IsArray, IsInt, IsOptional, IsUUID } from 'class-validator'
-import { affiliateNetwork } from '@tds/contracts'
+import { affiliateNetwork } from '@tds/contracts/grpc'
 
 export class GetAffiliateNetworkListDTO
   implements

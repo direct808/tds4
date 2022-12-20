@@ -1,4 +1,4 @@
-import { click } from '@tds/contracts'
+import { click } from '@tds/contracts/grpc'
 import { ConfigService } from './config.service'
 import { firstValueFrom } from 'rxjs'
 import { Injectable } from '@nestjs/common'

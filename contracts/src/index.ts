@@ -1,2 +1,2 @@
 export * as gql from './gql'
-export * from './grpc'
+export * as grpc from './grpc'
