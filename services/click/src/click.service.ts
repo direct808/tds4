@@ -37,11 +37,13 @@ export class ClickService {
       throw new Error('Stream not found')
     }
 
+    await this.entityManager.save(Click, {})
+
     switch (stream.schema) {
       case grpc.campaign.StreamSchema.ACTION:
         return ActionTypeFactory.create(stream).handle(stream)
       case grpc.campaign.StreamSchema.DIRECT_URL:
-        console.log('schema direct url')
+        throw new Error('Not implemented Schema.LANDINGS_OFFERS')
         break
       case grpc.campaign.StreamSchema.LANDINGS_OFFERS:
         throw new Error('Not implemented Schema.LANDINGS_OFFERS')
@@ -50,12 +52,11 @@ export class ClickService {
         throw new Error('Unknown stream schema ' + s)
     }
 
-    console.log('select stream', stream)
-    await this.entityManager.save(Click, {})
-    return {
-      type: grpc.click.AddClickResponse.Type.CONTENT,
-      content: 'form click service',
-    }
+    // console.log('select stream', stream)
+    // return {
+    //   type: grpc.click.AddClickResponse.Type.CONTENT,
+    //   content: 'form click service',
+    // }
   }
 
   async #getCampaignByCode(code: string) {

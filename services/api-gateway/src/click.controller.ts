@@ -20,7 +20,24 @@ export class ClickController {
       type: grpc.click.AddClickResponse.Type[result.type!],
     }
 
-    res.send(ret)
-    // res.redirect('https://ya.ru')
+    // return res.send(ret)
+
+    if (typeof result.type === 'undefined') {
+      throw new Error('Response type undefined')
+    }
+
+    switch (result.type) {
+      case grpc.click.AddClickResponse.Type.CONTENT:
+        return res.send(result.content)
+      case grpc.click.AddClickResponse.Type.NOTHING:
+        return res.send('')
+      case grpc.click.AddClickResponse.Type.NOT_FOUND:
+        return res.sendStatus(404)
+      case grpc.click.AddClickResponse.Type.REDIRECT:
+        return res.redirect(result.redirectUrl!)
+      default:
+        const type: never = result.type
+        throw new Error('Unknown response type ' + type)
+    }
   }
 }

@@ -1,8 +1,22 @@
 import { ActionType } from './action-type'
-import { click } from '@tds/contracts/grpc'
+import { campaign, click } from '@tds/contracts/grpc'
 
 export class ShowTextActionType implements ActionType {
-  handle(): click.AddClickResponse {
-    throw new Error('Not realize')
+  async handle(
+    stream: campaign.CampaignStream,
+  ): Promise<click.AddClickResponse> {
+    return {
+      type: click.AddClickResponse.Type.CONTENT,
+      content: this.#escape(stream.actionContent!),
+    }
+  }
+
+  #escape(unsafe: string) {
+    return unsafe
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#039;')
   }
 }
