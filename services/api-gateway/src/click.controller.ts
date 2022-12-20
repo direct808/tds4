@@ -17,7 +17,7 @@ export class ClickController {
 
     const ret = {
       ...result,
-      type: click.ResponseType[result.type!],
+      type: click.AddClickResponse.Type[result.type!],
     }
 
     res.send(ret)

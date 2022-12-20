@@ -12,14 +12,15 @@ message AddClickRequest {
 }
 
 message AddClickResponse {
-  ResponseType type = 1;
-  string redirectUrl = 2;
-  string content = 3;
-}
-
-enum ResponseType {
-  REDIRECT = 0;
-  CONTENT = 1;
-  NOT_FOUND =2;
-  NOTHING =3;
+  enum Type {
+    REDIRECT = 0;
+    CONTENT = 1;
+    NOT_FOUND =2;
+    NOTHING =3;
+  }
+  Type type = 1;
+  oneof on {
+    string redirectUrl = 2;
+    string content = 3;
+  }
 }

@@ -19,7 +19,7 @@ export class ClickService {
     } catch (e) {
       if (e instanceof NotFoundException) {
         return {
-          type: grpc.click.ResponseType.NOT_FOUND,
+          type: grpc.click.AddClickResponse.Type.NOT_FOUND,
         }
       }
       throw e
@@ -53,7 +53,7 @@ export class ClickService {
     console.log('select stream', stream)
     await this.entityManager.save(Click, {})
     return {
-      type: grpc.click.ResponseType.CONTENT,
+      type: grpc.click.AddClickResponse.Type.CONTENT,
       content: 'form click service',
     }
   }
