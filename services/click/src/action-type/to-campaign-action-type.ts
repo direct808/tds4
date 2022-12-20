@@ -7,11 +7,16 @@ import {
   Inject,
   Injectable,
   NotFoundException,
+  Scope,
 } from '@nestjs/common'
 import { ClickService } from '../click.service'
 
-@Injectable()
+const MAX_REDIRECTS = 1
+
+@Injectable({ scope: Scope.REQUEST })
 export class ToCampaignActionType implements ActionType {
+  private redirectCount = 0
+
   constructor(
     private readonly foreignService: ForeignService,
     @Inject(forwardRef(() => ClickService))
@@ -21,8 +26,13 @@ export class ToCampaignActionType implements ActionType {
   async handle(
     stream: campaign.CampaignStream,
   ): Promise<grpc.click.AddClickResponse> {
+    if (this.redirectCount >= MAX_REDIRECTS) {
+      throw new Error('To many redirects')
+    }
     const campaign = await this.getCampaignById(stream.actionCampaignId!)
-    console.log('To campaign', campaign)
+    this.redirectCount++
+    console.log('To campaign', campaign, 'redirectCount', this.redirectCount)
+
     return this.clickService.addByCampaign(campaign)
   }
 

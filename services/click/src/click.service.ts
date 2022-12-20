@@ -48,7 +48,7 @@ export class ClickService {
 
     switch (stream.schema) {
       case grpc.campaign.StreamSchema.ACTION:
-        return this.actionTypeFactory.create(stream).handle(stream)
+        return (await this.actionTypeFactory.create(stream)).handle(stream)
       case grpc.campaign.StreamSchema.DIRECT_URL:
         throw new Error('Not implemented Schema.LANDINGS_OFFERS')
       case grpc.campaign.StreamSchema.LANDINGS_OFFERS:
