@@ -11,11 +11,12 @@ export class ClickService {
   constructor(
     private readonly entityManager: EntityManager,
     private readonly foreignService: ForeignService,
+    private readonly actionTypeFactory: ActionTypeFactory,
   ) {}
 
   async add(args: AddClickDTO): Promise<grpc.click.AddClickResponse> {
     try {
-      return await this.#add(args)
+      return await this.addByCode(args.campaignCode)
     } catch (e) {
       if (e instanceof NotFoundException) {
         return {
@@ -26,8 +27,14 @@ export class ClickService {
     }
   }
 
-  async #add(args: AddClickDTO): Promise<grpc.click.AddClickResponse> {
-    const campaign = await this.#getCampaignByCode(args.campaignCode)
+  async addByCode(code: string): Promise<grpc.click.AddClickResponse> {
+    const campaign = await this.#getCampaignByCode(code)
+    return this.addByCampaign(campaign)
+  }
+
+  async addByCampaign(
+    campaign: grpc.campaign.Campaign,
+  ): Promise<grpc.click.AddClickResponse> {
     const streams = await this.foreignService.getCampaignStreamList({
       campaignId: campaign.id,
     })
@@ -41,10 +48,9 @@ export class ClickService {
 
     switch (stream.schema) {
       case grpc.campaign.StreamSchema.ACTION:
-        return ActionTypeFactory.create(stream).handle(stream)
+        return this.actionTypeFactory.create(stream).handle(stream)
       case grpc.campaign.StreamSchema.DIRECT_URL:
         throw new Error('Not implemented Schema.LANDINGS_OFFERS')
-        break
       case grpc.campaign.StreamSchema.LANDINGS_OFFERS:
         throw new Error('Not implemented Schema.LANDINGS_OFFERS')
       default:

@@ -5,23 +5,28 @@ import { ShowHtmlActionType } from './show-html-action-type'
 import { ShowTextActionType } from './show-text-action-type'
 import { NothingActionType } from './nothing-action-type'
 import { ToCampaignActionType } from './to-campaign-action-type'
+import { Injectable } from '@nestjs/common'
+import { ModuleRef } from '@nestjs/core'
 
+@Injectable()
 export class ActionTypeFactory {
-  static create(stream: campaign.CampaignStream): ActionType {
+  constructor(private readonly moduleRef: ModuleRef) {}
+
+  create(stream: campaign.CampaignStream): ActionType {
     if (typeof stream.actionType === 'undefined') {
       throw new Error('actionType not set')
     }
     switch (stream.actionType) {
       case campaign.StreamActionType.SHOW404:
-        return new Show404ActionType()
+        return this.moduleRef.get(Show404ActionType)
       case campaign.StreamActionType.SHOW_HTML:
-        return new ShowHtmlActionType()
+        return this.moduleRef.get(ShowHtmlActionType)
       case campaign.StreamActionType.SHOW_TEXT:
-        return new ShowTextActionType()
+        return this.moduleRef.get(ShowTextActionType)
       case campaign.StreamActionType.NOTHING:
-        return new NothingActionType()
+        return this.moduleRef.get(NothingActionType)
       case campaign.StreamActionType.TO_CAMPAIGN:
-        return new ToCampaignActionType()
+        return this.moduleRef.get(ToCampaignActionType)
     }
     const at: never = stream.actionType
     throw new Error('Unknown actionType ' + at)

@@ -4,6 +4,7 @@ import {
   IsArray,
   IsOptional,
   IsString,
+  IsUUID,
   Length,
 } from 'class-validator'
 
@@ -16,4 +17,10 @@ export class GetCampaignListDTO
   @IsString({ each: true })
   @Length(6, 6, { each: true })
   codes: string[] | undefined
+
+  @IsArray()
+  @IsOptional()
+  @ArrayMinSize(1)
+  @IsUUID(4, { each: true })
+  ids: string[] | undefined
 }

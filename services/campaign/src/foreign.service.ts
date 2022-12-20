@@ -5,10 +5,11 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ForeignService {
-  private readonly trafficSourceService =
-    this.configService.getGrpcTrafficSourceService()
+  private readonly trafficSourceService
 
-  constructor(private readonly configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) {
+    this.trafficSourceService = this.configService.getGrpcTrafficSourceService()
+  }
 
   async getTrafficSourceList(
     args: trafficSource.GetTrafficSourceListRequest,

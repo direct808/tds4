@@ -5,12 +5,13 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ForeignService {
-  private readonly clickService = this.configService.getGrpcClickService()
+  private readonly clickService
 
-  constructor(private readonly configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) {
+    this.clickService = this.configService.getGrpcClickService()
+  }
 
-  async addClick(args: click.AddClickRequest): Promise<click.AddClickResponse> {
-    const result = await firstValueFrom(this.clickService.addClick(args))
-    return result
+  addClick(args: click.AddClickRequest): Promise<click.AddClickResponse> {
+    return firstValueFrom(this.clickService.addClick(args))
   }
 }

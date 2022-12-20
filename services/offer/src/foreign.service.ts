@@ -5,10 +5,12 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ForeignService {
-  private readonly affiliateNetworkService =
-    this.configService.getGrpcAffiliateNetworkService()
+  private readonly affiliateNetworkService
 
-  constructor(private readonly configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) {
+    this.affiliateNetworkService =
+      this.configService.getGrpcAffiliateNetworkService()
+  }
 
   async getAffiliateNetworkList(
     args: affiliateNetwork.GetAffiliateNetworkListRequest,

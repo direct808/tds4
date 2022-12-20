@@ -9,6 +9,7 @@ service CampaignService {
 
 message GetCampaignListRequest {
   repeated string codes = 1;
+  repeated string ids = 2;
 }
 
 message GetCampaignListResponse {

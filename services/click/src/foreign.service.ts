@@ -5,9 +5,11 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ForeignService {
-  private readonly campaignService = this.configService.getGrpcCampaignService()
+  private readonly campaignService
 
-  constructor(private readonly configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) {
+    this.campaignService = this.configService.getGrpcCampaignService()
+  }
 
   getCampaignList(
     args: campaign.GetCampaignListRequest,
