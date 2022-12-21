@@ -9,6 +9,7 @@ import { FormSubmitRedirectType } from './form-submit-redirect-type'
 import { IframeRedirectType } from './iframe-redirect-type'
 import { WithoutRefererRedirectType } from './without-referer-redirect-type'
 import { RemoteRedirectType } from './remote-redirect-type'
+import { CurlRedirectType } from './curl-redirect-type'
 
 export class RedirectTypeFactory {
   static create(stream: campaign.CampaignStream): RedirectType {
@@ -21,7 +22,7 @@ export class RedirectTypeFactory {
       case Type.META:
         return new MetaRedirectType()
       case Type.CURL:
-        throw new Error('Not realize')
+        return new CurlRedirectType()
       case Type.FORM_SUBMIT:
         return new FormSubmitRedirectType()
       case Type.META2:
