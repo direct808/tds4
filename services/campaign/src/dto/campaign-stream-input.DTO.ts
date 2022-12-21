@@ -56,6 +56,6 @@ export class CampaignStreamInputDTO
     (data: CampaignStreamInputDTO) =>
       data.schema === gql.CampaignStreamSchema.DIRECT_URL,
   )
-  @IsUrl()
+  @IsUrl({ require_protocol: true })
   redirectUrl: string | null | undefined
 }

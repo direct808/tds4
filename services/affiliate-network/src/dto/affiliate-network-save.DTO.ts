@@ -14,7 +14,7 @@ export class AffiliateNetworkSaveDTO
   @IsOptional()
   offerParam: string | null | undefined
 
-  @IsUrl()
+  @IsUrl({ require_protocol: true })
   @IsOptional()
   postbackUrl: string | null | undefined
 }

@@ -39,11 +39,11 @@ export class OfferSaveDTO implements Record<keyof gql.OfferSaveInput, unknown> {
   redirectType: OfferRedirectType | undefined
 
   @ValidateIf((data: OfferSaveDTO) => data.type === OfferType.REDIRECT)
-  @IsUrl()
+  @IsUrl({ require_protocol: true })
   redirectUrl: string | null | undefined
 
   @ValidateIf((data: OfferSaveDTO) => data.type === OfferType.PRELOAD)
-  @IsUrl()
+  @IsUrl({ require_protocol: true })
   preloadUrl: string | null | undefined
 
   @ValidateIf((data: OfferSaveDTO) => data.type === OfferType.ACTION)

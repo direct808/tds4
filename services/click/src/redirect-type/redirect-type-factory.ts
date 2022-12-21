@@ -1,8 +1,13 @@
 import { campaign } from '@tds/contracts/grpc'
 import { tds } from '@tds/contracts/grpc/campaign'
-import StreamRedirectType = tds.campaign.StreamRedirectType
 import { HttpRedirectType } from './http-redirect-type'
 import { RedirectType } from './redirect-type'
+import { MetaRedirectType } from './meta-redirect-type'
+import Type = tds.campaign.StreamRedirectType
+import { JsRedirectType } from './js-redirect-type'
+import { FormSubmitRedirectType } from './form-submit-redirect-type'
+import { IframeRedirectType } from './iframe-redirect-type'
+import { WithoutRefererRedirectType } from './without-referer-redirect-type'
 
 export class RedirectTypeFactory {
   static create(stream: campaign.CampaignStream): RedirectType {
@@ -10,24 +15,24 @@ export class RedirectTypeFactory {
       throw new Error('redirectType not set')
     }
     switch (stream.redirectType) {
-      case StreamRedirectType.HTTP:
+      case Type.HTTP:
         return new HttpRedirectType()
-      case StreamRedirectType.META:
+      case Type.META:
+        return new MetaRedirectType()
+      case Type.CURL:
         throw new Error('Not realize')
-      case StreamRedirectType.CURL:
+      case Type.FORM_SUBMIT:
+        return new FormSubmitRedirectType()
+      case Type.META2:
         throw new Error('Not realize')
-      case StreamRedirectType.FORM_SUBMIT:
+      case Type.JS:
+        return new JsRedirectType()
+      case Type.IFRAME:
+        return new IframeRedirectType()
+      case Type.REMOTE:
         throw new Error('Not realize')
-      case StreamRedirectType.META2:
-        throw new Error('Not realize')
-      case StreamRedirectType.JS:
-        throw new Error('Not realize')
-      case StreamRedirectType.IFRAME:
-        throw new Error('Not realize')
-      case StreamRedirectType.REMOTE:
-        throw new Error('Not realize')
-      case StreamRedirectType.WITHOUT_REFERER:
-        throw new Error('Not realize')
+      case Type.WITHOUT_REFERER:
+        return new WithoutRefererRedirectType()
     }
     const at: never = stream.redirectType
     throw new Error('Unknown actionType ' + at)
