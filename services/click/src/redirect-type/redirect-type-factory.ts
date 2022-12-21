@@ -8,6 +8,7 @@ import { JsRedirectType } from './js-redirect-type'
 import { FormSubmitRedirectType } from './form-submit-redirect-type'
 import { IframeRedirectType } from './iframe-redirect-type'
 import { WithoutRefererRedirectType } from './without-referer-redirect-type'
+import { RemoteRedirectType } from './remote-redirect-type'
 
 export class RedirectTypeFactory {
   static create(stream: campaign.CampaignStream): RedirectType {
@@ -30,7 +31,7 @@ export class RedirectTypeFactory {
       case Type.IFRAME:
         return new IframeRedirectType()
       case Type.REMOTE:
-        throw new Error('Not realize')
+        return new RemoteRedirectType()
       case Type.WITHOUT_REFERER:
         return new WithoutRefererRedirectType()
     }
