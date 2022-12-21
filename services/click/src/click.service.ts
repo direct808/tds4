@@ -5,6 +5,7 @@ import { Click } from './entities'
 import { ForeignService } from './foreign.service'
 import { grpc } from '@tds/contracts'
 import { ActionTypeFactory } from './action-type'
+import { RedirectTypeFactory } from './redirect-type'
 
 @Injectable()
 export class ClickService {
@@ -50,7 +51,7 @@ export class ClickService {
       case grpc.campaign.StreamSchema.ACTION:
         return (await this.actionTypeFactory.create(stream)).handle(stream)
       case grpc.campaign.StreamSchema.DIRECT_URL:
-        throw new Error('Not implemented Schema.LANDINGS_OFFERS')
+        return RedirectTypeFactory.create(stream).handle(stream)
       case grpc.campaign.StreamSchema.LANDINGS_OFFERS:
         throw new Error('Not implemented Schema.LANDINGS_OFFERS')
       default:
