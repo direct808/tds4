@@ -1,6 +1,6 @@
 import { join, resolve } from 'path'
 import { makeGrpcService } from '@tds/common'
-import { trafficSource } from '@tds/contracts/grpc'
+import { offer, trafficSource } from '@tds/contracts/grpc'
 import { Injectable } from '@nestjs/common'
 import dotenv from 'dotenv'
 
@@ -19,5 +19,13 @@ export class ConfigService {
         protoPath: join(contractsPath, 'grpc/traffic-source.proto'),
       },
     )
+  }
+
+  getGrpcOfferService() {
+    return makeGrpcService<offer.OfferService>('OfferService', {
+      url: 'localhost:4044',
+      package: 'tds.offer',
+      protoPath: join(contractsPath, 'grpc/offer.proto'),
+    })
   }
 }

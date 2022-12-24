@@ -2,6 +2,7 @@ import { StreamOfferInputDTO } from './dto'
 import { StreamOffer } from './entities'
 import { Any, EntityManager } from 'typeorm'
 import { Injectable } from '@nestjs/common'
+import { ForeignService } from './foreign.service'
 
 type SaveManyArgs = {
   streamId: string
@@ -11,7 +12,10 @@ type SaveManyArgs = {
 
 @Injectable()
 export class StreamOfferService {
-  constructor(private readonly entityManager: EntityManager) {}
+  constructor(
+    private readonly entityManager: EntityManager,
+    private readonly foreignService: ForeignService,
+  ) {}
 
   findByStreamIds(streamIds: string[]) {
     return this.entityManager.find(StreamOffer, {
@@ -20,8 +24,6 @@ export class StreamOfferService {
   }
 
   async saveMany({ streamId, offers, manager }: Readonly<SaveManyArgs>) {
-    this.checkPercentSum(offers)
-
     const allOffers = await manager.find(StreamOffer, {
       where: {
         streamId,
@@ -38,12 +40,26 @@ export class StreamOfferService {
 
     this.#checkNotFoundId(offers, allOffers)
 
+    if (offers.length === 0) {
+      return
+    }
+
+    this.checkPercentSum(offers)
+
     const entities = offers.map((offer) => ({
       ...offer,
       streamId,
     }))
 
-    // todo: check offers exists
+    const offerIds = offers.map((of) => of.offerId)
+
+    const existsOffers = await this.foreignService.getOfferList({
+      ids: offerIds,
+    })
+
+    if (offerIds.length !== existsOffers.length) {
+      throw new Error('Offer not exists')
+    }
 
     return manager.save(StreamOffer, entities)
   }
