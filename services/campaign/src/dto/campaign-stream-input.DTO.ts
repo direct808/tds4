@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsEnum,
   IsNotEmpty,
   IsOptional,
@@ -6,8 +7,11 @@ import {
   IsUrl,
   IsUUID,
   ValidateIf,
+  ValidateNested,
 } from 'class-validator'
 import { gql } from '@tds/contracts'
+import { Type } from 'class-transformer'
+import { StreamOfferInputDTO } from './stream-offer-input.DTO'
 
 export class CampaignStreamInputDTO
   implements Record<keyof gql.CampaignStreamInput, unknown>
@@ -58,4 +62,10 @@ export class CampaignStreamInputDTO
   )
   @IsUrl({ require_protocol: true })
   redirectUrl: string | null | undefined
+
+  @IsArray()
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => StreamOfferInputDTO)
+  offers: StreamOfferInputDTO[] = []
 }

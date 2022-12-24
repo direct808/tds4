@@ -11,10 +11,12 @@ import { DatabaseModule } from '@tds/common'
 import { CampaignGroupService } from './campaign-group.service'
 import { ForeignService } from './foreign.service'
 import { ConfigService } from './config.service'
-import { CampaignResolver } from './resolvers'
+import { CampaignResolver, CampaignStreamResolver } from './resolvers'
 import { CampaignGroupLoader, CampaignStreamLoader } from './loaders'
 import { CampaignStreamService } from './campaign-stream.service'
 import { CampaignController } from './campaign.controller'
+import { StreamOfferService } from './stream-offer.service'
+import { StreamOfferLoader } from './loaders/stream-offer-loader'
 
 @Module({
   imports: [
@@ -39,9 +41,12 @@ import { CampaignController } from './campaign.controller'
     ForeignService,
     ConfigService,
     CampaignResolver,
+    CampaignStreamResolver,
     CampaignGroupLoader,
     CampaignStreamService,
     CampaignStreamLoader,
+    StreamOfferService,
+    StreamOfferLoader,
   ],
   controllers: [CampaignController],
 })

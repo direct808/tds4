@@ -54,6 +54,15 @@ type CampaignStream @key(fields: "id") {
   actionType: StreamActionType
   actionCampaignId: String
   actionContent: String
+  streamOffers: [StreamOffer!]
+}
+
+type StreamOffer {
+  id: ID!
+  offerId: String!
+  #  offer: Offer!
+  percent: Int!
+  active: Boolean!
 }
 
 input CampaignStreamInput {
@@ -65,6 +74,14 @@ input CampaignStreamInput {
   actionType: StreamActionType
   actionCampaignId: String
   actionContent: String
+  offers: [StreamOfferInput!]
+}
+
+input StreamOfferInput {
+  id: ID
+  offerId: String!
+  percent: Int!
+  active: Boolean!
 }
 
 enum CampaignStreamSchema {

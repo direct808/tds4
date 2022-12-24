@@ -1,6 +1,7 @@
-import { Column, Entity, ManyToOne } from 'typeorm'
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm'
 import { Campaign } from './campaign.entity'
 import { gql } from '@tds/contracts'
+import { StreamOffer } from './stream-offer.entity'
 
 @Entity()
 export class CampaignStream {
@@ -35,4 +36,7 @@ export class CampaignStream {
 
   @Column('text', { nullable: true })
   declare actionContent: string | null
+
+  @OneToMany(() => StreamOffer, (offer) => offer.stream)
+  declare offers: StreamOffer[] | null
 }
