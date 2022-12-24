@@ -7,27 +7,25 @@ import {
 } from '@nestjs/apollo'
 import path from 'path'
 import { CampaignService } from './campaign.service'
-import { DatabaseModule } from '@tds/common'
+import { contractsPath, DatabaseModule } from '@tds/common'
 import { CampaignGroupService } from './campaign-group.service'
 import { ForeignService } from './foreign.service'
 import { ConfigService } from './config.service'
 import { CampaignResolver, CampaignStreamResolver } from './resolvers'
-import { CampaignGroupLoader, CampaignStreamLoader } from './loaders'
+import {
+  CampaignGroupLoader,
+  CampaignStreamLoader,
+  StreamOfferLoader,
+} from './loaders'
 import { CampaignStreamService } from './campaign-stream.service'
 import { CampaignController } from './campaign.controller'
 import { StreamOfferService } from './stream-offer.service'
-import { StreamOfferLoader } from './loaders/stream-offer-loader'
 
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
-      typePaths: [
-        path.resolve(
-          __dirname,
-          '../../../../contracts/graphql/campaign.graphql',
-        ),
-      ],
+      typePaths: [path.join(contractsPath, 'graphql/campaign.graphql')],
     }),
     DatabaseModule.forRoot(
       [path.join(__dirname, './entities/*.entity.{ts,js}')],

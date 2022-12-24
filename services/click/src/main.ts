@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core'
-import dotenv from 'dotenv'
-import { resolve } from 'path'
+import { join } from 'path'
 import { MicroserviceOptions, Transport } from '@nestjs/microservices'
 import { ClickModule } from './click.module'
+import { contractsPath } from '@tds/common'
 
 async function bootstrap() {
   const app = await NestFactory.create(ClickModule)
@@ -12,16 +12,12 @@ async function bootstrap() {
     options: {
       url: 'localhost:4016',
       package: 'tds.click',
-      protoPath: resolve(__dirname, '../../../../contracts/grpc/click.proto'),
+      protoPath: join(contractsPath, 'grpc/click.proto'),
     },
   })
 
   await app.startAllMicroservices()
   await app.listen(4006)
 }
-
-dotenv.config({
-  path: resolve(__dirname + './../../../../.env'),
-})
 
 bootstrap()

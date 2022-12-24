@@ -2,8 +2,9 @@ import { NestFactory } from '@nestjs/core'
 import { AffiliateNetworkModule } from './affiliate-network.module'
 import { ValidationPipe } from '@nestjs/common'
 import dotenv from 'dotenv'
-import { resolve } from 'path'
+import { join } from 'path'
 import { MicroserviceOptions, Transport } from '@nestjs/microservices'
+import { contractsPath } from '@tds/common'
 
 async function bootstrap() {
   const app = await NestFactory.create(AffiliateNetworkModule)
@@ -13,10 +14,7 @@ async function bootstrap() {
     options: {
       url: 'localhost:4014',
       package: 'tds.affiliate_network',
-      protoPath: resolve(
-        __dirname,
-        '../../../../contracts/grpc/affiliate-network.proto',
-      ),
+      protoPath: join(contractsPath, 'grpc/affiliate-network.proto'),
     },
   })
 
@@ -26,7 +24,7 @@ async function bootstrap() {
 }
 
 dotenv.config({
-  path: resolve(__dirname + './../../../../.env'),
+  path: join(__dirname, './../../../../.env'),
 })
 
 bootstrap()

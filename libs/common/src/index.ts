@@ -1,4 +1,5 @@
 export * from './types'
+export * from './common'
 export * from './grpc-client'
 export * from './database.module'
 export * from './grpc-validation-pipe'

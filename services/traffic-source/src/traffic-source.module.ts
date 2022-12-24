@@ -5,27 +5,23 @@ import {
   ApolloFederationDriver,
   ApolloFederationDriverConfig,
 } from '@nestjs/apollo'
-import path from 'path'
+import { join } from 'path'
 import { TrafficSourceService } from './traffic-source.service'
 import { DatabaseModule } from '@tds/common/database.module'
 import { TrafficSourceController } from './traffic-source.controller'
 import { TrafficSourceResolver } from './resolvers'
 import { TrafficSourceLoader } from './loaders'
+import { contractsPath } from '@tds/common'
 
 @Module({
   imports: [
     DatabaseModule.forRoot(
-      [path.join(__dirname, './entities/*.entity.{ts,js}')],
+      [join(__dirname, './entities/*.entity.{ts,js}')],
       'traffic_source',
     ),
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
-      typePaths: [
-        path.resolve(
-          __dirname,
-          '../../../../contracts/graphql/traffic-source.graphql',
-        ),
-      ],
+      typePaths: [join(contractsPath, 'graphql/traffic-source.graphql')],
     }),
   ],
   providers: [

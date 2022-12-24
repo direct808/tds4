@@ -16,7 +16,7 @@ import { ForeignService } from './foreign.service'
       },
       gateway: {
         supergraphSdl: readFileSync(
-          path.resolve(__dirname, '../schema.graphql'),
+          path.join(__dirname, '../schema.graphql'),
         ).toString(),
       },
     }),

@@ -1,9 +1,10 @@
 import { NestFactory } from '@nestjs/core'
 import { ValidationPipe } from '@nestjs/common'
 import { TrafficSourceModule } from './traffic-source.module'
-import { resolve } from 'path'
+import { join } from 'path'
 import dotenv from 'dotenv'
 import { MicroserviceOptions, Transport } from '@nestjs/microservices'
+import { contractsPath } from '@tds/common'
 
 async function bootstrap() {
   const app = await NestFactory.create(TrafficSourceModule)
@@ -14,10 +15,7 @@ async function bootstrap() {
     options: {
       url: 'localhost:4013',
       package: 'tds.traffic_source',
-      protoPath: resolve(
-        __dirname,
-        '../../../../contracts/grpc/traffic-source.proto',
-      ),
+      protoPath: join(contractsPath, 'grpc/traffic-source.proto'),
     },
   })
 
@@ -25,6 +23,6 @@ async function bootstrap() {
   await app.listen(4003)
 }
 
-dotenv.config({ path: resolve(__dirname + './../../../../.env') })
+dotenv.config({ path: join(__dirname + './../../../../.env') })
 
 bootstrap()

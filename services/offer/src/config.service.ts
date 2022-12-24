@@ -1,12 +1,10 @@
-import { join, resolve } from 'path'
-import { makeGrpcService } from '@tds/common'
+import { join } from 'path'
+import { contractsPath, makeGrpcService } from '@tds/common'
 import { affiliateNetwork } from '@tds/contracts/grpc'
 import { Injectable } from '@nestjs/common'
 import dotenv from 'dotenv'
 
-export const contractsPath = join(__dirname, '../../../../contracts')
-
-dotenv.config({ path: resolve(__dirname + './../../../../.env') })
+dotenv.config({ path: join(__dirname + './../../../../.env') })
 
 @Injectable()
 export class ConfigService {
@@ -16,6 +14,7 @@ export class ConfigService {
       {
         url: 'localhost:4014',
         package: 'tds.affiliate_network',
+
         protoPath: join(contractsPath, 'grpc/affiliate-network.proto'),
       },
     )

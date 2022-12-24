@@ -2,7 +2,8 @@ import { NestFactory } from '@nestjs/core'
 import { OfferModule } from './offer.module'
 import { ValidationPipe } from '@nestjs/common'
 import { MicroserviceOptions, Transport } from '@nestjs/microservices'
-import { resolve } from 'path'
+import { join } from 'path'
+import { contractsPath } from '@tds/common'
 
 async function bootstrap() {
   const app = await NestFactory.create(OfferModule)
@@ -13,7 +14,7 @@ async function bootstrap() {
     options: {
       url: 'localhost:4044',
       package: 'tds.offer',
-      protoPath: resolve(__dirname, '../../../../contracts/grpc/offer.proto'),
+      protoPath: join(contractsPath, 'grpc/offer.proto'),
     },
   })
 
