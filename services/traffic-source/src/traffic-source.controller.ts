@@ -7,7 +7,9 @@ import { GetTrafficSourceListDTO } from './dto'
 
 @Controller()
 @UsePipes(GrpcValidationPipe)
-export class TrafficSourceController {
+export class TrafficSourceController
+  implements Record<keyof trafficSource.TrafficSourceService, unknown>
+{
   constructor(private readonly trafficSourceService: TrafficSourceService) {}
 
   @GrpcMethod('TrafficSourceService')

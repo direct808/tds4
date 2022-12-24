@@ -9,7 +9,9 @@ import { GetCampaignStreamListDTO } from './dto/get-campaign-stream-list.DTO'
 
 @Controller()
 @UsePipes(GrpcValidationPipe)
-export class CampaignController {
+export class CampaignController
+  implements Record<keyof campaign.CampaignService, unknown>
+{
   constructor(
     private readonly campaignService: CampaignService,
     private readonly campaignStreamService: CampaignStreamService,

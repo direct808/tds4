@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common'
-import { EntityManager } from 'typeorm'
+import { Any, EntityManager } from 'typeorm'
 import { Offer } from './entities'
 import { OfferSaveDTO } from './dto'
 import { ForeignService } from './foreign.service'
 import { OfferGroupService } from './offer-group.service'
+
+type FindArgs = {
+  ids?: string[]
+}
 
 @Injectable()
 export class OfferService {
@@ -13,8 +17,13 @@ export class OfferService {
     private readonly offerGroup: OfferGroupService,
   ) {}
 
-  async find() {
-    return this.entityManager.findAndCount(Offer)
+  async find(args: Readonly<FindArgs> = {}) {
+    const { ids } = args
+    return this.entityManager.find(Offer, {
+      where: {
+        ...(ids ? { id: Any(ids) } : {}),
+      },
+    })
   }
 
   async save(input: OfferSaveDTO) {

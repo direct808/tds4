@@ -13,6 +13,7 @@ import { ConfigService, contractsPath } from './config.service'
 import { OfferResolver } from './resolvers'
 import { OfferGroupService } from './offer-group.service'
 import { OfferGroupLoader } from './loaders'
+import { OfferController } from './offer.controller'
 
 @Module({
   imports: [
@@ -36,5 +37,6 @@ import { OfferGroupLoader } from './loaders'
     OfferResolver,
     OfferGroupLoader,
   ],
+  controllers: [OfferController],
 })
 export class OfferModule {}

@@ -7,7 +7,9 @@ import { GetAffiliateNetworkListDTO } from './dto'
 
 @Controller()
 @UsePipes(GrpcValidationPipe)
-export class AffiliateNetworkController {
+export class AffiliateNetworkController
+  implements Record<keyof affiliateNetwork.AffiliateNetworkService, unknown>
+{
   constructor(
     private readonly affiliateNetworkService: AffiliateNetworkService,
   ) {}

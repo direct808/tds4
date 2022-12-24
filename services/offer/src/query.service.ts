@@ -14,8 +14,8 @@ export class QueryService {
 
   @Query()
   async offerList(): Promise<gql.Query['offerList']> {
-    const [items, totalCount] = await this.offerService.find()
-    return { items, totalCount }
+    const items = await this.offerService.find()
+    return { items, totalCount: 0 }
   }
 
   @Mutation()

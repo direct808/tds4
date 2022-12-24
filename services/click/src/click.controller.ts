@@ -7,7 +7,9 @@ import { ClickService } from './click.service'
 
 @Controller()
 @UsePipes(GrpcValidationPipe)
-export class ClickController {
+export class ClickController
+  implements Record<keyof click.ClickService, unknown>
+{
   constructor(protected readonly clickService: ClickService) {}
 
   @GrpcMethod('ClickService')
