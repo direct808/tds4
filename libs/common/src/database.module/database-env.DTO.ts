@@ -17,9 +17,11 @@ export class DatabaseEnvDTO {
 
   @Expose()
   @IsString()
+  @IsNotEmpty()
   DB_USER!: string
 
   @Expose()
   @IsString()
+  @IsNotEmpty()
   DB_PASS!: string
 }

@@ -3,11 +3,13 @@ import { OfferModule } from './offer.module'
 import { ValidationPipe } from '@nestjs/common'
 import { MicroserviceOptions, Transport } from '@nestjs/microservices'
 import { join } from 'path'
-import { contractsPath } from '@tds/common'
+import { contractsPath, EnvDTO } from '@tds/common'
 
 async function bootstrap() {
   const app = await NestFactory.create(OfferModule)
   app.useGlobalPipes(new ValidationPipe({ transform: true }))
+  await app.init()
+  const env = app.get(EnvDTO)
 
   await app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.GRPC,
@@ -19,7 +21,7 @@ async function bootstrap() {
   })
 
   await app.startAllMicroservices()
-  await app.listen(4004)
+  await app.listen(env.SERVICE_OFFER_PORT)
 }
 
 bootstrap()

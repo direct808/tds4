@@ -1,14 +1,26 @@
-import { Controller, Get, Param, Req, Res } from '@nestjs/common'
+import {
+  Controller,
+  forwardRef,
+  Get,
+  Inject,
+  Param,
+  Req,
+  Res,
+} from '@nestjs/common'
 import { Request, Response } from 'express'
 import { ForeignService } from './foreign.service'
 import { grpc } from '@tds/contracts'
 import { JwtPayload, verify } from 'jsonwebtoken'
+import { EnvDTO } from '@tds/common'
 
 // todo move to service
 
 @Controller()
 export class ClickController {
-  constructor(private readonly foreignService: ForeignService) {}
+  constructor(
+    private readonly foreignService: ForeignService,
+    private readonly env: EnvDTO,
+  ) {}
 
   @Get('\\w{6}')
   async addClick(@Req() request: Request, @Res() res: Response) {
@@ -48,7 +60,7 @@ export class ClickController {
   async gateway(@Param('token') token: string, @Res() res: Response) {
     try {
       // todo: to env
-      const { url } = verify(token, 'privateKey') as JwtPayload
+      const { url } = verify(token, this.env.SECRET) as JwtPayload
       res.send(`<html>
 <head>
     <meta http-equiv="REFRESH" content="1; URL='${url}'">

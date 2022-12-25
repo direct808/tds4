@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 import { OfferService } from './offer.service'
-import { contractsPath, DatabaseModule } from '@tds/common'
+import { contractsPath, DatabaseModule, EnvModule } from '@tds/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import {
   ApolloFederationDriver,
@@ -17,6 +17,7 @@ import { OfferController } from './offer.controller'
 
 @Module({
   imports: [
+    EnvModule,
     DatabaseModule.forRoot(
       [path.join(__dirname, './entities/*.entity.{ts,js}')],
       'offer',

@@ -1,27 +1,28 @@
 import { NestFactory } from '@nestjs/core'
 import { CampaignModule } from './campaign.module'
 import { ValidationPipe } from '@nestjs/common'
-import dotenv from 'dotenv'
 import { join } from 'path'
 import { MicroserviceOptions, Transport } from '@nestjs/microservices'
-import { contractsPath } from '@tds/common'
+import { contractsPath, EnvDTO } from '@tds/common'
 
 async function bootstrap() {
   const app = await NestFactory.create(CampaignModule)
+  await app.init()
+  const env = await app.resolve(EnvDTO)
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }))
 
   await app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.GRPC,
     options: {
-      url: 'localhost:4015',
+      url: env.SERVICE_CAMPAIGN_GRPC_URL,
       package: 'tds.campaign',
       protoPath: join(contractsPath, 'grpc/campaign.proto'),
     },
   })
 
   await app.startAllMicroservices()
-  await app.listen(4005)
+  await app.listen(env.SERVICE_CAMPAIGN_PORT)
 }
 
 bootstrap()

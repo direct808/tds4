@@ -6,9 +6,11 @@ import path from 'path'
 import { ClickController } from './click.controller'
 import { ConfigService } from './config.service'
 import { ForeignService } from './foreign.service'
+import { EnvModule } from '@tds/common'
 
 @Module({
   imports: [
+    EnvModule,
     GraphQLModule.forRoot<ApolloGatewayDriverConfig>({
       driver: ApolloGatewayDriver,
       server: {

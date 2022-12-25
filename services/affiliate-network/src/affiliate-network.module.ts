@@ -7,13 +7,14 @@ import {
 } from '@nestjs/apollo'
 import path from 'path'
 import { AffiliateNetworkService } from './affiliate-network.service'
-import { contractsPath, DatabaseModule } from '@tds/common'
+import { contractsPath, DatabaseModule, EnvModule } from '@tds/common'
 import { AffiliateNetworkController } from './affiliate-network.controller'
 import { AffiliateNetworkLoader } from './loaders'
 import { AffiliateNetworkResolver } from './resolvers'
 
 @Module({
   imports: [
+    EnvModule,
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
       typePaths: [

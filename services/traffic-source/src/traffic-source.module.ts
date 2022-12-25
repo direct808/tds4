@@ -11,10 +11,11 @@ import { DatabaseModule } from '@tds/common/database.module'
 import { TrafficSourceController } from './traffic-source.controller'
 import { TrafficSourceResolver } from './resolvers'
 import { TrafficSourceLoader } from './loaders'
-import { contractsPath } from '@tds/common'
+import { contractsPath, EnvModule } from '@tds/common'
 
 @Module({
   imports: [
+    EnvModule,
     DatabaseModule.forRoot(
       [join(__dirname, './entities/*.entity.{ts,js}')],
       'traffic_source',

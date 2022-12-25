@@ -1,7 +1,7 @@
 import { DynamicModule, Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { DatabaseEnvDTO } from './database-env.DTO'
-import { plainToClass } from 'class-transformer'
+import { plainToInstance } from 'class-transformer'
 import { validateSync } from 'class-validator'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 
@@ -13,7 +13,7 @@ export class DatabaseModule {
       imports: [
         TypeOrmModule.forRootAsync({
           useFactory: () => {
-            const env = plainToClass(DatabaseEnvDTO, process.env, {
+            const env = plainToInstance(DatabaseEnvDTO, process.env, {
               strategy: 'excludeAll',
             })
             const errors = validateSync(env)
