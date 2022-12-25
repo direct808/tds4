@@ -3,7 +3,6 @@ import { tds } from '@tds/contracts/grpc/campaign'
 import { HttpRedirectType } from './http-redirect-type'
 import { RedirectType } from './redirect-type'
 import { MetaRedirectType } from './meta-redirect-type'
-import Type = tds.campaign.StreamRedirectType
 import { JsRedirectType } from './js-redirect-type'
 import { FormSubmitRedirectType } from './form-submit-redirect-type'
 import { IframeRedirectType } from './iframe-redirect-type'
@@ -11,31 +10,37 @@ import { WithoutRefererRedirectType } from './without-referer-redirect-type'
 import { RemoteRedirectType } from './remote-redirect-type'
 import { CurlRedirectType } from './curl-redirect-type'
 import { Meta2RedirectType } from './meta2-redirect-type'
+import { ModuleRef } from '@nestjs/core'
+import { Injectable } from '@nestjs/common'
+import Type = tds.campaign.StreamRedirectType
 
+@Injectable()
 export class RedirectTypeFactory {
-  static create(stream: campaign.CampaignStream): RedirectType {
+  constructor(private readonly moduleRef: ModuleRef) {}
+
+  create(stream: campaign.CampaignStream): RedirectType {
     if (typeof stream.redirectType === 'undefined') {
       throw new Error('redirectType not set')
     }
     switch (stream.redirectType) {
       case Type.HTTP:
-        return new HttpRedirectType()
+        return this.moduleRef.get(HttpRedirectType)
       case Type.META:
-        return new MetaRedirectType()
+        return this.moduleRef.get(MetaRedirectType)
       case Type.CURL:
-        return new CurlRedirectType()
+        return this.moduleRef.get(CurlRedirectType)
       case Type.FORM_SUBMIT:
-        return new FormSubmitRedirectType()
+        return this.moduleRef.get(FormSubmitRedirectType)
       case Type.META2:
-        return new Meta2RedirectType()
+        return this.moduleRef.get(Meta2RedirectType)
       case Type.JS:
-        return new JsRedirectType()
+        return this.moduleRef.get(JsRedirectType)
       case Type.IFRAME:
-        return new IframeRedirectType()
+        return this.moduleRef.get(IframeRedirectType)
       case Type.REMOTE:
-        return new RemoteRedirectType()
+        return this.moduleRef.get(RemoteRedirectType)
       case Type.WITHOUT_REFERER:
-        return new WithoutRefererRedirectType()
+        return this.moduleRef.get(WithoutRefererRedirectType)
     }
     const at: never = stream.redirectType
     throw new Error('Unknown actionType ' + at)

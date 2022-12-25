@@ -1,7 +1,8 @@
-import { Module } from '@nestjs/common'
+import { Global, Module } from '@nestjs/common'
 import { EnvService } from '@tds/common/env/env.service'
 import { EnvDTO } from '@tds/common/env/env.DTO'
 
+@Global()
 @Module({
   providers: [
     EnvService,

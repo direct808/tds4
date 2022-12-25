@@ -59,7 +59,6 @@ export class ClickController {
   @Get('gateway/:token')
   async gateway(@Param('token') token: string, @Res() res: Response) {
     try {
-      // todo: to env
       const { url } = verify(token, this.env.SECRET) as JwtPayload
       res.send(`<html>
 <head>

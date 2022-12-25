@@ -2,7 +2,9 @@ import { RedirectType } from './redirect-type'
 import { campaign, click } from '@tds/contracts/grpc'
 import axios from 'axios'
 import { isURL } from 'class-validator'
+import { Injectable } from '@nestjs/common'
 
+@Injectable()
 export class RemoteRedirectType implements RedirectType {
   async handle(
     stream: campaign.CampaignStream,

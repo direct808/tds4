@@ -13,6 +13,7 @@ export class ClickService {
     private readonly entityManager: EntityManager,
     private readonly foreignService: ForeignService,
     private readonly actionTypeFactory: ActionTypeFactory,
+    private readonly redirectTypeFactory: RedirectTypeFactory,
   ) {}
 
   async add(args: AddClickDTO): Promise<grpc.click.AddClickResponse> {
@@ -51,7 +52,7 @@ export class ClickService {
       case grpc.campaign.StreamSchema.ACTION:
         return (await this.actionTypeFactory.create(stream)).handle(stream)
       case grpc.campaign.StreamSchema.DIRECT_URL:
-        return RedirectTypeFactory.create(stream).handle(stream)
+        return this.redirectTypeFactory.create(stream).handle(stream)
       case grpc.campaign.StreamSchema.LANDINGS_OFFERS:
         throw new Error('Not implemented Schema.LANDINGS_OFFERS')
       default:

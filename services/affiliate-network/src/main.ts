@@ -8,6 +8,7 @@ import { contractsPath, EnvDTO } from '@tds/common'
 
 async function bootstrap() {
   const app = await NestFactory.create(AffiliateNetworkModule)
+  app.useGlobalPipes(new ValidationPipe({ transform: true }))
   await app.init()
   const env = await app.resolve(EnvDTO)
 
@@ -20,7 +21,6 @@ async function bootstrap() {
     },
   })
 
-  app.useGlobalPipes(new ValidationPipe({ transform: true }))
   await app.startAllMicroservices()
   await app.listen(env.SERVICE_AFFILIATE_NETWORK_PORT)
 }

@@ -7,10 +7,9 @@ import { contractsPath, EnvDTO } from '@tds/common'
 
 async function bootstrap() {
   const app = await NestFactory.create(CampaignModule)
+  app.useGlobalPipes(new ValidationPipe({ transform: true }))
   await app.init()
   const env = await app.resolve(EnvDTO)
-
-  app.useGlobalPipes(new ValidationPipe({ transform: true }))
 
   await app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.GRPC,

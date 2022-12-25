@@ -1,13 +1,17 @@
 import { RedirectType } from './redirect-type'
 import { campaign, click } from '@tds/contracts/grpc'
 import { sign } from 'jsonwebtoken'
+import { EnvDTO } from '@tds/common'
+import { Injectable } from '@nestjs/common'
 
+@Injectable()
 export class Meta2RedirectType implements RedirectType {
+  constructor(private readonly env: EnvDTO) {}
+
   async handle(
     stream: campaign.CampaignStream,
   ): Promise<click.AddClickResponse> {
-    // todo: to env
-    const token = sign({ url: stream.redirectUrl }, 'privateKey', {
+    const token = sign({ url: stream.redirectUrl }, this.env.SECRET, {
       noTimestamp: true,
     })
 
