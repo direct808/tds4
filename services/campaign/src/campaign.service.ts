@@ -12,6 +12,11 @@ type FindArgs = {
   codes?: string[]
 }
 
+type FullArgs = {
+  id?: string
+  code?: string
+}
+
 @Injectable()
 export class CampaignService {
   constructor(
@@ -21,21 +26,20 @@ export class CampaignService {
     private readonly campaignStreamService: CampaignStreamService,
   ) {}
 
+  async full(args: Readonly<FullArgs>) {
+    const { id, code } = args
+    return this.entityManager.findOne(Campaign, {
+      where: { id, code },
+      relations: ['streams', 'streams.streamOffers'],
+    })
+  }
+
   async find(args: Readonly<FindArgs>) {
     const { ids, codes } = args
     return this.entityManager.find(Campaign, {
       where: {
         ...(ids ? { id: Any(ids) } : {}),
         ...(codes ? { code: Any(codes) } : {}),
-      },
-    })
-  }
-
-  async count(args: FindArgs) {
-    const { ids } = args
-    return this.entityManager.findAndCount(Campaign, {
-      where: {
-        ...(ids ? { id: Any(ids) } : {}),
       },
     })
   }

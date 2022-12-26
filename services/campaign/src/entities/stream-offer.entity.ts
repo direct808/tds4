@@ -16,7 +16,7 @@ export class StreamOffer {
   @Column('boolean')
   declare active: boolean
 
-  @ManyToOne(() => CampaignStream, (stream) => stream.offers, {
+  @ManyToOne(() => CampaignStream, (stream) => stream.streamOffers, {
     nullable: false,
     onDelete: 'CASCADE',
   })

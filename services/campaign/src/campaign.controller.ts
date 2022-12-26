@@ -3,54 +3,52 @@ import { Controller, UsePipes } from '@nestjs/common'
 import { campaign } from '@tds/contracts/grpc'
 import { convertEnum, GrpcValidationPipe } from '@tds/common'
 import { CampaignService } from './campaign.service'
-import { GetCampaignListDTO, GetCampaignStreamListDTO } from './dto'
-import { CampaignStreamService } from './campaign-stream.service'
+import { GetCampaignFullDTO } from './dto'
 import { gql } from '@tds/contracts'
+import { CampaignStream } from './entities'
 
 @Controller()
 @UsePipes(GrpcValidationPipe)
 export class CampaignController
   implements Record<keyof campaign.CampaignService, unknown>
 {
-  constructor(
-    private readonly campaignService: CampaignService,
-    private readonly campaignStreamService: CampaignStreamService,
-  ) {}
+  constructor(private readonly campaignService: CampaignService) {}
 
   @GrpcMethod('CampaignService')
-  async getCampaignList(
-    args: GetCampaignListDTO,
-  ): Promise<campaign.GetCampaignListResponse> {
-    const result = await this.campaignService.find(args)
-    return { result }
-  }
+  async getCampaignFull(
+    args: GetCampaignFullDTO,
+  ): Promise<campaign.GetCampaignFullResponse> {
+    const result = await this.campaignService.full(args)
 
-  @GrpcMethod('CampaignService')
-  async getCampaignStreamList(
-    args: GetCampaignStreamListDTO,
-  ): Promise<campaign.GetCampaignStreamListResponse> {
-    const result = await this.campaignStreamService.findByCampaignIds([
-      args.campaignId,
-    ])
-    return {
-      result: result.map((item) => ({
-        ...item,
-        schema: convertEnum(
-          gql.CampaignStreamSchema,
-          campaign.StreamSchema,
-          item.schema,
-        ),
-        redirectType: convertEnum(
-          gql.StreamRedirectType,
-          campaign.StreamRedirectType,
-          item.redirectType,
-        ),
-        actionType: convertEnum(
-          gql.StreamActionType,
-          campaign.StreamActionType,
-          item.actionType,
-        ),
-      })),
+    if (!result) {
+      return {}
     }
+
+    const res = {
+      campaign: {
+        ...result,
+        streams: result.streams.map((item: CampaignStream) => {
+          return {
+            ...item,
+            schema: convertEnum(
+              gql.CampaignStreamSchema,
+              campaign.StreamSchema,
+              item.schema,
+            ),
+            actionType: convertEnum(
+              gql.StreamActionType,
+              campaign.StreamActionType,
+              item.actionType,
+            ),
+            redirectType: convertEnum(
+              gql.StreamRedirectType,
+              campaign.StreamRedirectType,
+              item.redirectType,
+            ),
+          }
+        }),
+      },
+    }
+    return res
   }
 }

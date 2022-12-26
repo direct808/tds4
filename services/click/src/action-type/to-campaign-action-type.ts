@@ -27,6 +27,7 @@ export class ToCampaignActionType implements ActionType {
     stream: campaign.CampaignStream,
   ): Promise<grpc.click.AddClickResponse> {
     if (this.redirectCount >= MAX_REDIRECTS) {
+      // todo вывести это в браузер
       throw new Error('To many redirects')
     }
     const campaign = await this.getCampaignById(stream.actionCampaignId!)
@@ -37,10 +38,8 @@ export class ToCampaignActionType implements ActionType {
   }
 
   private async getCampaignById(id: string) {
-    const { result } = await this.foreignService.getCampaignList({
-      ids: [id],
-    })
-    const [campaign] = result!
+    const { campaign } = await this.foreignService.getCampaignFull({ id })
+
     if (!campaign) {
       throw new NotFoundException('No campaign found')
     }

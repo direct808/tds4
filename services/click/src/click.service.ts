@@ -37,10 +37,10 @@ export class ClickService {
   async addByCampaign(
     campaign: grpc.campaign.Campaign,
   ): Promise<grpc.click.AddClickResponse> {
-    const streams = await this.foreignService.getCampaignStreamList({
-      campaignId: campaign.id,
-    })
-    const stream = this.#getSelectedStream(streams)
+    if (!campaign.streams || !campaign.streams.length) {
+      throw new Error('No streams')
+    }
+    const stream = this.#getSelectedStream(campaign.streams)
 
     if (stream.schema === undefined || stream.schema === null) {
       throw new Error('Stream not found')
@@ -68,10 +68,8 @@ export class ClickService {
   }
 
   async #getCampaignByCode(code: string) {
-    const { result } = await this.foreignService.getCampaignList({
-      codes: [code],
-    })
-    const [campaign] = result!
+    const { campaign } = await this.foreignService.getCampaignFull({ code })
+
     if (!campaign) {
       throw new NotFoundException('No campaign found')
     }

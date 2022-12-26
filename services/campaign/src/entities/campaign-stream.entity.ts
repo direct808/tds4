@@ -38,5 +38,5 @@ export class CampaignStream {
   declare actionContent: string | null
 
   @OneToMany(() => StreamOffer, (offer) => offer.stream)
-  declare offers: StreamOffer[] | null
+  declare streamOffers: StreamOffer[] | null
 }

@@ -10,19 +10,9 @@ export class ForeignService {
   constructor(private readonly configService: ConfigService) {
     this.campaignService = this.configService.getGrpcCampaignService()
   }
-
-  getCampaignList(
-    args: campaign.GetCampaignListRequest,
-  ): Promise<campaign.GetCampaignListResponse> {
-    return firstValueFrom(this.campaignService.getCampaignList(args))
-  }
-
-  async getCampaignStreamList(
-    args: campaign.GetCampaignStreamListRequest,
-  ): Promise<campaign.CampaignStream[]> {
-    const { result } = await firstValueFrom(
-      this.campaignService.getCampaignStreamList(args),
-    )
-    return result ?? []
+  getCampaignFull(
+    args: campaign.GetCampaignFullRequest,
+  ): Promise<campaign.GetCampaignFullResponse> {
+    return firstValueFrom(this.campaignService.getCampaignFull(args))
   }
 }
