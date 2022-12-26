@@ -37,7 +37,7 @@ export class ClickController {
 
     // return res.send(ret)
 
-    if (typeof result.type === 'undefined') {
+    if (result.type === undefined || result.type === null) {
       throw new Error('Response type undefined')
     }
 

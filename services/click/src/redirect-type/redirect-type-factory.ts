@@ -19,7 +19,7 @@ export class RedirectTypeFactory {
   constructor(private readonly moduleRef: ModuleRef) {}
 
   create(stream: campaign.CampaignStream): RedirectType {
-    if (typeof stream.redirectType === 'undefined') {
+    if (stream.redirectType === undefined || stream.redirectType === null) {
       throw new Error('redirectType not set')
     }
     switch (stream.redirectType) {

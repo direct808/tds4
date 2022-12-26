@@ -1,11 +1,11 @@
 import { GrpcMethod } from '@nestjs/microservices'
 import { Controller, UsePipes } from '@nestjs/common'
 import { campaign } from '@tds/contracts/grpc'
-import { GrpcValidationPipe } from '@tds/common'
+import { convertEnum, GrpcValidationPipe } from '@tds/common'
 import { CampaignService } from './campaign.service'
-import { GetCampaignListDTO } from './dto/get-campaign-list.DTO'
+import { GetCampaignListDTO, GetCampaignStreamListDTO } from './dto'
 import { CampaignStreamService } from './campaign-stream.service'
-import { GetCampaignStreamListDTO } from './dto/get-campaign-stream-list.DTO'
+import { gql } from '@tds/contracts'
 
 @Controller()
 @UsePipes(GrpcValidationPipe)
@@ -28,10 +28,29 @@ export class CampaignController
   @GrpcMethod('CampaignService')
   async getCampaignStreamList(
     args: GetCampaignStreamListDTO,
-  ): Promise<campaign.GetCampaignListResponse> {
+  ): Promise<campaign.GetCampaignStreamListResponse> {
     const result = await this.campaignStreamService.findByCampaignIds([
       args.campaignId,
     ])
-    return { result }
+    return {
+      result: result.map((item) => ({
+        ...item,
+        schema: convertEnum(
+          gql.CampaignStreamSchema,
+          campaign.StreamSchema,
+          item.schema,
+        ),
+        redirectType: convertEnum(
+          gql.StreamRedirectType,
+          campaign.StreamRedirectType,
+          item.redirectType,
+        ),
+        actionType: convertEnum(
+          gql.StreamActionType,
+          campaign.StreamActionType,
+          item.actionType,
+        ),
+      })),
+    }
   }
 }

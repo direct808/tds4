@@ -42,7 +42,7 @@ export class ClickService {
     })
     const stream = this.#getSelectedStream(streams)
 
-    if (stream.schema === undefined) {
+    if (stream.schema === undefined || stream.schema === null) {
       throw new Error('Stream not found')
     }
 

@@ -16,7 +16,7 @@ export class ActionTypeFactory {
   ) {}
 
   create(stream: campaign.CampaignStream): Promise<ActionType> {
-    if (typeof stream.actionType === 'undefined') {
+    if (stream.actionType === undefined || stream.actionType === null) {
       throw new Error('actionType not set')
     }
     switch (stream.actionType) {
