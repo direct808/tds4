@@ -1,6 +1,7 @@
-import { ActionType, ActionTypeData } from './action-type'
+import { ActionType, ActionTypeData } from '../action-type'
 import { grpc } from '@tds/contracts'
-import { ForeignService } from '../foreign.service'
+import { ForeignService } from '../../foreign.service'
+import { ClickService } from '../../click.service'
 import {
   forwardRef,
   Inject,
@@ -8,7 +9,6 @@ import {
   NotFoundException,
   Scope,
 } from '@nestjs/common'
-import { ClickService } from '../click.service'
 
 const MAX_REDIRECTS = 1
 

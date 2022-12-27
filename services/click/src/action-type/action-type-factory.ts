@@ -1,14 +1,15 @@
 import { ActionType } from './action-type'
-import { Show404ActionType } from './show-404-action-type'
-import { ShowHtmlActionType } from './show-html-action-type'
-import { ShowTextActionType } from './show-text-action-type'
-import { NothingActionType } from './nothing-action-type'
-import { ToCampaignActionType } from './to-campaign-action-type'
 import { Inject, Injectable } from '@nestjs/common'
 import { ContextIdFactory, ModuleRef, REQUEST } from '@nestjs/core'
-import { grpc } from '@tds/contracts'
 import { tds } from '@tds/contracts/grpc/campaign'
 import Type = tds.global.ActionType
+import {
+  NothingActionType,
+  Show404ActionType,
+  ShowHtmlActionType,
+  ShowTextActionType,
+  ToCampaignActionType,
+} from './type'
 
 @Injectable()
 export class ActionTypeFactory {
