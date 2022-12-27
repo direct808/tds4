@@ -1,5 +1,5 @@
-import { RedirectType } from './redirect-type'
-import { campaign, click } from '@tds/contracts/grpc'
+import { RedirectType } from '../redirect-type'
+import { click } from '@tds/contracts/grpc'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

@@ -1,16 +1,18 @@
-import { HttpRedirectType } from './http-redirect-type'
-import { RedirectType } from './redirect-type'
-import { MetaRedirectType } from './meta-redirect-type'
-import { JsRedirectType } from './js-redirect-type'
-import { FormSubmitRedirectType } from './form-submit-redirect-type'
-import { IframeRedirectType } from './iframe-redirect-type'
-import { WithoutRefererRedirectType } from './without-referer-redirect-type'
-import { RemoteRedirectType } from './remote-redirect-type'
-import { CurlRedirectType } from './curl-redirect-type'
-import { Meta2RedirectType } from './meta2-redirect-type'
 import { ModuleRef } from '@nestjs/core'
 import { Injectable } from '@nestjs/common'
 import { tds } from '@tds/contracts/grpc/campaign'
+import { RedirectType } from './redirect-type'
+import {
+  CurlRedirectType,
+  FormSubmitRedirectType,
+  HttpRedirectType,
+  IframeRedirectType,
+  JsRedirectType,
+  Meta2RedirectType,
+  MetaRedirectType,
+  RemoteRedirectType,
+  WithoutRefererRedirectType,
+} from './type'
 import Type = tds.global.RedirectType
 
 @Injectable()

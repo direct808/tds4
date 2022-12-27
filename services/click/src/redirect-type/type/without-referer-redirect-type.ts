@@ -1,4 +1,4 @@
-import { RedirectType } from './redirect-type'
+import { RedirectType } from '../redirect-type'
 import { click } from '@tds/contracts/grpc'
 import { Injectable } from '@nestjs/common'
 

@@ -1,8 +1,8 @@
-import { RedirectType } from './redirect-type'
 import { click } from '@tds/contracts/grpc'
 import axios from 'axios'
 import { URL } from 'url'
 import { Injectable } from '@nestjs/common'
+import { RedirectType } from '../redirect-type'
 
 @Injectable()
 export class CurlRedirectType implements RedirectType {
