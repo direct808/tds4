@@ -1,31 +1,10 @@
 import { Column, Entity, ManyToOne } from 'typeorm'
 import { OfferGroup } from './offer-group.entity'
-
-export enum OfferType {
-  LOCAL = 'LOCAL',
-  REDIRECT = 'REDIRECT',
-  PRELOAD = 'PRELOAD',
-  ACTION = 'ACTION',
-}
-
-export enum OfferRedirectType {
-  HTTP = 'HTTP',
-  META = 'META',
-  JS = 'JS',
-  WITHOUT_REFERER = 'WITHOUT_REFERER',
-  CURL = 'CURL',
-  META2 = 'META2',
-  FORM_SUBMIT = 'FORM_SUBMIT',
-  IFRAME = 'IFRAME',
-  REMOTE = 'REMOTE',
-}
-export enum OfferActionType {
-  TO_CAMPAIGN = 'TO_CAMPAIGN',
-  SHOW404 = 'SHOW404',
-  SHOW_TEXT = 'SHOW_TEXT',
-  SHOW_HTML = 'SHOW_HTML',
-  NOTHING = 'NOTHING',
-}
+import {
+  OfferActionType,
+  OfferRedirectType,
+  OfferType,
+} from '@tds/contracts/gql'
 
 @Entity()
 export class Offer {

@@ -7,8 +7,12 @@ import {
   IsUUID,
   ValidateIf,
 } from 'class-validator'
-import { OfferActionType, OfferRedirectType, OfferType } from '../entities'
 import { gql } from '@tds/contracts'
+import {
+  OfferActionType,
+  OfferRedirectType,
+  OfferType,
+} from '@tds/contracts/gql'
 
 export class OfferSaveDTO implements Record<keyof gql.OfferSaveInput, unknown> {
   @IsUUID('4')

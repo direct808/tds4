@@ -4,8 +4,12 @@ import { offer } from '@tds/contracts/grpc'
 import { convertEnum, GrpcValidationPipe } from '@tds/common'
 import { OfferService } from './offer.service'
 import { GetOfferListDTO } from './dto'
-import { OfferActionType, OfferRedirectType, OfferType } from './entities'
 import { grpc } from '@tds/contracts'
+import {
+  OfferActionType,
+  OfferRedirectType,
+  OfferType,
+} from '@tds/contracts/gql'
 
 @Controller()
 @UsePipes(GrpcValidationPipe)
