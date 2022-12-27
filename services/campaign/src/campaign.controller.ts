@@ -1,6 +1,6 @@
 import { GrpcMethod } from '@nestjs/microservices'
 import { Controller, UsePipes } from '@nestjs/common'
-import { campaign } from '@tds/contracts/grpc'
+import { grpc } from '@tds/contracts'
 import { convertEnum, GrpcValidationPipe } from '@tds/common'
 import { CampaignService } from './campaign.service'
 import { GetCampaignFullDTO } from './dto'
@@ -10,14 +10,14 @@ import { CampaignStream } from './entities'
 @Controller()
 @UsePipes(GrpcValidationPipe)
 export class CampaignController
-  implements Record<keyof campaign.CampaignService, unknown>
+  implements Record<keyof grpc.campaign.CampaignService, unknown>
 {
   constructor(private readonly campaignService: CampaignService) {}
 
   @GrpcMethod('CampaignService')
   async getCampaignFull(
     args: GetCampaignFullDTO,
-  ): Promise<campaign.GetCampaignFullResponse> {
+  ): Promise<grpc.campaign.GetCampaignFullResponse> {
     const result = await this.campaignService.full(args)
 
     if (!result) {
@@ -32,17 +32,17 @@ export class CampaignController
             ...item,
             schema: convertEnum(
               gql.CampaignStreamSchema,
-              campaign.StreamSchema,
+              grpc.campaign.StreamSchema,
               item.schema,
             ),
             actionType: convertEnum(
               gql.StreamActionType,
-              campaign.StreamActionType,
+              grpc.global.ActionType,
               item.actionType,
             ),
             redirectType: convertEnum(
               gql.StreamRedirectType,
-              campaign.StreamRedirectType,
+              grpc.global.RedirectType,
               item.redirectType,
             ),
           }

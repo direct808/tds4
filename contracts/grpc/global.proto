@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package tds.global;
+
+enum RedirectType {
+  CURL = 0;
+  FORM_SUBMIT = 1;
+  HTTP = 2;
+  IFRAME = 3;
+  JS = 4;
+  META = 5;
+  META2 = 6;
+  REMOTE = 7;
+  WITHOUT_REFERER = 8;
+}
+
+enum ActionType {
+  NOTHING = 0;
+  SHOW404 = 1;
+  SHOW_HTML = 2;
+  SHOW_TEXT = 3;
+  TO_CAMPAIGN = 4;
+}

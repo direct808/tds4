@@ -6,6 +6,9 @@ import { ForeignService } from './foreign.service'
 import { grpc } from '@tds/contracts'
 import { ActionTypeFactory } from './action-type'
 import { RedirectTypeFactory } from './redirect-type'
+import { campaign, click } from '@tds/contracts/grpc'
+import { tds } from '@tds/contracts/grpc/click'
+import Type = tds.click.AddClickResponse.Type
 
 @Injectable()
 export class ClickService {
@@ -54,7 +57,7 @@ export class ClickService {
       case grpc.campaign.StreamSchema.DIRECT_URL:
         return this.redirectTypeFactory.create(stream).handle(stream)
       case grpc.campaign.StreamSchema.LANDINGS_OFFERS:
-        throw new Error('Not implemented Schema.LANDINGS_OFFERS')
+        return this.#handleLandingsOffers(stream)
       default:
         const s: never = stream.schema
         throw new Error('Unknown stream schema ' + s)
@@ -79,9 +82,29 @@ export class ClickService {
   #getSelectedStream(
     streams: grpc.campaign.CampaignStream[],
   ): grpc.campaign.CampaignStream {
-    if (streams.length == 0) {
+    if (streams.length === 0) {
       throw new Error('No streams')
     }
     return streams[0]
+  }
+
+  async #handleLandingsOffers(
+    stream: campaign.CampaignStream,
+  ): Promise<click.AddClickResponse> {
+    if (!stream.streamOffers || !stream.streamOffers.length) {
+      throw new Error('No streamOffers')
+    }
+    const [streamOffer] = stream.streamOffers
+    console.log(streamOffer)
+
+    const { offers } = await this.foreignService.getOfferList({
+      ids: [streamOffer.offerId!],
+    })
+    console.log(offers)
+
+    return {
+      type: Type.CONTENT,
+      content: 'handleLandingsOffers',
+    }
   }
 }

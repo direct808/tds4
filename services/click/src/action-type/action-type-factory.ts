@@ -1,4 +1,3 @@
-import { campaign } from '@tds/contracts/grpc'
 import { ActionType } from './action-type'
 import { Show404ActionType } from './show-404-action-type'
 import { ShowHtmlActionType } from './show-html-action-type'
@@ -7,6 +6,9 @@ import { NothingActionType } from './nothing-action-type'
 import { ToCampaignActionType } from './to-campaign-action-type'
 import { Inject, Injectable } from '@nestjs/common'
 import { ContextIdFactory, ModuleRef, REQUEST } from '@nestjs/core'
+import { grpc } from '@tds/contracts'
+import { tds } from '@tds/contracts/grpc/campaign'
+import Type = tds.global.ActionType
 
 @Injectable()
 export class ActionTypeFactory {
@@ -15,20 +17,20 @@ export class ActionTypeFactory {
     private readonly moduleRef: ModuleRef,
   ) {}
 
-  create(stream: campaign.CampaignStream): Promise<ActionType> {
+  create(stream: grpc.campaign.CampaignStream): Promise<ActionType> {
     if (stream.actionType === undefined || stream.actionType === null) {
       throw new Error('actionType not set')
     }
     switch (stream.actionType) {
-      case campaign.StreamActionType.SHOW404:
+      case Type.SHOW404:
         return this.moduleRef.get(Show404ActionType)
-      case campaign.StreamActionType.SHOW_HTML:
+      case Type.SHOW_HTML:
         return this.moduleRef.get(ShowHtmlActionType)
-      case campaign.StreamActionType.SHOW_TEXT:
+      case Type.SHOW_TEXT:
         return this.moduleRef.get(ShowTextActionType)
-      case campaign.StreamActionType.NOTHING:
+      case Type.NOTHING:
         return this.moduleRef.get(NothingActionType)
-      case campaign.StreamActionType.TO_CAMPAIGN:
+      case Type.TO_CAMPAIGN:
         const contextId = ContextIdFactory.getByRequest(this.request)
         return this.moduleRef.resolve(ToCampaignActionType, contextId)
     }

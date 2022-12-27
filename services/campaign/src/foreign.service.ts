@@ -23,7 +23,9 @@ export class ForeignService {
   }
 
   async getOfferList(args: offer.GetOfferListRequest): Promise<offer.Offer[]> {
-    const result = await firstValueFrom(this.offerService.getOfferList(args))
-    return result.result!
+    const { offers } = await firstValueFrom(
+      this.offerService.getOfferList(args),
+    )
+    return offers!
   }
 }

@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package tds.campaign;
 
+import "global.proto";
+
 service CampaignService {
   rpc GetCampaignFull(GetCampaignFullRequest) returns (GetCampaignFullResponse);
 }
@@ -27,9 +29,9 @@ message CampaignStream {
   string id = 1;
   string name = 2;
   StreamSchema schema = 3;
-  StreamRedirectType redirectType = 4;
+  RedirectType redirectType = 4;
   string redirectUrl = 5;
-  StreamActionType actionType = 6;
+  ActionType actionType = 6;
   string actionCampaignId = 7;
   string actionContent = 8;
   repeated StreamOffer streamOffers = 9;
@@ -46,24 +48,4 @@ enum StreamSchema {
   ACTION = 0;
   DIRECT_URL = 1;
   LANDINGS_OFFERS = 3;
-}
-
-enum StreamRedirectType {
-  CURL = 0;
-  FORM_SUBMIT = 1;
-  HTTP = 2;
-  IFRAME = 3;
-  JS = 4;
-  META = 5;
-  META2 = 6;
-  REMOTE = 7;
-  WITHOUT_REFERER = 8;
-}
-
-enum StreamActionType {
-  NOTHING = 0;
-  SHOW404 = 1;
-  SHOW_HTML = 2;
-  SHOW_TEXT = 3;
-  TO_CAMPAIGN = 4;
 }

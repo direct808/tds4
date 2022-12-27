@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package tds.offer;
 
+import "global.proto";
+
 service OfferService {
   rpc GetOfferList(GetOfferListRequest) returns (GetOfferListResponse);
 }
@@ -11,10 +13,25 @@ message GetOfferListRequest {
 }
 
 message GetOfferListResponse {
-  repeated Offer result = 1;
+  repeated Offer offers = 1;
 }
 
 message Offer {
   string id = 1;
   string name = 2;
+  OfferType type = 3;
+  RedirectType redirectType = 4;
+  string redirectUrl = 5;
+  string preloadUrl = 6;
+  ActionType  actionType = 7;
+  string actionCampaignId = 8;
+  string actionContent = 9;
+  string affiliate_network_id = 10;
+}
+
+enum OfferType {
+  LOCAL = 0;
+  REDIRECT = 1;
+  PRELOAD = 2;
+  ACTION = 3;
 }

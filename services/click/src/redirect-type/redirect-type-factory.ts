@@ -1,5 +1,4 @@
 import { campaign } from '@tds/contracts/grpc'
-import { tds } from '@tds/contracts/grpc/campaign'
 import { HttpRedirectType } from './http-redirect-type'
 import { RedirectType } from './redirect-type'
 import { MetaRedirectType } from './meta-redirect-type'
@@ -12,7 +11,8 @@ import { CurlRedirectType } from './curl-redirect-type'
 import { Meta2RedirectType } from './meta2-redirect-type'
 import { ModuleRef } from '@nestjs/core'
 import { Injectable } from '@nestjs/common'
-import Type = tds.campaign.StreamRedirectType
+import { tds } from '@tds/contracts/grpc/campaign'
+import Type = tds.global.RedirectType
 
 @Injectable()
 export class RedirectTypeFactory {
