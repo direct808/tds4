@@ -1,11 +1,11 @@
-import { ActionType } from './action-type'
-import { campaign, click } from '@tds/contracts/grpc'
+import { ActionType, ActionTypeData } from './action-type'
+import { click } from '@tds/contracts/grpc'
 
 export class ShowHtmlActionType implements ActionType {
-  async handle(stream: campaign.CampaignStream) {
+  async handle(data: ActionTypeData) {
     return {
       type: click.AddClickResponse.Type.CONTENT,
-      content: stream.actionContent,
+      content: data.actionContent,
     }
   }
 }

@@ -1,12 +1,10 @@
 import { RedirectType } from './redirect-type'
-import { campaign, click } from '@tds/contracts/grpc'
+import { click } from '@tds/contracts/grpc'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class IframeRedirectType implements RedirectType {
-  async handle(
-    stream: campaign.CampaignStream,
-  ): Promise<click.AddClickResponse> {
+  async handle(url: string): Promise<click.AddClickResponse> {
     return {
       type: click.AddClickResponse.Type.CONTENT,
       content: `<!doctype html>
@@ -30,7 +28,7 @@ export class IframeRedirectType implements RedirectType {
     }
 </style>
 <body>
-<iframe src="${stream.redirectUrl}"></iframe>
+<iframe src="${url}"></iframe>
 </body>
 </html>`,
     }

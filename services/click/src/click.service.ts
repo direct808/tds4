@@ -7,8 +7,7 @@ import { grpc } from '@tds/contracts'
 import { ActionTypeFactory } from './action-type'
 import { RedirectTypeFactory } from './redirect-type'
 import { campaign, click } from '@tds/contracts/grpc'
-import { tds } from '@tds/contracts/grpc/click'
-import Type = tds.click.AddClickResponse.Type
+import Type = grpc.click.AddClickResponse.Type
 
 @Injectable()
 export class ClickService {
@@ -53,9 +52,13 @@ export class ClickService {
 
     switch (stream.schema) {
       case grpc.campaign.StreamSchema.ACTION:
-        return (await this.actionTypeFactory.create(stream)).handle(stream)
+        return (await this.actionTypeFactory.create(stream.actionType!)).handle(
+          stream,
+        )
       case grpc.campaign.StreamSchema.DIRECT_URL:
-        return this.redirectTypeFactory.create(stream).handle(stream)
+        return this.redirectTypeFactory
+          .create(stream.redirectType!)
+          .handle(stream.redirectUrl!)
       case grpc.campaign.StreamSchema.LANDINGS_OFFERS:
         return this.#handleLandingsOffers(stream)
       default:
@@ -100,7 +103,29 @@ export class ClickService {
     const { offers } = await this.foreignService.getOfferList({
       ids: [streamOffer.offerId!],
     })
-    console.log(offers)
+    const [offer] = offers!
+
+    if (offer.type === undefined || offer.type === null) {
+      throw new Error('offer.type not set')
+    }
+
+    switch (offer.type) {
+      case grpc.offer.OfferType.ACTION:
+        const action = await this.actionTypeFactory.create(offer.actionType!)
+        return action.handle(offer)
+      case grpc.offer.OfferType.REDIRECT:
+        return this.redirectTypeFactory
+          .create(offer.redirectType!)
+          .handle(offer.redirectUrl!)
+      case grpc.offer.OfferType.PRELOAD:
+        return { type: Type.CONTENT, content: 'PRELOAD not realized' }
+      case grpc.offer.OfferType.LOCAL:
+        return { type: Type.CONTENT, content: 'LOCAL not realized' }
+
+      default:
+        const type: never = offer.type
+        throw new Error('Unknown offer.type' + type)
+    }
 
     return {
       type: Type.CONTENT,

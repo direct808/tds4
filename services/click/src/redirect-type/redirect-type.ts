@@ -1,5 +1,5 @@
-import { campaign, click } from '@tds/contracts/grpc'
+import { click } from '@tds/contracts/grpc'
 
 export interface RedirectType {
-  handle(stream: campaign.CampaignStream): Promise<click.AddClickResponse>
+  handle(url: string): Promise<click.AddClickResponse>
 }

@@ -17,11 +17,8 @@ export class ActionTypeFactory {
     private readonly moduleRef: ModuleRef,
   ) {}
 
-  create(stream: grpc.campaign.CampaignStream): Promise<ActionType> {
-    if (stream.actionType === undefined || stream.actionType === null) {
-      throw new Error('actionType not set')
-    }
-    switch (stream.actionType) {
+  create(actionType: Type): Promise<ActionType> {
+    switch (actionType) {
       case Type.SHOW404:
         return this.moduleRef.get(Show404ActionType)
       case Type.SHOW_HTML:
@@ -34,7 +31,7 @@ export class ActionTypeFactory {
         const contextId = ContextIdFactory.getByRequest(this.request)
         return this.moduleRef.resolve(ToCampaignActionType, contextId)
     }
-    const at: never = stream.actionType
+    const at: never = actionType
     throw new Error('Unknown actionType ' + at)
   }
 }

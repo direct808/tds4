@@ -1,12 +1,10 @@
 import { RedirectType } from './redirect-type'
-import { campaign, click } from '@tds/contracts/grpc'
+import { click } from '@tds/contracts/grpc'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class WithoutRefererRedirectType implements RedirectType {
-  async handle(
-    stream: campaign.CampaignStream,
-  ): Promise<click.AddClickResponse> {
+  async handle(url: string): Promise<click.AddClickResponse> {
     return {
       type: click.AddClickResponse.Type.CONTENT,
       content: `<!doctype html>
@@ -16,7 +14,7 @@ export class WithoutRefererRedirectType implements RedirectType {
 
 <script>
     function go() {
-       window.frames[0].document.body.innerHTML = '<form target="_parent" method="post" action="${stream.redirectUrl}"></form>';
+       window.frames[0].document.body.innerHTML = '<form target="_parent" method="post" action="${url}"></form>';
         window.frames[0].document.forms[0].submit()
     }
 </script>

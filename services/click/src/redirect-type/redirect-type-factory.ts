@@ -1,4 +1,3 @@
-import { campaign } from '@tds/contracts/grpc'
 import { HttpRedirectType } from './http-redirect-type'
 import { RedirectType } from './redirect-type'
 import { MetaRedirectType } from './meta-redirect-type'
@@ -18,11 +17,8 @@ import Type = tds.global.RedirectType
 export class RedirectTypeFactory {
   constructor(private readonly moduleRef: ModuleRef) {}
 
-  create(stream: campaign.CampaignStream): RedirectType {
-    if (stream.redirectType === undefined || stream.redirectType === null) {
-      throw new Error('redirectType not set')
-    }
-    switch (stream.redirectType) {
+  create(redirectType: Type): RedirectType {
+    switch (redirectType) {
       case Type.HTTP:
         return this.moduleRef.get(HttpRedirectType)
       case Type.META:
@@ -42,7 +38,7 @@ export class RedirectTypeFactory {
       case Type.WITHOUT_REFERER:
         return this.moduleRef.get(WithoutRefererRedirectType)
     }
-    const at: never = stream.redirectType
+    const at: never = redirectType
     throw new Error('Unknown actionType ' + at)
   }
 }

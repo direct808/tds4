@@ -1,6 +1,5 @@
-import { ActionType } from './action-type'
+import { ActionType, ActionTypeData } from './action-type'
 import { grpc } from '@tds/contracts'
-import { campaign } from '@tds/contracts/grpc'
 import { ForeignService } from '../foreign.service'
 import {
   forwardRef,
@@ -23,14 +22,15 @@ export class ToCampaignActionType implements ActionType {
     private readonly clickService: ClickService,
   ) {}
 
-  async handle(
-    stream: campaign.CampaignStream,
-  ): Promise<grpc.click.AddClickResponse> {
+  async handle(data: ActionTypeData): Promise<grpc.click.AddClickResponse> {
+    if (!data.actionCampaignId) {
+      throw new Error('No actionCampaignId')
+    }
     if (this.redirectCount >= MAX_REDIRECTS) {
       // todo вывести это в браузер
       throw new Error('To many redirects')
     }
-    const campaign = await this.getCampaignById(stream.actionCampaignId!)
+    const campaign = await this.getCampaignById(data.actionCampaignId)
     this.redirectCount++
     console.log('To campaign', campaign, 'redirectCount', this.redirectCount)
 

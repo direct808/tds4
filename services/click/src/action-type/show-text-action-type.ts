@@ -1,13 +1,11 @@
-import { ActionType } from './action-type'
-import { campaign, click } from '@tds/contracts/grpc'
+import { ActionType, ActionTypeData } from './action-type'
+import { click } from '@tds/contracts/grpc'
 
 export class ShowTextActionType implements ActionType {
-  async handle(
-    stream: campaign.CampaignStream,
-  ): Promise<click.AddClickResponse> {
+  async handle(data: ActionTypeData): Promise<click.AddClickResponse> {
     return {
       type: click.AddClickResponse.Type.CONTENT,
-      content: this.#escape(stream.actionContent!),
+      content: this.#escape(data.actionContent ?? ''),
     }
   }
 

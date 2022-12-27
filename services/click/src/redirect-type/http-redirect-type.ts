@@ -1,15 +1,13 @@
 import { RedirectType } from './redirect-type'
-import { campaign, click } from '@tds/contracts/grpc'
+import { click } from '@tds/contracts/grpc'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class HttpRedirectType implements RedirectType {
-  async handle(
-    stream: campaign.CampaignStream,
-  ): Promise<click.AddClickResponse> {
+  async handle(url: string): Promise<click.AddClickResponse> {
     return {
       type: click.AddClickResponse.Type.REDIRECT,
-      redirectUrl: stream.redirectUrl,
+      redirectUrl: url,
     }
   }
 }

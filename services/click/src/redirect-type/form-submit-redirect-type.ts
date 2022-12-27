@@ -4,9 +4,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class FormSubmitRedirectType implements RedirectType {
-  async handle(
-    stream: campaign.CampaignStream,
-  ): Promise<click.AddClickResponse> {
+  async handle(url: string): Promise<click.AddClickResponse> {
     return {
       type: click.AddClickResponse.Type.CONTENT,
       content: `<!doctype html>
@@ -18,7 +16,7 @@ export class FormSubmitRedirectType implements RedirectType {
   };</script>
 </head>
 <body>
-<form action="${stream.redirectUrl}" method="POST"></form>
+<form action="${url}" method="POST"></form>
 </body>
 </html>`,
     }

@@ -1,12 +1,10 @@
 import { RedirectType } from './redirect-type'
-import { campaign, click } from '@tds/contracts/grpc'
+import { click } from '@tds/contracts/grpc'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class JsRedirectType implements RedirectType {
-  async handle(
-    stream: campaign.CampaignStream,
-  ): Promise<click.AddClickResponse> {
+  async handle(url: string): Promise<click.AddClickResponse> {
     return {
       type: click.AddClickResponse.Type.CONTENT,
       content: `<html>
@@ -14,9 +12,9 @@ export class JsRedirectType implements RedirectType {
   <script type="application/javascript">
     function process() {
       if (window.location !== window.parent.location) {
-        top.location = "${stream.redirectUrl}";
+        top.location = "${url}";
       } else {
-        window.location = "${stream.redirectUrl}";
+        window.location = "${url}";
       }
     }
 
@@ -24,7 +22,7 @@ export class JsRedirectType implements RedirectType {
     process();</script>
 </head>
 <body>
-The Document has moved <a href="${stream.redirectUrl}">here</a>
+The Document has moved <a href="${url}">here</a>
 </body>
 </html>
       `,

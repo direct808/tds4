@@ -1,5 +1,10 @@
-import { campaign, click } from '@tds/contracts/grpc'
+import { click } from '@tds/contracts/grpc'
+
+export type ActionTypeData = {
+  actionContent?: string | null
+  actionCampaignId?: string | null
+}
 
 export interface ActionType {
-  handle(stream: campaign.CampaignStream): Promise<click.AddClickResponse>
+  handle(data: ActionTypeData): Promise<click.AddClickResponse>
 }

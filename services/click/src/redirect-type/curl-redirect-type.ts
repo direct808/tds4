@@ -1,17 +1,15 @@
 import { RedirectType } from './redirect-type'
-import { campaign, click } from '@tds/contracts/grpc'
+import { click } from '@tds/contracts/grpc'
 import axios from 'axios'
 import { URL } from 'url'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class CurlRedirectType implements RedirectType {
-  async handle(
-    stream: campaign.CampaignStream,
-  ): Promise<click.AddClickResponse> {
-    let { data: content } = await axios.get(stream.redirectUrl!)
+  async handle(url: string): Promise<click.AddClickResponse> {
+    let { data: content } = await axios.get(url)
 
-    content = this.setBase(content, this.prepareUrl(stream.redirectUrl!))
+    content = this.setBase(content, this.prepareUrl(url))
 
     return {
       type: click.AddClickResponse.Type.CONTENT,
