@@ -118,7 +118,10 @@ export class ClickService {
           .create(offer.redirectType!)
           .handle(offer.redirectUrl!)
       case grpc.offer.OfferType.PRELOAD:
-        return { type: Type.CONTENT, content: 'PRELOAD not realized' }
+        // Может отличается от redirect curl?
+        return this.redirectTypeFactory
+          .create(grpc.global.RedirectType.CURL)
+          .handle(offer.preloadUrl!)
       case grpc.offer.OfferType.LOCAL:
         return { type: Type.CONTENT, content: 'LOCAL not realized' }
 
