@@ -7,6 +7,7 @@ import { grpc } from '@tds/contracts'
 import { ActionTypeFactory } from './action-type'
 import { RedirectTypeFactory } from './redirect-type'
 import { campaign, click } from '@tds/contracts/grpc'
+import weighted from 'weighted'
 import Type = grpc.click.AddClickResponse.Type
 
 @Injectable()
@@ -82,9 +83,7 @@ export class ClickService {
     return campaign
   }
 
-  #getSelectedStream(
-    streams: grpc.campaign.CampaignStream[],
-  ): grpc.campaign.CampaignStream {
+  #getSelectedStream<T extends grpc.campaign.CampaignStream>(streams: T[]): T {
     if (streams.length === 0) {
       throw new Error('No streams')
     }
@@ -97,13 +96,13 @@ export class ClickService {
     if (!stream.streamOffers || !stream.streamOffers.length) {
       throw new Error('No streamOffers')
     }
-    const [streamOffer] = stream.streamOffers
-    console.log(streamOffer)
+    console.log('Total streamOffers', stream.streamOffers.length)
 
-    const { offers } = await this.foreignService.getOfferList({
-      ids: [streamOffer.offerId!],
-    })
-    const [offer] = offers!
+    const streamOffer = this.#selectStreamOffer(stream.streamOffers)
+
+    console.log('selected offer', streamOffer.id, streamOffer.percent)
+
+    const offer = await this.#getOfferById(streamOffer.offerId!)
 
     if (offer.type === undefined || offer.type === null) {
       throw new Error('offer.type not set')
@@ -134,5 +133,32 @@ export class ClickService {
       type: Type.CONTENT,
       content: 'handleLandingsOffers',
     }
+  }
+
+  #selectStreamOffer<T extends grpc.campaign.StreamOffer>(
+    streamOffers: T[],
+  ): T {
+    if (streamOffers.length === 0) {
+      throw new Error('No streamOffers')
+    }
+    if (streamOffers.length === 1) {
+      return streamOffers[0]
+    }
+    return weighted.select(
+      streamOffers,
+      streamOffers.map((o) => o.percent!),
+    )
+  }
+
+  async #getOfferById(id: string) {
+    const { offers } = await this.foreignService.getOfferList({
+      ids: [id],
+    })
+
+    if (!offers?.length) {
+      throw new Error('Offer not found ' + id)
+    }
+
+    return offers[0]
   }
 }

@@ -2,36 +2,38 @@
 
 ### dependencies
 
-| First Header                      | Second Header               |
-|-----------------------------------|-----------------------------|
-| @apollo/gateway                   |                             |
-| @apollo/rover                     |                             |
-| @apollo/subgraph                  |                             |
-| @grpc/grpc-js                     |                             |
-| @nestjs/apollo                    |                             |
-| @nestjs/common                    |                             |
-| @nestjs/core                      |                             |
-| @nestjs/graphql                   |                             |
-| @nestjs/microservices             |                             |
-| @nestjs/platform-express          |                             |
-| @nestjs/typeorm                   |                             |
-| apollo-server-express             |                             |
-| axios                             |                             |
-| class-transformer                 |                             |
-| class-validator                   |                             |
-| dataloader                        |                             |
-| dotenv                            |                             |
-| eslint-import-resolver-typescript |                             |
-| graphql                           |                             |
-| jsonwebtoken                      |                             |
-| nanoid                            | генерация кода для кампании |
-| nanoid-dictionary                 | словарь для nanoid          |
-| pg                                |                             |
-| reflect-metadata                  |                             |
-| rimraf                            |                             |
-| rxjs                              |                             |
-| typeorm                           |                             |
-| typeorm-naming-strategies         |                             |
+| First Header                      | Second Header                                                                  |
+|-----------------------------------|--------------------------------------------------------------------------------|
+| @apollo/gateway                   |                                                                                |
+| @apollo/rover                     |                                                                                |
+| @apollo/subgraph                  |                                                                                |
+| @grpc/grpc-js                     |                                                                                |
+| @nestjs/apollo                    |                                                                                |
+| @nestjs/common                    |                                                                                |
+| @nestjs/core                      |                                                                                |
+| @nestjs/graphql                   |                                                                                |
+| @nestjs/microservices             |                                                                                |
+| @nestjs/platform-express          |                                                                                |
+| @nestjs/typeorm                   |                                                                                |
+| apollo-server-express             |                                                                                |
+| axios                             |                                                                                |
+| class-transformer                 |                                                                                |
+| class-validator                   |                                                                                |
+| dataloader                        |                                                                                |
+| dotenv                            |                                                                                |
+| eslint-import-resolver-typescript |                                                                                |
+| graphql                           |                                                                                |
+| jsonwebtoken                      | Используется для подписи в двойном мета редиректе                              |
+| nanoid                            | Генерация кода для кампании                                                    |
+| nanoid-dictionary                 | Словарь для nanoid                                                             |
+| pg                                |                                                                                |
+| reflect-metadata                  |                                                                                |
+| rimraf                            |                                                                                |
+| rxjs                              |                                                                                |
+| typeorm                           |                                                                                |
+| typeorm-naming-strategies         |                                                                                |
+| weighted                          | Выбор случайного элемента массива по весу, используется при выборе streamOffer |
+
 
 ### devDependencies
 

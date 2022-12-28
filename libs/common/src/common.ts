@@ -2,6 +2,10 @@ import { join } from 'path'
 
 export const contractsPath = join(__dirname, '../../../../contracts')
 
+export function unique<T = unknown>(input: T[]) {
+  return [...new Set(input)]
+}
+
 export function convertEnum<
   A extends object,
   AValue extends A[keyof A],

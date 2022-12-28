@@ -3,6 +3,7 @@ import { StreamOffer } from './entities'
 import { Any, EntityManager } from 'typeorm'
 import { Injectable } from '@nestjs/common'
 import { ForeignService } from './foreign.service'
+import { unique } from '@tds/common'
 
 type SaveManyArgs = {
   streamId: string
@@ -52,6 +53,10 @@ export class StreamOfferService {
     }))
 
     const offerIds = offers.map((of) => of.offerId)
+
+    if (offerIds.length !== unique(offerIds).length) {
+      throw new Error('Duplicate offer Ids')
+    }
 
     const existsOffers = await this.foreignService.getOfferList({
       ids: offerIds,
