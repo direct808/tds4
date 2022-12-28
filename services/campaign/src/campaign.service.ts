@@ -5,7 +5,8 @@ import { Injectable } from '@nestjs/common'
 import { CampaignGroupService } from './campaign-group.service'
 import { ForeignService } from './foreign.service'
 import { CampaignStreamService } from './campaign-stream.service'
-import * as crypto from 'crypto'
+import { customAlphabet } from 'nanoid/async'
+import { alphanumeric } from 'nanoid-dictionary'
 
 type FindArgs = {
   ids?: string[]
@@ -19,6 +20,7 @@ type FullArgs = {
 
 @Injectable()
 export class CampaignService {
+  private readonly nanoId = customAlphabet(alphanumeric)
   constructor(
     private readonly entityManager: EntityManager,
     private readonly campaignGroupService: CampaignGroupService,
@@ -83,7 +85,7 @@ export class CampaignService {
     const entity = this.entityManager.create(Campaign, campaignData) as Campaign
 
     if (!input.id) {
-      entity.code = this.#makeCode()
+      entity.code = await this.#makeCode()
     }
 
     const campaign = await manager.save(Campaign, entity)
@@ -100,6 +102,6 @@ export class CampaignService {
   }
 
   #makeCode() {
-    return crypto.randomUUID().substring(0, 6)
+    return this.nanoId(6)
   }
 }
