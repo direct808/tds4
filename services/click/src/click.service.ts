@@ -10,6 +10,11 @@ import { campaign, click } from '@tds/contracts/grpc'
 import weighted from 'weighted'
 import Type = grpc.click.AddClickResponse.Type
 
+type HandleLandingsOffersResponse = {
+  offer: grpc.offer.Offer
+  response: click.AddClickResponse
+}
+
 @Injectable()
 export class ClickService {
   constructor(
@@ -19,9 +24,9 @@ export class ClickService {
     private readonly redirectTypeFactory: RedirectTypeFactory,
   ) {}
 
-  async add(args: AddClickDTO): Promise<grpc.click.AddClickResponse> {
+  async add(clickData: AddClickDTO): Promise<grpc.click.AddClickResponse> {
     try {
-      return await this.addByCode(args.campaignCode)
+      return await this.#add(clickData)
     } catch (e) {
       if (e instanceof NotFoundException) {
         return {
@@ -32,13 +37,14 @@ export class ClickService {
     }
   }
 
-  async addByCode(code: string): Promise<grpc.click.AddClickResponse> {
-    const campaign = await this.#getCampaignByCode(code)
-    return this.addByCampaign(campaign)
+  async #add(clickData: AddClickDTO): Promise<grpc.click.AddClickResponse> {
+    const campaign = await this.#getCampaignByCode(clickData.campaignCode)
+    return this.addByCampaign(campaign, clickData)
   }
 
   async addByCampaign(
     campaign: grpc.campaign.Campaign,
+    clickData: AddClickDTO,
   ): Promise<grpc.click.AddClickResponse> {
     if (!campaign.streams || !campaign.streams.length) {
       throw new Error('No streams')
@@ -49,29 +55,42 @@ export class ClickService {
       throw new Error('Stream not found')
     }
 
-    await this.entityManager.save(Click, {})
+    let response: grpc.click.AddClickResponse
+    let offer: grpc.offer.Offer | null = null
 
     switch (stream.schema) {
       case grpc.campaign.StreamSchema.ACTION:
-        return (await this.actionTypeFactory.create(stream.actionType!)).handle(
-          stream,
-        )
+        response = await (
+          await this.actionTypeFactory.create(stream.actionType!)
+        ).handle(stream, clickData)
+        break
       case grpc.campaign.StreamSchema.DIRECT_URL:
-        return this.redirectTypeFactory
+        response = await this.redirectTypeFactory
           .create(stream.redirectType!)
           .handle(stream.redirectUrl!)
+        break
       case grpc.campaign.StreamSchema.LANDINGS_OFFERS:
-        return this.#handleLandingsOffers(stream)
+        const data = await this.#handleLandingsOffers(stream, clickData)
+        response = data.response
+        offer = data.offer
+        break
       default:
         const s: never = stream.schema
         throw new Error('Unknown stream schema ' + s)
     }
 
-    // console.log('select stream', stream)
-    // return {
-    //   type: grpc.click.AddClickResponse.Type.CONTENT,
-    //   content: 'form click service',
-    // }
+    await this.entityManager.save(Click, {
+      campaignId: campaign.id!,
+      campaignGroupId: campaign.groupId,
+      dateTime: new Date(),
+      ip: clickData.ip,
+      streamId: stream.id,
+      offerId: offer?.id,
+      affiliateNetworkId: offer?.affiliateNetworkId,
+      trafficSourceId: campaign.trafficSourceId,
+    })
+
+    return response
   }
 
   async #getCampaignByCode(code: string) {
@@ -92,7 +111,8 @@ export class ClickService {
 
   async #handleLandingsOffers(
     stream: campaign.CampaignStream,
-  ): Promise<click.AddClickResponse> {
+    args: AddClickDTO,
+  ): Promise<HandleLandingsOffersResponse> {
     if (!stream.streamOffers || !stream.streamOffers.length) {
       throw new Error('No streamOffers')
     }
@@ -100,7 +120,7 @@ export class ClickService {
 
     const streamOffer = this.#selectStreamOffer(stream.streamOffers)
 
-    console.log('selected offer', streamOffer.id, streamOffer.percent)
+    console.log('Selected offer', streamOffer.id, streamOffer.percent)
 
     const offer = await this.#getOfferById(streamOffer.offerId!)
 
@@ -108,30 +128,35 @@ export class ClickService {
       throw new Error('offer.type not set')
     }
 
+    let response: click.AddClickResponse
+
     switch (offer.type) {
       case grpc.offer.OfferType.ACTION:
         const action = await this.actionTypeFactory.create(offer.actionType!)
-        return action.handle(offer)
+        response = await action.handle(offer, args)
+        break
       case grpc.offer.OfferType.REDIRECT:
-        return this.redirectTypeFactory
+        response = await this.redirectTypeFactory
           .create(offer.redirectType!)
           .handle(offer.redirectUrl!)
+        break
       case grpc.offer.OfferType.PRELOAD:
         // Может отличается от redirect curl?
-        return this.redirectTypeFactory
+        response = await this.redirectTypeFactory
           .create(grpc.global.RedirectType.CURL)
           .handle(offer.preloadUrl!)
+        break
       case grpc.offer.OfferType.LOCAL:
-        return { type: Type.CONTENT, content: 'LOCAL not realized' }
-
+        response = { type: Type.CONTENT, content: 'LOCAL not realized' }
+        break
       default:
         const type: never = offer.type
         throw new Error('Unknown offer.type' + type)
     }
 
     return {
-      type: Type.CONTENT,
-      content: 'handleLandingsOffers',
+      response,
+      offer,
     }
   }
 

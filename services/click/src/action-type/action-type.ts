@@ -1,4 +1,5 @@
 import { click } from '@tds/contracts/grpc'
+import { AddClickDTO } from '../dto'
 
 export type ActionTypeData = {
   actionContent?: string | null
@@ -6,5 +7,8 @@ export type ActionTypeData = {
 }
 
 export interface ActionType {
-  handle(data: ActionTypeData): Promise<click.AddClickResponse>
+  handle(
+    data: ActionTypeData,
+    clickData: AddClickDTO,
+  ): Promise<click.AddClickResponse>
 }

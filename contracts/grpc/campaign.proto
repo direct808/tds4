@@ -22,7 +22,9 @@ message GetCampaignFullRequest {
 message Campaign {
   string id = 1;
   string name = 2;
-  repeated CampaignStream streams = 3;
+  string group_id = 3;
+  string traffic_source_id = 4;
+  repeated CampaignStream streams = 5;
 }
 
 message CampaignStream {

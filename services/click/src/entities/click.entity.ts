@@ -9,40 +9,40 @@ export class Click {
   declare campaignId: string
 
   @Column('uuid', { nullable: true })
-  declare campaignGroupId: string
+  declare campaignGroupId: string | null
 
   @Column('uuid', { nullable: true })
-  declare landingId: string
+  declare landingId: string | null
 
   @Column('uuid', { nullable: true })
-  declare offerId: string
+  declare offerId: string | null
 
   @Column('uuid', { nullable: true })
-  declare affiliateNetworkId: string
+  declare affiliateNetworkId: string | null
 
   @Column('uuid', { nullable: true })
-  declare trafficSourceId: string
+  declare trafficSourceId: string | null
 
   @Column('uuid', { nullable: true })
-  declare streamId: string
+  declare streamId: string | null
 
   @Column('text', { nullable: true, comment: 'Источник (из параметров)' })
-  declare source: string
+  declare source: string | null
 
   @Column('text', { nullable: true, comment: 'Параметр из заголовка' })
-  declare xRequestedWith: string
+  declare xRequestedWith: string | null
 
   @Column('text', { nullable: true, comment: 'Параметр из заголовка' })
-  declare referer: string
+  declare referer: string | null
 
   @Column('text', { nullable: true, comment: 'Возмжн вычисляется из referer' })
-  declare searchEngine: string
+  declare searchEngine: string | null
 
   @Column('text', { nullable: true, comment: 'Ключевик - из параметров' })
-  declare keyword: string
+  declare keyword: string | null
 
   @Column('text', { nullable: true, comment: 'userAgent из header' })
-  declare userAgent: string
+  declare userAgent: string | null
 
   @Column('inet')
   declare ip: string

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'
+import { Global, Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloGatewayDriver, ApolloGatewayDriverConfig } from '@nestjs/apollo'
 import { readFileSync } from 'fs'
@@ -7,10 +7,13 @@ import { ClickController } from './click.controller'
 import { ConfigService } from './config.service'
 import { ForeignService } from './foreign.service'
 import { EnvModule } from '@tds/common'
+import { ClickModule } from './modules/click'
 
+@Global()
 @Module({
   imports: [
     EnvModule,
+    ClickModule,
     GraphQLModule.forRoot<ApolloGatewayDriverConfig>({
       driver: ApolloGatewayDriver,
       server: {
@@ -25,5 +28,6 @@ import { EnvModule } from '@tds/common'
   ],
   controllers: [ClickController],
   providers: [ConfigService, ForeignService],
+  exports: [ForeignService],
 })
 export class ApiGatewayModule {}

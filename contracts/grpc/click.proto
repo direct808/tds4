@@ -9,6 +9,8 @@ service ClickService {
 
 message AddClickRequest {
   string campaignCode = 1;
+  string ip = 2;
+  repeated Header headers = 3;
 }
 
 message AddClickResponse {
@@ -23,4 +25,9 @@ message AddClickResponse {
     string redirectUrl = 2;
     string content = 3;
   }
+}
+
+message Header {
+  string name = 1;
+  string value = 2;
 }
