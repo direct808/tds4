@@ -10,7 +10,8 @@ service ClickService {
 message AddClickRequest {
   string campaignCode = 1;
   string ip = 2;
-  repeated Header headers = 3;
+  repeated KeyVal headers = 3;
+  repeated KeyVal query = 4;
 }
 
 message AddClickResponse {
@@ -27,7 +28,7 @@ message AddClickResponse {
   }
 }
 
-message Header {
+message KeyVal {
   string name = 1;
   string value = 2;
 }

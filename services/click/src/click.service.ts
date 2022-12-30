@@ -9,6 +9,7 @@ import { RedirectTypeFactory } from './redirect-type'
 import { campaign, click } from '@tds/contracts/grpc'
 import weighted from 'weighted'
 import Type = grpc.click.AddClickResponse.Type
+import { ClickDataService } from './click-data.service'
 
 type HandleLandingsOffersResponse = {
   offer: grpc.offer.Offer
@@ -27,9 +28,11 @@ export class ClickService {
     private readonly foreignService: ForeignService,
     private readonly actionTypeFactory: ActionTypeFactory,
     private readonly redirectTypeFactory: RedirectTypeFactory,
+    private readonly parameterService: ClickDataService,
   ) {}
 
   async add(clickData: AddClickDTO): Promise<grpc.click.AddClickResponse> {
+    console.log(clickData)
     try {
       return await this.#add(clickData)
     } catch (e) {
@@ -73,6 +76,7 @@ export class ClickService {
       offerId: offer?.id,
       affiliateNetworkId: offer?.affiliateNetworkId,
       trafficSourceId: campaign.trafficSourceId,
+      ...this.parameterService.get(clickData),
     })
 
     return response

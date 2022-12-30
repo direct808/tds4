@@ -26,19 +26,15 @@ export class Click {
   @Column('uuid', { nullable: true })
   declare streamId: string | null
 
+  // из параметров или домен из referer
   @Column('text', { nullable: true, comment: 'Источник (из параметров)' })
   declare source: string | null
 
   @Column('text', { nullable: true, comment: 'Параметр из заголовка' })
-  declare xRequestedWith: string | null
-
-  @Column('text', { nullable: true, comment: 'Параметр из заголовка' })
   declare referer: string | null
 
-  @Column('text', { nullable: true, comment: 'Возмжн вычисляется из referer' })
-  declare searchEngine: string | null
-
-  @Column('text', { nullable: true, comment: 'Ключевик - из параметров' })
+  // из параметров или из referer поисковика
+  @Column('text', { nullable: true })
   declare keyword: string | null
 
   @Column('text', { nullable: true, comment: 'userAgent из header' })
@@ -57,6 +53,8 @@ export class Click {
   "click_id": "848807a2-5724-5283-8749-4552fb439dea",
   "sub_id": "55inah1cvpe0",  ????
   "visitor_code": "55inah",  ????
+  xRequestedWith - понятно что, но где он используется?
+  searchEngine - не вычисляется из referer, непонятно откуда берется
   "ad_campaign_id": "ad73",   из параметра
   "external_id": "click400",  из параметра
   "creative_id": "banner16",  из параметра
@@ -75,6 +73,7 @@ export class Click {
   "sub_id_13": "",
   "sub_id_14": "",
   "sub_id_15": "",
+
   "connection_type": "Сотовая связь",
   "operator": "	МТС Россия",
   "isp": "",

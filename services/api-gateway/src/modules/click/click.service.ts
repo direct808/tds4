@@ -13,21 +13,11 @@ export class ClickService {
   ) {}
 
   public async handleClick(request: Request): Promise<void> {
-    const campaignCode = request.url.replace('/', '')
-
-    const headers: grpc.click.Header[] = []
-
-    for (let i = 0; i < request.rawHeaders.length; i += 2) {
-      headers.push({
-        name: request.rawHeaders[i].toLowerCase(),
-        value: request.rawHeaders[i + 1],
-      })
-    }
-
     const result = await this.foreignService.addClick({
-      campaignCode,
+      campaignCode: request.url.substring(1, 7),
       ip: request.ip,
-      headers,
+      headers: this.makeKeyValHeaders(request),
+      query: this.makeKeyValQuery(request),
     })
 
     const ret = {
@@ -38,7 +28,7 @@ export class ClickService {
     // return res.send(ret)
 
     if (result.type === undefined || result.type === null) {
-      throw new Error('Response type undefined')
+      throw new Error('Response type is undefined')
     }
 
     const res = request.res!
@@ -74,5 +64,41 @@ export class ClickService {
     } catch (e) {
       return res.sendStatus(400)
     }
+  }
+
+  private makeKeyValQuery(request: Request): grpc.click.KeyVal[] {
+    const query: grpc.click.KeyVal[] = []
+
+    Object.entries(request.query)
+      .filter(([name, value]) => {
+        if (typeof value === 'string') {
+          query.push({ name, value })
+        }
+
+        if (Array.isArray(value)) {
+          const val = value[value.length - 1]
+          if (typeof val === 'string') {
+            query.push({ name, value: val })
+          }
+        }
+
+        return false
+      })
+      .map(([name, value]) => ({ name, value }))
+
+    return query
+  }
+
+  private makeKeyValHeaders(request: Request): grpc.click.KeyVal[] {
+    const headers: grpc.click.KeyVal[] = []
+
+    for (let i = 0; i < request.rawHeaders.length; i += 2) {
+      headers.push({
+        name: request.rawHeaders[i],
+        value: request.rawHeaders[i + 1],
+      })
+    }
+
+    return headers
   }
 }

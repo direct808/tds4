@@ -7,6 +7,7 @@ import { ForeignService } from './foreign.service'
 import { ConfigService } from './config.service'
 import { ActionTypeModule } from './action-type'
 import { RedirectTypeModule } from './redirect-type'
+import { ClickDataService } from './click-data.service'
 
 @Global()
 @Module({
@@ -19,7 +20,7 @@ import { RedirectTypeModule } from './redirect-type'
       'click',
     ),
   ],
-  providers: [ClickService, ForeignService, ConfigService],
+  providers: [ClickService, ForeignService, ConfigService, ClickDataService],
   exports: [ClickService, ForeignService],
   controllers: [ClickController],
 })
