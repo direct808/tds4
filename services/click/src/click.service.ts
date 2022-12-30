@@ -15,6 +15,11 @@ type HandleLandingsOffersResponse = {
   response: click.AddClickResponse
 }
 
+type HandleStreamSchemaResponse = {
+  offer: grpc.offer.Offer | null
+  response: click.AddClickResponse
+}
+
 @Injectable()
 export class ClickService {
   constructor(
@@ -54,6 +59,29 @@ export class ClickService {
 
     const stream = this.#getSelectedStream(campaign.streams)
 
+    const { response, offer } = await this.#handleStreamSchema(
+      stream,
+      clickData,
+    )
+
+    await this.entityManager.save(Click, {
+      campaignId: campaign.id!,
+      campaignGroupId: campaign.groupId,
+      dateTime: new Date(),
+      ip: clickData.ip,
+      streamId: stream.id,
+      offerId: offer?.id,
+      affiliateNetworkId: offer?.affiliateNetworkId,
+      trafficSourceId: campaign.trafficSourceId,
+    })
+
+    return response
+  }
+
+  async #handleStreamSchema(
+    stream: grpc.campaign.CampaignStream,
+    clickData: AddClickDTO,
+  ): Promise<HandleStreamSchemaResponse> {
     if (stream.schema === undefined || stream.schema === null) {
       throw new Error('Stream not found')
     }
@@ -82,18 +110,10 @@ export class ClickService {
         throw new Error('Unknown stream schema ' + s)
     }
 
-    await this.entityManager.save(Click, {
-      campaignId: campaign.id!,
-      campaignGroupId: campaign.groupId,
-      dateTime: new Date(),
-      ip: clickData.ip,
-      streamId: stream.id,
-      offerId: offer?.id,
-      affiliateNetworkId: offer?.affiliateNetworkId,
-      trafficSourceId: campaign.trafficSourceId,
-    })
-
-    return response
+    return {
+      response,
+      offer,
+    }
   }
 
   async #getCampaignByCode(code: string) {
