@@ -16,6 +16,7 @@ export class StreamOfferLoader extends DataLoader<string, StreamOffer[]> {
         }
 
         acc.get(key)!.push(item)
+
         return acc
       }, new Map<string, StreamOffer[]>())
 

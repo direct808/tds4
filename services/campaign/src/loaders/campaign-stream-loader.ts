@@ -16,6 +16,7 @@ export class CampaignStreamLoader extends DataLoader<string, CampaignStream[]> {
         }
 
         acc.get(key)!.push(item)
+
         return acc
       }, new Map<string, CampaignStream[]>())
 

@@ -17,6 +17,7 @@ export class TrafficSourceController
     args: GetTrafficSourceListDTO,
   ): Promise<trafficSource.GetTrafficSourceListResponse> {
     const result = await this.trafficSourceService.find(args)
+
     return { result, totalCount: 0 }
   }
 }

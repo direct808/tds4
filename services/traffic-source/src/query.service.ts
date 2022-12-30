@@ -11,6 +11,7 @@ export class QueryService {
   @Query()
   async trafficSourceList(): Promise<gql.Query['trafficSourceList']> {
     const items = await this.affiliateNetworkService.find()
+
     return { items, totalCount: 0 }
   }
 

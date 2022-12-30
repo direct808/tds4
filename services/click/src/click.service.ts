@@ -33,12 +33,14 @@ export class ClickService {
           type: grpc.click.AddClickResponse.Type.NOT_FOUND,
         }
       }
+
       throw e
     }
   }
 
   async #add(clickData: AddClickDTO): Promise<grpc.click.AddClickResponse> {
     const campaign = await this.#getCampaignByCode(clickData.campaignCode)
+
     return this.addByCampaign(campaign, clickData)
   }
 
@@ -49,6 +51,7 @@ export class ClickService {
     if (!campaign.streams || !campaign.streams.length) {
       throw new Error('No streams')
     }
+
     const stream = this.#getSelectedStream(campaign.streams)
 
     if (stream.schema === undefined || stream.schema === null) {
@@ -99,6 +102,7 @@ export class ClickService {
     if (!campaign) {
       throw new NotFoundException('No campaign found')
     }
+
     return campaign
   }
 
@@ -106,6 +110,7 @@ export class ClickService {
     if (streams.length === 0) {
       throw new Error('No streams')
     }
+
     return streams[0]
   }
 
@@ -116,6 +121,7 @@ export class ClickService {
     if (!stream.streamOffers || !stream.streamOffers.length) {
       throw new Error('No streamOffers')
     }
+
     console.log('Total streamOffers', stream.streamOffers.length)
 
     const streamOffer = this.#selectStreamOffer(stream.streamOffers)
@@ -166,9 +172,11 @@ export class ClickService {
     if (streamOffers.length === 0) {
       throw new Error('No streamOffers')
     }
+
     if (streamOffers.length === 1) {
       return streamOffers[0]
     }
+
     return weighted.select(
       streamOffers,
       streamOffers.map((o) => o.percent!),

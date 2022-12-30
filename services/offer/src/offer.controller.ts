@@ -23,6 +23,7 @@ export class OfferController
     args: GetOfferListDTO,
   ): Promise<offer.GetOfferListResponse> {
     const offers = await this.offerService.find(args)
+
     return {
       offers: offers.map((offer) => ({
         ...offer,

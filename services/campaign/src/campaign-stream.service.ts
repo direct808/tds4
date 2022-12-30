@@ -74,6 +74,7 @@ export class CampaignStreamService {
     if (!streamsForUpdateIds.length) {
       return
     }
+
     const idNotFoundStreams = streamsForUpdateIds.filter(
       (id) => !allStreams.map((s) => s.id).includes(id),
     )
@@ -88,6 +89,7 @@ export class CampaignStreamService {
   ) {
     return inputStreams.map((inputStream) => {
       const { offers, ...stream } = inputStream
+
       return {
         ...stream,
         campaignId,

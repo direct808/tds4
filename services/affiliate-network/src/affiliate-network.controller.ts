@@ -21,6 +21,7 @@ export class AffiliateNetworkController
     console.log(args)
     const [result, totalCount] =
       await this.affiliateNetworkService.findAndCount(args)
+
     return { result, totalCount }
   }
 }

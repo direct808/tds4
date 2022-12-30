@@ -13,6 +13,7 @@ export class EnvService {
     if (errors.length) {
       throw new Error(errors.map((item) => item.toString(true, true)).join(''))
     }
+
     return env
   }
 }

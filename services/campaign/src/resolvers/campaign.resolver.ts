@@ -19,6 +19,7 @@ export class CampaignResolver implements TCampaignResolver {
     if (!campaign.trafficSourceId) {
       return null
     }
+
     return { id: campaign.trafficSourceId }
   }
 
@@ -27,6 +28,7 @@ export class CampaignResolver implements TCampaignResolver {
     if (!campaign.groupId) {
       return null
     }
+
     return this.campaignGroupLoader.load(campaign.groupId)
   }
 

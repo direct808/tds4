@@ -13,6 +13,7 @@ export class AffiliateNetworkService {
 
   async find(args: Readonly<FindArgs>) {
     const { ids } = args
+
     return this.entityManager.find(AffiliateNetwork, {
       where: {
         ...(ids ? { id: Any(ids) } : {}),
@@ -22,6 +23,7 @@ export class AffiliateNetworkService {
 
   async findAndCount(args: FindArgs) {
     const { ids } = args
+
     return this.entityManager.findAndCount(AffiliateNetwork, {
       where: {
         ...(ids ? { id: Any(ids) } : {}),

@@ -13,6 +13,7 @@ export class TrafficSourceService {
 
   async find(args?: FindArgs) {
     const { ids } = args ?? {}
+
     return this.entityManager.find(TrafficSource, {
       where: {
         ...(ids ? { id: Any(ids) } : {}),

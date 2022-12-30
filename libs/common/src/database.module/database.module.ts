@@ -22,6 +22,7 @@ export class DatabaseModule {
                 errors.map((item) => item.toString(true, true)).join(''),
               )
             }
+
             return {
               type: 'postgres',
               host: env.DB_HOST,

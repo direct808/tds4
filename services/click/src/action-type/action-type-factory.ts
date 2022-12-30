@@ -30,8 +30,10 @@ export class ActionTypeFactory {
         return this.moduleRef.get(NothingActionType)
       case Type.TO_CAMPAIGN:
         const contextId = ContextIdFactory.getByRequest(this.request)
+
         return this.moduleRef.resolve(ToCampaignActionType, contextId)
     }
+
     const at: never = actionType
     throw new Error('Unknown actionType ' + at)
   }

@@ -18,6 +18,7 @@ export class ForeignService {
     const result = await firstValueFrom(
       this.affiliateNetworkService.getAffiliateNetworkList(args),
     )
+
     return result.result!
   }
 }

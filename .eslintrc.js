@@ -33,6 +33,11 @@ module.exports = {
         ],
       },
     ],
+    '@typescript-eslint/padding-line-between-statements': [
+      'error',
+      { blankLine: 'always', prev: 'block-like', next: '*' },
+      { blankLine: 'always', prev: '*', next: 'return' }
+    ],
   },
   settings: {
     'import/resolver': {

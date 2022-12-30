@@ -19,6 +19,7 @@ export class ForeignService {
     const result = await firstValueFrom(
       this.trafficSourceService.getTrafficSourceList(args),
     )
+
     return result.result!
   }
 
@@ -26,6 +27,7 @@ export class ForeignService {
     const { offers } = await firstValueFrom(
       this.offerService.getOfferList(args),
     )
+
     return offers!
   }
 }

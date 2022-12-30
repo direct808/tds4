@@ -30,10 +30,12 @@ export class ToCampaignActionType implements ActionType {
     if (!data.actionCampaignId) {
       throw new Error('No actionCampaignId')
     }
+
     if (this.redirectCount >= MAX_REDIRECTS) {
       // todo вывести это в браузер
       throw new Error('To many redirects')
     }
+
     const campaign = await this.getCampaignById(data.actionCampaignId)
     this.redirectCount++
     console.log('To campaign', campaign, 'redirectCount', this.redirectCount)
@@ -47,6 +49,7 @@ export class ToCampaignActionType implements ActionType {
     if (!campaign) {
       throw new NotFoundException('No campaign found')
     }
+
     return campaign
   }
 }

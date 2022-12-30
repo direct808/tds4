@@ -19,5 +19,6 @@ export function makeGrpcService<T extends object>(
       },
     },
   })
+
   return client.getService<T>(name)
 }

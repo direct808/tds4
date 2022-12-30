@@ -23,6 +23,7 @@ export class CurlRedirectType implements RedirectType {
 
   private prepareUrl(url: string) {
     const parsed = new URL(url)
+
     return `//${parsed.host}/`
   }
 }

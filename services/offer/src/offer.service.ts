@@ -19,6 +19,7 @@ export class OfferService {
 
   async find(args: Readonly<FindArgs> = {}) {
     const { ids } = args
+
     return this.entityManager.find(Offer, {
       where: {
         ...(ids ? { id: Any(ids) } : {}),
@@ -40,6 +41,7 @@ export class OfferService {
       if (ans.length === 0) {
         throw new Error('affiliateNetwork not found')
       }
+
       console.log('ans.length', ans.length)
     }
 

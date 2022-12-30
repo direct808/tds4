@@ -15,6 +15,7 @@ export class QueryService {
   @Query()
   async campaignList(): Promise<gql.Query['campaignList']> {
     const items = await this.campaignService.find({})
+
     return { items, totalCount: 0 }
   }
 

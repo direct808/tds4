@@ -80,6 +80,7 @@ export class StreamOfferService {
     if (!streamsForUpdateIds.length) {
       return
     }
+
     const idNotFoundStreams = streamsForUpdateIds.filter(
       (id) => !allOffers.map((s) => s.id).includes(id),
     )

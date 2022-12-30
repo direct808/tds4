@@ -14,6 +14,7 @@ export class OfferResolver implements TOfferResolver {
     if (!offer.affiliateNetworkId) {
       return null
     }
+
     return { id: offer.affiliateNetworkId }
   }
 
@@ -22,6 +23,7 @@ export class OfferResolver implements TOfferResolver {
     if (!offer.groupId) {
       return null
     }
+
     return this.offerGroupDataLoader.load(offer.groupId)
   }
 }

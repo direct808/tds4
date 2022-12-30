@@ -40,6 +40,7 @@ export class RedirectTypeFactory {
       case Type.WITHOUT_REFERER:
         return this.moduleRef.get(WithoutRefererRedirectType)
     }
+
     const at: never = redirectType
     throw new Error('Unknown actionType ' + at)
   }

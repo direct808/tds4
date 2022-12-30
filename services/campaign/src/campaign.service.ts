@@ -30,6 +30,7 @@ export class CampaignService {
 
   async full(args: Readonly<FullArgs>) {
     const { id, code } = args
+
     return this.entityManager.findOne(Campaign, {
       where: { id, code },
       relations: ['streams', 'streams.streamOffers'],
@@ -38,6 +39,7 @@ export class CampaignService {
 
   async find(args: Readonly<FindArgs>) {
     const { ids, codes } = args
+
     return this.entityManager.find(Campaign, {
       where: {
         ...(ids ? { id: Any(ids) } : {}),
@@ -55,6 +57,7 @@ export class CampaignService {
         return this.save(input, manager)
       })
     }
+
     if (input.id) {
       await manager.findOneByOrFail(Campaign, {
         id: input.id,
@@ -77,6 +80,7 @@ export class CampaignService {
       if (trafficSources.length === 0) {
         throw new Error('trafficSource not found')
       }
+
       console.log('trafficSources.length', trafficSources.length)
     }
 
