@@ -112,7 +112,7 @@ export class Click {
   "hour": "14",
   "day_hour": "2022111114",
   "landing_clicked_datetime": null,
-  "destination": "Do nothing",
+  "destination": "Do nothing",   - Url редиректа или название действия
   "is_unique_stream": false,
   "is_unique_campaign": false,
   "is_unique_global": false,
