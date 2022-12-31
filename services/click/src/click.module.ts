@@ -1,4 +1,4 @@
-import { Global, Module } from '@nestjs/common'
+import { Global, Module, Scope } from '@nestjs/common'
 import { ClickController } from './click.controller'
 import { ClickService } from './click.service'
 import { DatabaseModule, EnvModule } from '@tds/common'
@@ -8,6 +8,10 @@ import { ConfigService } from './config.service'
 import { ActionTypeModule } from './action-type'
 import { RedirectTypeModule } from './redirect-type'
 import { ClickDataService } from './click-data.service'
+import { AddClickDTO } from './dto'
+import { RequestContextHost } from '@nestjs/microservices/context/request-context-host'
+import { REQUEST } from '@nestjs/core'
+import { plainToInstance } from 'class-transformer'
 
 @Global()
 @Module({
@@ -20,7 +24,20 @@ import { ClickDataService } from './click-data.service'
       'click',
     ),
   ],
-  providers: [ClickService, ForeignService, ConfigService, ClickDataService],
+  providers: [
+    ClickService,
+    ForeignService,
+    ConfigService,
+    ClickDataService,
+    {
+      scope: Scope.REQUEST,
+      provide: AddClickDTO,
+      useFactory(request: RequestContextHost<AddClickDTO>) {
+        return plainToInstance(AddClickDTO, request.data)
+      },
+      inject: [REQUEST],
+    },
+  ],
   exports: [ClickService, ForeignService],
   controllers: [ClickController],
 })

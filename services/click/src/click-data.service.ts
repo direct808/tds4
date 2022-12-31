@@ -1,5 +1,7 @@
 import { AddClickDTO } from './dto'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
+import { REQUEST } from '@nestjs/core'
+import { RequestContextHost } from '@nestjs/microservices/context/request-context-host'
 
 type Dict = {
   name: string
@@ -8,7 +10,14 @@ type Dict = {
 
 @Injectable()
 export class ClickDataService {
-  get({ headers, query }: AddClickDTO) {
+  constructor(
+    private readonly clickData: AddClickDTO,
+    @Inject(REQUEST) private readonly request: RequestContextHost<AddClickDTO>,
+  ) {}
+
+  get() {
+    const { headers, query } = this.clickData
+
     return {
       userAgent: this.#findValues(headers, 'user-agent'),
       referer: this.#findValues(headers, 'referer'),

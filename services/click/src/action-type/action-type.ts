@@ -7,8 +7,5 @@ export type ActionTypeData = {
 }
 
 export interface ActionType {
-  handle(
-    data: ActionTypeData,
-    clickData: AddClickDTO,
-  ): Promise<click.AddClickResponse>
+  handle(data: ActionTypeData): Promise<click.AddClickResponse>
 }

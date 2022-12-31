@@ -14,6 +14,6 @@ export class ClickController
 
   @GrpcMethod('ClickService')
   addClick(args: AddClickDTO): Promise<click.AddClickResponse> {
-    return this.clickService.add(args)
+    return this.clickService.add()
   }
 }

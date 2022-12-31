@@ -29,12 +29,12 @@ export class ClickService {
     private readonly actionTypeFactory: ActionTypeFactory,
     private readonly redirectTypeFactory: RedirectTypeFactory,
     private readonly parameterService: ClickDataService,
+    private readonly clickData: AddClickDTO,
   ) {}
 
-  async add(clickData: AddClickDTO): Promise<grpc.click.AddClickResponse> {
-    console.log(clickData)
+  async add(): Promise<grpc.click.AddClickResponse> {
     try {
-      return await this.#add(clickData)
+      return await this.#add()
     } catch (e) {
       if (e instanceof NotFoundException) {
         return {
@@ -46,15 +46,14 @@ export class ClickService {
     }
   }
 
-  async #add(clickData: AddClickDTO): Promise<grpc.click.AddClickResponse> {
-    const campaign = await this.#getCampaignByCode(clickData.campaignCode)
+  async #add(): Promise<grpc.click.AddClickResponse> {
+    const campaign = await this.#getCampaignByCode(this.clickData.campaignCode)
 
-    return this.addByCampaign(campaign, clickData)
+    return this.addByCampaign(campaign)
   }
 
   async addByCampaign(
     campaign: grpc.campaign.Campaign,
-    clickData: AddClickDTO,
   ): Promise<grpc.click.AddClickResponse> {
     if (!campaign.streams || !campaign.streams.length) {
       throw new Error('No streams')
@@ -62,21 +61,18 @@ export class ClickService {
 
     const stream = this.#getSelectedStream(campaign.streams)
 
-    const { response, offer } = await this.#handleStreamSchema(
-      stream,
-      clickData,
-    )
+    const { response, offer } = await this.#handleStreamSchema(stream)
 
     await this.entityManager.save(Click, {
       campaignId: campaign.id!,
       campaignGroupId: campaign.groupId,
       dateTime: new Date(),
-      ip: clickData.ip,
+      ip: this.clickData.ip,
       streamId: stream.id,
       offerId: offer?.id,
       affiliateNetworkId: offer?.affiliateNetworkId,
       trafficSourceId: campaign.trafficSourceId,
-      ...this.parameterService.get(clickData),
+      ...this.parameterService.get(),
     })
 
     return response
@@ -84,7 +80,6 @@ export class ClickService {
 
   async #handleStreamSchema(
     stream: grpc.campaign.CampaignStream,
-    clickData: AddClickDTO,
   ): Promise<HandleStreamSchemaResponse> {
     if (stream.schema === undefined || stream.schema === null) {
       throw new Error('Stream not found')
@@ -97,7 +92,7 @@ export class ClickService {
       case grpc.campaign.StreamSchema.ACTION:
         response = await (
           await this.actionTypeFactory.create(stream.actionType!)
-        ).handle(stream, clickData)
+        ).handle(stream)
         break
       case grpc.campaign.StreamSchema.DIRECT_URL:
         response = await this.redirectTypeFactory
@@ -105,7 +100,7 @@ export class ClickService {
           .handle(stream.redirectUrl!)
         break
       case grpc.campaign.StreamSchema.LANDINGS_OFFERS:
-        const data = await this.#handleLandingsOffers(stream, clickData)
+        const data = await this.#handleLandingsOffers(stream)
         response = data.response
         offer = data.offer
         break
@@ -140,7 +135,6 @@ export class ClickService {
 
   async #handleLandingsOffers(
     stream: campaign.CampaignStream,
-    args: AddClickDTO,
   ): Promise<HandleLandingsOffersResponse> {
     if (!stream.streamOffers || !stream.streamOffers.length) {
       throw new Error('No streamOffers')
@@ -163,7 +157,7 @@ export class ClickService {
     switch (offer.type) {
       case grpc.offer.OfferType.ACTION:
         const action = await this.actionTypeFactory.create(offer.actionType!)
-        response = await action.handle(offer, args)
+        response = await action.handle(offer)
         break
       case grpc.offer.OfferType.REDIRECT:
         response = await this.redirectTypeFactory

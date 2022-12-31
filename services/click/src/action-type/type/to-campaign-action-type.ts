@@ -23,10 +23,7 @@ export class ToCampaignActionType implements ActionType {
     private readonly clickService: ClickService,
   ) {}
 
-  async handle(
-    data: ActionTypeData,
-    clickData: AddClickDTO,
-  ): Promise<grpc.click.AddClickResponse> {
+  async handle(data: ActionTypeData): Promise<grpc.click.AddClickResponse> {
     if (!data.actionCampaignId) {
       throw new Error('No actionCampaignId')
     }
@@ -40,7 +37,7 @@ export class ToCampaignActionType implements ActionType {
     this.redirectCount++
     console.log('To campaign', campaign, 'redirectCount', this.redirectCount)
 
-    return this.clickService.addByCampaign(campaign, clickData)
+    return this.clickService.addByCampaign(campaign)
   }
 
   private async getCampaignById(id: string) {
