@@ -90,9 +90,8 @@ export class ClickService {
 
     switch (stream.schema) {
       case grpc.campaign.StreamSchema.ACTION:
-        response = await (
-          await this.actionTypeFactory.create(stream.actionType!)
-        ).handle(stream)
+        const at = await this.actionTypeFactory.create(stream.actionType!)
+        response = await at.handle(stream)
         break
       case grpc.campaign.StreamSchema.DIRECT_URL:
         response = await this.redirectTypeFactory
