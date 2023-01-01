@@ -32,6 +32,7 @@
 | rxjs                              |                                                                                |
 | typeorm                           |                                                                                |
 | typeorm-naming-strategies         |                                                                                |
+| ua-parser-js                      | Парсинг user agent                                                             |
 | weighted                          | Выбор случайного элемента массива по весу, используется при выборе streamOffer |
 
 

@@ -74,6 +74,7 @@ export class ClickService {
       trafficSourceId: campaign.trafficSourceId,
       ...this.parameterService.get(),
       ...this.parameterService.getQueryParameters(),
+      ...this.parameterService.getUsrAgentInfo(),
     }
     // console.log(this.clickData.query)
     // console.log(saveData)

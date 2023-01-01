@@ -38,6 +38,20 @@ export class Click {
   @Column('timestamp')
   declare dateTime: Date
 
+  // USER AGENT INFO
+  @Column('text', { nullable: true })
+  declare deviceType: string | null
+  @Column('text', { nullable: true })
+  declare os: string | null
+  @Column('text', { nullable: true })
+  declare osVersion: string | null
+  @Column('text', { nullable: true })
+  declare browser: string | null
+  @Column('text', { nullable: true })
+  declare browserVersion: string | null
+  @Column('text', { nullable: true })
+  declare deviceModel: string | null
+
   // FROM QUERY STRING
 
   // из параметров или из referer поисковика
@@ -154,13 +168,14 @@ export class Click {
   "region_code": "RU_MOS",
   "city": "Podol'sk",
   "language": "Английский",
-  "device_type": "Десктоп",
 
+  "device_type": "Десктоп",
   "os": "Chrome OS",
   "os_version": "45.0.2454.86",
   "browser": "Chrome",
   "browser_version": "45.0.2454.86",
   "device_model": "",
+
   "ip": "95.28.45.181",
   "ip_mask1": "95.28.0.0 - 95.28.255.255",
   "ip_mask2": "95.28.45.0 - 95.28.45.255",

@@ -4,6 +4,7 @@ import { REQUEST } from '@nestjs/core'
 import { RequestContextHost } from '@nestjs/microservices/context/request-context-host'
 import { queryParameterKeys } from './helpers'
 import { camelCase } from 'lodash'
+import UAParser from 'ua-parser-js'
 
 type Dict = {
   name: string
@@ -42,5 +43,24 @@ export class ClickDataService {
     }
 
     return res
+  }
+
+  getUsrAgentInfo() {
+    const userAgent = this.#findValues(this.clickData.headers, 'user-agent')
+
+    if (!userAgent) {
+      return {}
+    }
+
+    const parser = UAParser(userAgent)
+
+    return {
+      os: parser.os.name,
+      osVersion: parser.os.version,
+      browser: parser.browser.name,
+      browserVersion: parser.browser.version,
+      deviceModel: parser.device.model,
+      deviceType: parser.device.type,
+    }
   }
 }
