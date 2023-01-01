@@ -26,16 +26,8 @@ export class Click {
   @Column('uuid', { nullable: true })
   declare streamId: string | null
 
-  // из параметров или домен из referer
-  @Column('text', { nullable: true, comment: 'Источник (из параметров)' })
-  declare source: string | null
-
   @Column('text', { nullable: true, comment: 'Параметр из заголовка' })
   declare referer: string | null
-
-  // из параметров или из referer поисковика
-  @Column('text', { nullable: true })
-  declare keyword: string | null
 
   @Column('text', { nullable: true, comment: 'userAgent из header' })
   declare userAgent: string | null
@@ -46,6 +38,103 @@ export class Click {
   @Column('timestamp')
   declare dateTime: Date
 
+  // FROM QUERY STRING
+
+  // из параметров или из referer поисковика
+  @Column('text', { nullable: true })
+  declare keyword: string | null
+
+  // из параметров или домен из referer
+  @Column('text', { nullable: true, comment: 'Источник (из параметров)' })
+  declare source: string | null
+
+  @Column('text', { nullable: true })
+  declare cost: string | null
+
+  @Column('text', { nullable: true })
+  declare externalId: string | null
+
+  @Column('text', { nullable: true })
+  declare creativeId: string | null
+
+  @Column('text', { nullable: true })
+  declare adCampaignId: string | null
+
+  @Column('text', { nullable: true })
+  declare subId1: string | null
+
+  @Column('text', { nullable: true })
+  declare subId2: string | null
+
+  @Column('text', { nullable: true })
+  declare subId3: string | null
+
+  @Column('text', { nullable: true })
+  declare subId4: string | null
+
+  @Column('text', { nullable: true })
+  declare subId5: string | null
+
+  @Column('text', { nullable: true })
+  declare subId6: string | null
+
+  @Column('text', { nullable: true })
+  declare subId7: string | null
+
+  @Column('text', { nullable: true })
+  declare subId8: string | null
+
+  @Column('text', { nullable: true })
+  declare subId9: string | null
+
+  @Column('text', { nullable: true })
+  declare subId10: string | null
+
+  @Column('text', { nullable: true })
+  declare subId11: string | null
+
+  @Column('text', { nullable: true })
+  declare subId12: string | null
+
+  @Column('text', { nullable: true })
+  declare subId13: string | null
+
+  @Column('text', { nullable: true })
+  declare subId14: string | null
+
+  @Column('text', { nullable: true })
+  declare subId15: string | null
+
+  @Column('text', { nullable: true })
+  declare extraParam1: string | null
+
+  @Column('text', { nullable: true })
+  declare extraParam2: string | null
+
+  @Column('text', { nullable: true })
+  declare extraParam3: string | null
+
+  @Column('text', { nullable: true })
+  declare extraParam4: string | null
+
+  @Column('text', { nullable: true })
+  declare extraParam5: string | null
+
+  @Column('text', { nullable: true })
+  declare extraParam6: string | null
+
+  @Column('text', { nullable: true })
+  declare extraParam7: string | null
+
+  @Column('text', { nullable: true })
+  declare extraParam8: string | null
+
+  @Column('text', { nullable: true })
+  declare extraParam9: string | null
+
+  @Column('text', { nullable: true })
+  declare extraParam10: string | null
+
   /*
  {
   "sign": 1,        ???
@@ -55,24 +144,6 @@ export class Click {
   "visitor_code": "55inah",  ????
   xRequestedWith - понятно что, но где он используется?
   searchEngine - не вычисляется из referer, непонятно откуда берется
-  "ad_campaign_id": "ad73",   из параметра
-  "external_id": "click400",  из параметра
-  "creative_id": "banner16",  из параметра
-  "sub_id_1": "x9818",        из параметра
-  "sub_id_2": "x6812",        из параметра
-  "sub_id_3": "x8904",        из параметра
-  "sub_id_4": "",             из параметра
-  "sub_id_5": "",             из параметра
-  "sub_id_6": "",             из параметра
-  "sub_id_7": "",             из параметра
-  "sub_id_8": "",             из параметра
-  "sub_id_9": "",             из параметра
-  "sub_id_10": "",
-  "sub_id_11": "",
-  "sub_id_12": "",
-  "sub_id_13": "",
-  "sub_id_14": "",
-  "sub_id_15": "",
 
   "connection_type": "Сотовая связь",
   "operator": "	МТС Россия",
@@ -93,16 +164,7 @@ export class Click {
   "ip": "95.28.45.181",
   "ip_mask1": "95.28.0.0 - 95.28.255.255",
   "ip_mask2": "95.28.45.0 - 95.28.45.255",
-  "extra_param_1": "",
-  "extra_param_2": "",
-  "extra_param_3": "",
-  "extra_param_4": "",
-  "extra_param_5": "",
-  "extra_param_6": "",
-  "extra_param_7": "",
-  "extra_param_8": "",
-  "extra_param_9": "",
-  "extra_param_10": "",
+
   "datetime": "2022-11-11 14:01:17",
   "year": "2022",
   "month": "2022/11",
@@ -126,7 +188,7 @@ export class Click {
   "parent_campaign_id": 0,
   "parent_campaign": null,
   "now": "2022-12-28 17:14:56",
-  "cost": 0,
+  "cost": 0,  !!!
   "revenue": 0,
   "profit": 0,
   "lead_revenue": 0,
@@ -134,6 +196,12 @@ export class Click {
   "rejected_revenue": 0,
   "rebills": 0,
   "parent_sub_id": null
+
+  "ad_campaign_id": "ad73",   из параметра   !!!
+  "external_id": "click400",  из параметра  !!!
+  "creative_id": "banner16",  из параметра   !!!
+  sub_id_1 - 15 "x9818",        из параметра  !!!
+    extra_param_1 - 10 !!! из query string
 }
    */
 }

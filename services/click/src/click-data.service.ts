@@ -2,6 +2,8 @@ import { AddClickDTO } from './dto'
 import { Inject, Injectable } from '@nestjs/common'
 import { REQUEST } from '@nestjs/core'
 import { RequestContextHost } from '@nestjs/microservices/context/request-context-host'
+import { queryParameterKeys } from './helpers'
+import { camelCase } from 'lodash'
 
 type Dict = {
   name: string
@@ -16,17 +18,29 @@ export class ClickDataService {
   ) {}
 
   get() {
-    const { headers, query } = this.clickData
+    const { headers } = this.clickData
 
     return {
       userAgent: this.#findValues(headers, 'user-agent'),
       referer: this.#findValues(headers, 'referer'),
-      source: this.#findValues(query, 'source'),
-      keyword: this.#findValues(query, 'keyword'),
     }
   }
 
   #findValues(headers: Dict[], name: string): string | undefined {
     return headers.find((dict) => dict.name === name)?.value
+  }
+
+  getQueryParameters() {
+    const res: Record<string, string | undefined> = {}
+    for (const key of Object.keys(queryParameterKeys)) {
+      const val = this.#findValues(this.clickData.query, key)
+      if (!val) {
+        continue
+      }
+
+      res[camelCase(key)] = val
+    }
+
+    return res
   }
 }

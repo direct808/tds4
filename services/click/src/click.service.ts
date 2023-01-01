@@ -63,7 +63,7 @@ export class ClickService {
 
     const { response, offer } = await this.#handleStreamSchema(stream)
 
-    await this.entityManager.save(Click, {
+    const saveData = {
       campaignId: campaign.id!,
       campaignGroupId: campaign.groupId,
       dateTime: new Date(),
@@ -73,7 +73,12 @@ export class ClickService {
       affiliateNetworkId: offer?.affiliateNetworkId,
       trafficSourceId: campaign.trafficSourceId,
       ...this.parameterService.get(),
-    })
+      ...this.parameterService.getQueryParameters(),
+    }
+    // console.log(this.clickData.query)
+    // console.log(saveData)
+
+    await this.entityManager.save(Click, saveData)
 
     return response
   }
