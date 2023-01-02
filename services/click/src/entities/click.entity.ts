@@ -40,7 +40,7 @@ export class Click {
   @Column('text', { nullable: true, comment: 'userAgent из header' })
   declare userAgent: string | null
 
-  @Column('text', { nullable: true })
+  @Column('char', { length: 2, nullable: true })
   declare language: string | null
 
   // USER AGENT INFO
