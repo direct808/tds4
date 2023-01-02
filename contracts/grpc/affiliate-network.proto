@@ -21,4 +21,5 @@ message GetAffiliateNetworkListResponse {
 message AffiliateNetwork {
   string id = 1;
   string name = 2;
+  string offer_param = 3;
 }

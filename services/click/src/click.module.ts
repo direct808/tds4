@@ -8,7 +8,7 @@ import { ConfigService } from './config.service'
 import { ActionTypeModule } from './action-type'
 import { RedirectTypeModule } from './redirect-type'
 import { ClickDataService } from './click-data.service'
-import { AddClickDTO } from './dto'
+import { ClickInputDTO } from './dto'
 import { RequestContextHost } from '@nestjs/microservices/context/request-context-host'
 import { REQUEST } from '@nestjs/core'
 import { plainToInstance } from 'class-transformer'
@@ -31,9 +31,9 @@ import { plainToInstance } from 'class-transformer'
     ClickDataService,
     {
       scope: Scope.REQUEST,
-      provide: AddClickDTO,
-      useFactory(request: RequestContextHost<AddClickDTO>) {
-        return plainToInstance(AddClickDTO, request.data)
+      provide: ClickInputDTO,
+      useFactory(request: RequestContextHost<ClickInputDTO>) {
+        return plainToInstance(ClickInputDTO, request.data)
       },
       inject: [REQUEST],
     },

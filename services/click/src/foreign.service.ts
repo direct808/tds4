@@ -1,4 +1,4 @@
-import { campaign, offer } from '@tds/contracts/grpc'
+import { affiliateNetwork, campaign, offer } from '@tds/contracts/grpc'
 import { ConfigService } from './config.service'
 import { firstValueFrom } from 'rxjs'
 import { Injectable } from '@nestjs/common'
@@ -7,10 +7,13 @@ import { Injectable } from '@nestjs/common'
 export class ForeignService {
   private readonly campaignService
   private readonly offerService
+  private readonly affiliateNetworkService
 
   constructor(private readonly configService: ConfigService) {
     this.campaignService = this.configService.getGrpcCampaignService()
     this.offerService = this.configService.getGrpcOfferService()
+    this.affiliateNetworkService =
+      this.configService.getGrpcAffiliateNetworkService()
   }
 
   getCampaignFull(
@@ -23,5 +26,13 @@ export class ForeignService {
     args: offer.GetOfferListRequest,
   ): Promise<offer.GetOfferListResponse> {
     return firstValueFrom(this.offerService.getOfferList(args))
+  }
+
+  getAffiliateNetworkList(
+    args: affiliateNetwork.GetAffiliateNetworkListRequest,
+  ): Promise<affiliateNetwork.GetAffiliateNetworkListResponse> {
+    return firstValueFrom(
+      this.affiliateNetworkService.getAffiliateNetworkList(args),
+    )
   }
 }

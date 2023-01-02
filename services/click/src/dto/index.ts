@@ -1,1 +1,1 @@
-export * from './add-click.DTO'
+export * from './click-input.DTO'

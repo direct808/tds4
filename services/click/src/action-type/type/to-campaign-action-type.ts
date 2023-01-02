@@ -9,7 +9,6 @@ import {
   NotFoundException,
   Scope,
 } from '@nestjs/common'
-import { AddClickDTO } from '../../dto'
 
 const MAX_REDIRECTS = 1
 

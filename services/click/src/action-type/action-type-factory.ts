@@ -2,7 +2,6 @@ import { ActionType } from './action-type'
 import { Inject, Injectable } from '@nestjs/common'
 import { ContextIdFactory, ModuleRef, REQUEST } from '@nestjs/core'
 import { tds } from '@tds/contracts/grpc/campaign'
-import Type = tds.global.ActionType
 import {
   NothingActionType,
   Show404ActionType,
@@ -10,6 +9,7 @@ import {
   ShowTextActionType,
   ToCampaignActionType,
 } from './type'
+import Type = tds.global.ActionType
 
 @Injectable()
 export class ActionTypeFactory {

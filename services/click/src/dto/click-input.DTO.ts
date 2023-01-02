@@ -11,7 +11,7 @@ import {
 import { click } from '@tds/contracts/grpc'
 import { Transform, Type } from 'class-transformer'
 
-export class AddClickDTO
+export class ClickInputDTO
   implements Record<keyof click.AddClickRequest, unknown>
 {
   @IsString()

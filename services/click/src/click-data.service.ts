@@ -1,4 +1,4 @@
-import { AddClickDTO } from './dto'
+import { ClickInputDTO } from './dto'
 import { Inject, Injectable } from '@nestjs/common'
 import { REQUEST } from '@nestjs/core'
 import { RequestContextHost } from '@nestjs/microservices/context/request-context-host'
@@ -15,12 +15,13 @@ type Dict = {
 @Injectable()
 export class ClickDataService {
   constructor(
-    private readonly clickData: AddClickDTO,
-    @Inject(REQUEST) private readonly request: RequestContextHost<AddClickDTO>,
+    private readonly clickInput: ClickInputDTO,
+    @Inject(REQUEST)
+    private readonly request: RequestContextHost<ClickInputDTO>,
   ) {}
 
   get() {
-    const { headers } = this.clickData
+    const { headers } = this.clickInput
 
     return {
       userAgent: this.#findValues(headers, 'user-agent'),
@@ -34,7 +35,7 @@ export class ClickDataService {
   }
 
   getQueryParameters() {
-    const query = parse(this.clickData.query)
+    const query = parse(this.clickInput.query)
     const res: Record<string, string | undefined> = {}
     for (const key of Object.keys(queryParameterKeys)) {
       let val = query[key]
@@ -53,7 +54,7 @@ export class ClickDataService {
   }
 
   getUsrAgentInfo() {
-    const userAgent = this.#findValues(this.clickData.headers, 'user-agent')
+    const userAgent = this.#findValues(this.clickInput.headers, 'user-agent')
 
     if (!userAgent) {
       return {}
@@ -73,7 +74,7 @@ export class ClickDataService {
 
   #getLanguage(): string | null {
     const languages = this.#findValues(
-      this.clickData.headers,
+      this.clickInput.headers,
       'accept-language',
     )
 

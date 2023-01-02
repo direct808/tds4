@@ -1,6 +1,6 @@
 import { join } from 'path'
 import { contractsPath, EnvDTO, makeGrpcService } from '@tds/common'
-import { campaign, offer } from '@tds/contracts/grpc'
+import { affiliateNetwork, campaign, offer } from '@tds/contracts/grpc'
 import { Injectable } from '@nestjs/common'
 import dotenv from 'dotenv'
 
@@ -24,5 +24,16 @@ export class ConfigService {
       package: 'tds.offer',
       protoPath: join(contractsPath, 'grpc/offer.proto'),
     })
+  }
+
+  getGrpcAffiliateNetworkService() {
+    return makeGrpcService<affiliateNetwork.AffiliateNetworkService>(
+      'AffiliateNetworkService',
+      {
+        url: this.env.SERVICE_AFFILIATE_NETWORK_GRPC_URL,
+        package: 'tds.affiliate_network',
+        protoPath: join(contractsPath, 'grpc/affiliate-network.proto'),
+      },
+    )
   }
 }

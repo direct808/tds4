@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { AddClickDTO } from './dto'
+import { ClickInputDTO } from './dto'
 import { EntityManager } from 'typeorm'
 import { Click } from './entities'
 import { ForeignService } from './foreign.service'
@@ -8,8 +8,8 @@ import { ActionTypeFactory } from './action-type'
 import { RedirectTypeFactory } from './redirect-type'
 import { campaign, click } from '@tds/contracts/grpc'
 import weighted from 'weighted'
-import Type = grpc.click.AddClickResponse.Type
 import { ClickDataService } from './click-data.service'
+import Type = grpc.click.AddClickResponse.Type
 
 type HandleLandingsOffersResponse = {
   offer: grpc.offer.Offer
@@ -29,7 +29,7 @@ export class ClickService {
     private readonly actionTypeFactory: ActionTypeFactory,
     private readonly redirectTypeFactory: RedirectTypeFactory,
     private readonly parameterService: ClickDataService,
-    private readonly clickData: AddClickDTO,
+    private readonly clickInput: ClickInputDTO,
   ) {}
 
   async add(): Promise<grpc.click.AddClickResponse> {
@@ -47,7 +47,7 @@ export class ClickService {
   }
 
   async #add(): Promise<grpc.click.AddClickResponse> {
-    const campaign = await this.#getCampaignByCode(this.clickData.campaignCode)
+    const campaign = await this.#getCampaignByCode(this.clickInput.campaignCode)
 
     return this.addByCampaign(campaign)
   }
@@ -67,7 +67,7 @@ export class ClickService {
       campaignId: campaign.id!,
       campaignGroupId: campaign.groupId,
       dateTime: new Date(),
-      ip: this.clickData.ip,
+      ip: this.clickInput.ip,
       streamId: stream.id,
       offerId: offer?.id,
       affiliateNetworkId: offer?.affiliateNetworkId,
@@ -153,6 +153,11 @@ export class ClickService {
 
     const offer = await this.#getOfferById(streamOffer.offerId!)
 
+    if (offer.affiliateNetworkId) {
+      const an = await this.#getAffiliateNetworkById(offer.affiliateNetworkId)
+      console.log('an', an)
+    }
+
     if (offer.type === undefined || offer.type === null) {
       throw new Error('offer.type not set')
     }
@@ -216,5 +221,17 @@ export class ClickService {
     }
 
     return offers[0]
+  }
+
+  async #getAffiliateNetworkById(id: string) {
+    const { result } = await this.foreignService.getAffiliateNetworkList({
+      ids: [id],
+    })
+
+    if (!result?.length) {
+      throw new Error('AffiliateNetwork not found ' + id)
+    }
+
+    return result[0]
   }
 }

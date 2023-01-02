@@ -1,5 +1,4 @@
 import { click } from '@tds/contracts/grpc'
-import { AddClickDTO } from '../dto'
 
 export type ActionTypeData = {
   actionContent?: string | null
