@@ -27,27 +27,14 @@ export class AddClickDTO
   @Type(() => HeaderDTO)
   headers!: HeaderDTO[]
 
-  @IsArray()
-  @ValidateNested()
-  @Type(() => QueryDTO)
-  query!: QueryDTO[]
+  @IsString()
+  query = ''
 }
 
 export class HeaderDTO implements Record<keyof click.KeyVal, unknown> {
   @IsString()
   @IsLowercase()
   @Transform((o) => o.value.toLowerCase())
-  @IsNotEmpty()
-  name!: string
-
-  @IsString()
-  @IsOptional()
-  @Transform((o) => o.value || null)
-  value!: string
-}
-
-export class QueryDTO implements Record<keyof click.KeyVal, unknown> {
-  @IsString()
   @IsNotEmpty()
   name!: string
 

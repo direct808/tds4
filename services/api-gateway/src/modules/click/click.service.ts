@@ -17,7 +17,7 @@ export class ClickService {
       campaignCode: request.url.substring(1, 7),
       ip: request.ip,
       headers: this.makeKeyValHeaders(request),
-      query: this.makeKeyValQuery(request),
+      query: request.url.split('?')[1],
     })
 
     const ret = {
@@ -64,29 +64,6 @@ export class ClickService {
     } catch (e) {
       return res.sendStatus(400)
     }
-  }
-
-  private makeKeyValQuery(request: Request): grpc.click.KeyVal[] {
-    const query: grpc.click.KeyVal[] = []
-
-    Object.entries(request.query)
-      .filter(([name, value]) => {
-        if (typeof value === 'string') {
-          query.push({ name, value })
-        }
-
-        if (Array.isArray(value)) {
-          const val = value[value.length - 1]
-          if (typeof val === 'string') {
-            query.push({ name, value: val })
-          }
-        }
-
-        return false
-      })
-      .map(([name, value]) => ({ name, value }))
-
-    return query
   }
 
   private makeKeyValHeaders(request: Request): grpc.click.KeyVal[] {

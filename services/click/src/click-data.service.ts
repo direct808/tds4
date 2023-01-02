@@ -5,6 +5,7 @@ import { RequestContextHost } from '@nestjs/microservices/context/request-contex
 import { queryParameterKeys } from './helpers'
 import { camelCase } from 'lodash'
 import UAParser from 'ua-parser-js'
+import { parse } from 'node:querystring'
 
 type Dict = {
   name: string
@@ -32,9 +33,14 @@ export class ClickDataService {
   }
 
   getQueryParameters() {
+    const query = parse(this.clickData.query)
     const res: Record<string, string | undefined> = {}
     for (const key of Object.keys(queryParameterKeys)) {
-      const val = this.#findValues(this.clickData.query, key)
+      let val = query[key]
+      if (Array.isArray(val)) {
+        val = val[val.length - 1]
+      }
+
       if (!val) {
         continue
       }
