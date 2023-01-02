@@ -26,19 +26,25 @@ export class Click {
   @Column('uuid', { nullable: true })
   declare streamId: string | null
 
-  @Column('text', { nullable: true, comment: 'Параметр из заголовка' })
-  declare referer: string | null
-
-  @Column('text', { nullable: true, comment: 'userAgent из header' })
-  declare userAgent: string | null
-
   @Column('inet')
   declare ip: string
 
   @Column('timestamp')
   declare dateTime: Date
 
+  // HEADER INFO
+
+  @Column('text', { nullable: true, comment: 'Параметр из заголовка' })
+  declare referer: string | null
+
+  @Column('text', { nullable: true, comment: 'userAgent из header' })
+  declare userAgent: string | null
+
+  @Column('text', { nullable: true })
+  declare language: string | null
+
   // USER AGENT INFO
+
   @Column('text', { nullable: true })
   declare deviceType: string | null
   @Column('text', { nullable: true })
@@ -167,7 +173,7 @@ export class Click {
   "region": "Moskovskaya oblast'",
   "region_code": "RU_MOS",
   "city": "Podol'sk",
-  "language": "Английский",
+  language: Английский     !!!
 
   "device_type": "Десктоп",
   "os": "Chrome OS",

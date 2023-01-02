@@ -25,6 +25,7 @@ export class ClickDataService {
     return {
       userAgent: this.#findValues(headers, 'user-agent'),
       referer: this.#findValues(headers, 'referer'),
+      language: this.#getLanguage(),
     }
   }
 
@@ -68,5 +69,18 @@ export class ClickDataService {
       deviceModel: parser.device.model,
       deviceType: parser.device.type,
     }
+  }
+
+  #getLanguage(): string | null {
+    const languages = this.#findValues(
+      this.clickData.headers,
+      'accept-language',
+    )
+
+    if (!languages) {
+      return null
+    }
+
+    return languages.substring(0, 2)
   }
 }
