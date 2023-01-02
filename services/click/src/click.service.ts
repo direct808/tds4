@@ -8,18 +8,8 @@ import { ActionTypeFactory } from './action-type'
 import { RedirectTypeFactory } from './redirect-type'
 import { campaign, click } from '@tds/contracts/grpc'
 import weighted from 'weighted'
-import { ClickDataService } from './click-data.service'
 import Type = grpc.click.AddClickResponse.Type
-
-type HandleLandingsOffersResponse = {
-  offer: grpc.offer.Offer
-  response: click.AddClickResponse
-}
-
-type HandleStreamSchemaResponse = {
-  offer: grpc.offer.Offer | null
-  response: click.AddClickResponse
-}
+import { ClickData } from './click-data'
 
 @Injectable()
 export class ClickService {
@@ -28,8 +18,8 @@ export class ClickService {
     private readonly foreignService: ForeignService,
     private readonly actionTypeFactory: ActionTypeFactory,
     private readonly redirectTypeFactory: RedirectTypeFactory,
-    private readonly parameterService: ClickDataService,
     private readonly clickInput: ClickInputDTO,
+    private readonly clickData: ClickData,
   ) {}
 
   async add(): Promise<grpc.click.AddClickResponse> {
@@ -49,6 +39,8 @@ export class ClickService {
   async #add(): Promise<grpc.click.AddClickResponse> {
     const campaign = await this.#getCampaignByCode(this.clickInput.campaignCode)
 
+    this.clickData.setFromCampaign(campaign)
+
     return this.addByCampaign(campaign)
   }
 
@@ -61,62 +53,36 @@ export class ClickService {
 
     const stream = this.#getSelectedStream(campaign.streams)
 
-    const { response, offer } = await this.#handleStreamSchema(stream)
+    this.clickData.setFromStream(stream)
 
-    const saveData = {
-      campaignId: campaign.id!,
-      campaignGroupId: campaign.groupId,
-      dateTime: new Date(),
-      ip: this.clickInput.ip,
-      streamId: stream.id,
-      offerId: offer?.id,
-      affiliateNetworkId: offer?.affiliateNetworkId,
-      trafficSourceId: campaign.trafficSourceId,
-      ...this.parameterService.get(),
-      ...this.parameterService.getQueryParameters(),
-      ...this.parameterService.getUsrAgentInfo(),
-    }
-    // console.log(this.clickData.query)
-    // console.log(saveData)
+    const response = await this.#handleStreamSchema(stream)
 
-    await this.entityManager.save(Click, saveData)
+    await this.entityManager.save(Click, this.clickData)
 
     return response
   }
 
   async #handleStreamSchema(
     stream: grpc.campaign.CampaignStream,
-  ): Promise<HandleStreamSchemaResponse> {
+  ): Promise<grpc.click.AddClickResponse> {
     if (stream.schema === undefined || stream.schema === null) {
       throw new Error('Stream not found')
     }
 
-    let response: grpc.click.AddClickResponse
-    let offer: grpc.offer.Offer | null = null
-
     switch (stream.schema) {
       case grpc.campaign.StreamSchema.ACTION:
         const at = await this.actionTypeFactory.create(stream.actionType!)
-        response = await at.handle(stream)
-        break
+
+        return at.handle(stream)
       case grpc.campaign.StreamSchema.DIRECT_URL:
-        response = await this.redirectTypeFactory
+        return this.redirectTypeFactory
           .create(stream.redirectType!)
           .handle(stream.redirectUrl!)
-        break
       case grpc.campaign.StreamSchema.LANDINGS_OFFERS:
-        const data = await this.#handleLandingsOffers(stream)
-        response = data.response
-        offer = data.offer
-        break
+        return this.#handleLandingsOffers(stream)
       default:
         const s: never = stream.schema
         throw new Error('Unknown stream schema ' + s)
-    }
-
-    return {
-      response,
-      offer,
     }
   }
 
@@ -140,7 +106,7 @@ export class ClickService {
 
   async #handleLandingsOffers(
     stream: campaign.CampaignStream,
-  ): Promise<HandleLandingsOffersResponse> {
+  ): Promise<click.AddClickResponse> {
     if (!stream.streamOffers || !stream.streamOffers.length) {
       throw new Error('No streamOffers')
     }
@@ -158,39 +124,31 @@ export class ClickService {
       console.log('an', an)
     }
 
+    this.clickData.setFromOffer(offer)
+
     if (offer.type === undefined || offer.type === null) {
       throw new Error('offer.type not set')
     }
 
-    let response: click.AddClickResponse
-
     switch (offer.type) {
       case grpc.offer.OfferType.ACTION:
         const action = await this.actionTypeFactory.create(offer.actionType!)
-        response = await action.handle(offer)
-        break
+
+        return action.handle(offer)
       case grpc.offer.OfferType.REDIRECT:
-        response = await this.redirectTypeFactory
+        return this.redirectTypeFactory
           .create(offer.redirectType!)
           .handle(offer.redirectUrl!)
-        break
       case grpc.offer.OfferType.PRELOAD:
         // Может отличается от redirect curl?
-        response = await this.redirectTypeFactory
+        return this.redirectTypeFactory
           .create(grpc.global.RedirectType.CURL)
           .handle(offer.preloadUrl!)
-        break
       case grpc.offer.OfferType.LOCAL:
-        response = { type: Type.CONTENT, content: 'LOCAL not realized' }
-        break
+        return { type: Type.CONTENT, content: 'LOCAL not realized' }
       default:
         const type: never = offer.type
         throw new Error('Unknown offer.type' + type)
-    }
-
-    return {
-      response,
-      offer,
     }
   }
 

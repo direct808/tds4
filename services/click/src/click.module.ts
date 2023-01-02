@@ -7,11 +7,11 @@ import { ForeignService } from './foreign.service'
 import { ConfigService } from './config.service'
 import { ActionTypeModule } from './action-type'
 import { RedirectTypeModule } from './redirect-type'
-import { ClickDataService } from './click-data.service'
 import { ClickInputDTO } from './dto'
 import { RequestContextHost } from '@nestjs/microservices/context/request-context-host'
 import { REQUEST } from '@nestjs/core'
 import { plainToInstance } from 'class-transformer'
+import { ClickData } from './click-data'
 
 @Global()
 @Module({
@@ -28,7 +28,7 @@ import { plainToInstance } from 'class-transformer'
     ClickService,
     ForeignService,
     ConfigService,
-    ClickDataService,
+    ClickData,
     {
       scope: Scope.REQUEST,
       provide: ClickInputDTO,
