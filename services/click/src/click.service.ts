@@ -27,7 +27,7 @@ export class ClickService {
   async add(): Promise<grpc.click.AddClickResponse> {
     try {
       return await this.#add()
-    } catch (e) {
+    } catch (e: unknown) {
       if (e instanceof NotFoundException) {
         return {
           type: grpc.click.AddClickResponse.Type.NOT_FOUND,

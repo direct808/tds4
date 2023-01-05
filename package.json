@@ -16,6 +16,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,services,libs,test}/**/*.ts\" --fix",
+    "type-coverage": "type-coverage",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
@@ -90,6 +91,7 @@
     "ts-loader": "^9.2.3",
     "ts-node": "^10.0.0",
     "tsconfig-paths": "^4.1.0",
+    "type-coverage": "^2.24.1",
     "typescript": "^4.3.5"
   },
   "jest": {
@@ -115,5 +117,17 @@
     "moduleNameMapper": {
       "^@tds/common(|/.*)$": "<rootDir>/libs/common/src/$1"
     }
+  },
+  "typeCoverage": {
+    "detail": true,
+    "strict": true,
+    "ignoreNested": true,
+    "ignoreAsAssertion": true,
+    "ignoreNonNullAssertion": true,
+    "ignoreFiles": [
+      "dist/**",
+      "contracts/**"
+    ],
+    "atLeast": 100
   }
 }

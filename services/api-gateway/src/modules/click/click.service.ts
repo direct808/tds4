@@ -5,6 +5,8 @@ import { grpc } from '@tds/contracts'
 import { JwtPayload, verify } from 'jsonwebtoken'
 import { EnvDTO } from '@tds/common'
 
+type JwtPayloadUrl = JwtPayload & { url?: string }
+
 @Injectable()
 export class ClickService {
   constructor(
@@ -54,14 +56,14 @@ export class ClickService {
 
   handleMeta2Redirect(token: string, res: Response) {
     try {
-      const { url } = verify(token, this.env.SECRET) as JwtPayload
+      const { url } = verify(token, this.env.SECRET) as JwtPayloadUrl
       res.send(`<html>
 <head>
     <meta http-equiv="REFRESH" content="1; URL='${url}'">
     <script type="application/javascript">window.location = "${url}";</script>
 </head>
 </html>`)
-    } catch (e) {
+    } catch (e: unknown) {
       return res.sendStatus(400)
     }
   }

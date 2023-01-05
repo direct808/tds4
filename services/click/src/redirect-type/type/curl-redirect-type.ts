@@ -7,7 +7,7 @@ import { RedirectType } from '../redirect-type'
 @Injectable()
 export class CurlRedirectType implements RedirectType {
   async handle(url: string): Promise<click.AddClickResponse> {
-    let { data: content } = await axios.get(url)
+    let { data: content } = await axios.get<string>(url)
 
     content = this.setBase(content, this.prepareUrl(url))
 
