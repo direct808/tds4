@@ -8,8 +8,9 @@ import { ActionTypeFactory } from './action-type'
 import { RedirectTypeFactory } from './redirect-type'
 import { campaign, click } from '@tds/contracts/grpc'
 import weighted from 'weighted'
-import Type = grpc.click.AddClickResponse.Type
 import { ClickData } from './click-data'
+import { TemplateService } from './template.service'
+import Type = grpc.click.AddClickResponse.Type
 
 @Injectable()
 export class ClickService {
@@ -20,6 +21,7 @@ export class ClickService {
     private readonly redirectTypeFactory: RedirectTypeFactory,
     private readonly clickInput: ClickInputDTO,
     private readonly clickData: ClickData,
+    private readonly templateService: TemplateService,
   ) {}
 
   async add(): Promise<grpc.click.AddClickResponse> {
@@ -118,12 +120,6 @@ export class ClickService {
     console.log('Selected offer', streamOffer.id, streamOffer.percent)
 
     const offer = await this.#getOfferById(streamOffer.offerId!)
-
-    if (offer.affiliateNetworkId) {
-      const an = await this.#getAffiliateNetworkById(offer.affiliateNetworkId)
-      console.log('an', an)
-    }
-
     this.clickData.setFromOffer(offer)
 
     if (offer.type === undefined || offer.type === null) {
@@ -136,14 +132,24 @@ export class ClickService {
 
         return action.handle(offer)
       case grpc.offer.OfferType.REDIRECT:
+        const redirectUrl = await this.#setOfferUrlParams(
+          offer,
+          offer.redirectUrl!,
+        )
+
         return this.redirectTypeFactory
           .create(offer.redirectType!)
-          .handle(offer.redirectUrl!)
+          .handle(redirectUrl)
       case grpc.offer.OfferType.PRELOAD:
         // Может отличается от redirect curl?
+        const preloadUrl = await this.#setOfferUrlParams(
+          offer,
+          offer.preloadUrl!,
+        )
+
         return this.redirectTypeFactory
           .create(grpc.global.RedirectType.CURL)
-          .handle(offer.preloadUrl!)
+          .handle(preloadUrl)
       case grpc.offer.OfferType.LOCAL:
         return { type: Type.CONTENT, content: 'LOCAL not realized' }
       default:
@@ -191,5 +197,28 @@ export class ClickService {
     }
 
     return result[0]
+  }
+
+  async #setOfferUrlParams(
+    offer: grpc.offer.Offer,
+    inputUrl: string,
+  ): Promise<string> {
+    if (!offer.affiliateNetworkId) {
+      return inputUrl
+    }
+
+    const an = await this.#getAffiliateNetworkById(offer.affiliateNetworkId)
+
+    if (!an.offerParam) {
+      return inputUrl
+    }
+
+    const res = this.templateService.parse(an.offerParam, { encodeUri: true })
+
+    if (inputUrl.includes('?')) {
+      return inputUrl + '&' + res
+    } else {
+      return inputUrl + '?' + res
+    }
   }
 }

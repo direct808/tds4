@@ -13,6 +13,7 @@ export class ClickData
   offerId?: string | null
   affiliateNetworkId?: string | null
   campaignId!: string
+  campaignName!: string
   campaignGroupId?: string | null
   trafficSourceId?: string | null
   streamId?: string | null
@@ -74,6 +75,7 @@ export class ClickData
 
   public setFromCampaign(campaign: grpc.campaign.Campaign): void {
     this.campaignId = campaign.id!
+    this.campaignName = campaign.name!
     this.campaignGroupId = campaign.groupId
     this.trafficSourceId = campaign.trafficSourceId
   }

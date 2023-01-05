@@ -12,6 +12,7 @@ import { RequestContextHost } from '@nestjs/microservices/context/request-contex
 import { REQUEST } from '@nestjs/core'
 import { plainToInstance } from 'class-transformer'
 import { ClickData } from './click-data'
+import { TemplateService } from './template.service'
 
 @Global()
 @Module({
@@ -29,6 +30,7 @@ import { ClickData } from './click-data'
     ForeignService,
     ConfigService,
     ClickData,
+    TemplateService,
     {
       scope: Scope.REQUEST,
       provide: ClickInputDTO,
