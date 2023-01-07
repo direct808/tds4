@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { Args, Mutation, Query } from '@nestjs/graphql'
-import { OfferService } from './offer.service'
+import { OfferGroupService, OfferService } from './modules/offer'
 import { OfferGroupSaveDTO, OfferSaveDTO } from './dto'
-import { OfferGroupService } from './offer-group.service'
 import { gql } from '@tds/contracts'
 
 @Injectable()

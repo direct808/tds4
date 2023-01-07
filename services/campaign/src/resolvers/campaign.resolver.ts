@@ -1,8 +1,11 @@
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql'
 import { gql } from '@tds/contracts'
 import { TCampaignResolver, TGqlCampaign } from './common'
-import { CampaignGroupLoader, CampaignStreamLoader } from '../loaders'
-import { CampaignStreamService } from '../campaign-stream.service'
+import { CampaignStreamService } from '../modules/campaign/services'
+import {
+  CampaignGroupLoader,
+  CampaignStreamLoader,
+} from '../modules/campaign/loaders'
 
 @Resolver(gql.Campaign)
 export class CampaignResolver implements TCampaignResolver {

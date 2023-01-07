@@ -9,10 +9,29 @@ services:
       - 5432:5432
 
   affiliate-network:
+    entrypoint: ["node", "./dist/services/affiliate-network/src/main.js"]
     build: .
     env_file:
-      - .env
+      - .env.docker
     environment:
-      - DB_HOST=db
+      - GRPC_URL=localhost:3001
+      - GQL_PORT=3000
+    ports:
+      - 4002:3000
+      - 4014:3001
+    depends_on:
+      - db
+
+  traffic-source:
+    entrypoint: ["node", "./dist/services/traffic-source/src/main.js"]
+    build: .
+    env_file:
+      - .env.docker
+    environment:
+      - GRPC_URL=localhost:3001
+      - GQL_PORT=3000
+    ports:
+      - 4003:3000
+      - 4013:3001
     depends_on:
       - db

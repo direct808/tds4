@@ -1,9 +1,9 @@
 import type { Request, Response } from 'express'
 import { Injectable } from '@nestjs/common'
-import { ForeignService } from '../../foreign.service'
+import { ForeignService } from './foreign.service'
 import { grpc } from '@tds/contracts'
 import { JwtPayload, verify } from 'jsonwebtoken'
-import { EnvDTO } from '@tds/common'
+import { ConfigService } from '../config'
 
 type JwtPayloadUrl = JwtPayload & { url?: string }
 
@@ -11,7 +11,7 @@ type JwtPayloadUrl = JwtPayload & { url?: string }
 export class ClickService {
   constructor(
     private readonly foreignService: ForeignService,
-    private readonly env: EnvDTO,
+    private readonly configService: ConfigService,
   ) {}
 
   public async handleClick(request: Request): Promise<void> {
@@ -56,7 +56,10 @@ export class ClickService {
 
   handleMeta2Redirect(token: string, res: Response) {
     try {
-      const { url } = verify(token, this.env.SECRET) as JwtPayloadUrl
+      const { url } = verify(
+        token,
+        this.configService.env.SECRET,
+      ) as JwtPayloadUrl
       res.send(`<html>
 <head>
     <meta http-equiv="REFRESH" content="1; URL='${url}'">

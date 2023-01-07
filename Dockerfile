@@ -12,6 +12,7 @@ COPY contracts contracts
 COPY tsconfig.json nest-cli.json .
 
 RUN yarn run nest build affiliate-network
+RUN yarn run nest build traffic-source
 
 FROM node:18-alpine
 
@@ -24,4 +25,4 @@ RUN yarn install --frozen-lockfile --prod && yarn cache clean
 COPY --from=builder /app/dist dist
 COPY --from=builder /app/contracts contracts
 
-CMD ["node", "dist/services/affiliate-network/src/main.js"]
+#CMD ["node", "dist/services/affiliate-network/src/main.js"]

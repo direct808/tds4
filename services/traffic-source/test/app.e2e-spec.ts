@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { INestApplication } from '@nestjs/common'
 import * as request from 'supertest'
-import { TrafficSourceModule } from '../src/traffic-source.module'
+import { TrafficSourceModule } from '../src/modules/traffic-source'
 
 describe('CampaignsController (e2e)', () => {
   let app: INestApplication

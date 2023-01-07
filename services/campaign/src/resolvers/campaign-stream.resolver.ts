@@ -1,6 +1,6 @@
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql'
 import { gql } from '@tds/contracts'
-import { StreamOfferLoader } from '../loaders'
+import { StreamOfferLoader } from '../modules/campaign/loaders'
 
 @Resolver(gql.CampaignStream)
 export class CampaignStreamResolver {

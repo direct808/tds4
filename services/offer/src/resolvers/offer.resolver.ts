@@ -1,7 +1,7 @@
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql'
 import { gql } from '@tds/contracts'
 import { TGqlOffers, TOfferResolver } from './common'
-import { OfferGroupLoader } from '../loaders'
+import { OfferGroupLoader } from '../modules/offer'
 
 @Resolver(gql.Offer)
 export class OfferResolver implements TOfferResolver {

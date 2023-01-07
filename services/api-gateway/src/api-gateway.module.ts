@@ -4,16 +4,14 @@ import { ApolloGatewayDriver, ApolloGatewayDriverConfig } from '@nestjs/apollo'
 import { readFileSync } from 'fs'
 import path from 'path'
 import { ClickController } from './click.controller'
-import { ConfigService } from './config.service'
-import { ForeignService } from './foreign.service'
-import { EnvModule } from '@tds/common'
 import { ClickModule } from './modules/click'
+import { ConfigModule } from './modules/config'
 
 @Global()
 @Module({
   imports: [
-    EnvModule,
     ClickModule,
+    ConfigModule,
     GraphQLModule.forRoot<ApolloGatewayDriverConfig>({
       driver: ApolloGatewayDriver,
       server: {
@@ -27,7 +25,5 @@ import { ClickModule } from './modules/click'
     }),
   ],
   controllers: [ClickController],
-  providers: [ConfigService, ForeignService],
-  exports: [ForeignService],
 })
 export class ApiGatewayModule {}

@@ -1,4 +1,15 @@
 import { join } from 'path'
+import {
+  ClassConstructor,
+  instanceToPlain,
+  plainToInstance,
+} from 'class-transformer'
+import { validateSync } from 'class-validator'
+import * as process from 'process'
+import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
+import { BaseDataSourceOptions } from 'typeorm/data-source/BaseDataSourceOptions'
+import { DatabaseEnvDTO } from '@tds/common/database.module'
 
 export const contractsPath = join(__dirname, '../../../../contracts')
 
@@ -30,4 +41,48 @@ export function convertEnum<
   }
 
   return b[key]
+}
+
+export const getEnvConfig = <T extends object>(
+  classDTO: ClassConstructor<T>,
+) => {
+  const config = plainToInstance(classDTO, process.env, {
+    strategy: 'exposeAll',
+  })
+
+  const errors = validateSync(config)
+
+  if (errors.length) {
+    console.error('Env validation error: ' + errors, 'ConfigService')
+
+    process.exit(1)
+  }
+
+  return instanceToPlain(config, { strategy: 'excludeAll' }) as T
+}
+
+type DefaultDatabaseConfigOptions = {
+  dbEnv: DatabaseEnvDTO
+  schema: string
+  entities: BaseDataSourceOptions['entities']
+}
+
+export function defaultDatabaseConfig({
+  entities,
+  schema,
+  dbEnv,
+}: DefaultDatabaseConfigOptions): PostgresConnectionOptions {
+  return {
+    type: 'postgres',
+    host: dbEnv.DB_HOST,
+    port: dbEnv.DB_PORT,
+    username: dbEnv.DB_USER,
+    password: dbEnv.DB_PASS,
+    database: 'postgres',
+    entities,
+    schema,
+    synchronize: true,
+    logging: 'all',
+    namingStrategy: new SnakeNamingStrategy(),
+  }
 }

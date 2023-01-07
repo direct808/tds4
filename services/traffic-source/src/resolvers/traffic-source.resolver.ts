@@ -1,6 +1,6 @@
 import { Resolver, ResolveReference } from '@nestjs/graphql'
 import { gql } from '@tds/contracts'
-import { TrafficSourceLoader } from '../loaders'
+import { TrafficSourceLoader } from '../modules/traffic-source'
 
 @Resolver(gql.TrafficSource)
 export class TrafficSourceResolver {

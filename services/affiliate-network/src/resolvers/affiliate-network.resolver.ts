@@ -1,6 +1,6 @@
 import { Resolver, ResolveReference } from '@nestjs/graphql'
 import { gql } from '@tds/contracts'
-import { AffiliateNetworkLoader } from '../loaders'
+import { AffiliateNetworkLoader } from '../modules/affiliate-network'
 
 @Resolver(gql.AffiliateNetwork)
 export class AffiliateNetworkResolver {

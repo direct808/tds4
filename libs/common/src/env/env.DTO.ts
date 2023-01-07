@@ -13,14 +13,6 @@ export class EnvDTO {
   @Transform(({ value }: { value: string | undefined }) =>
     value ? Number(value) : undefined,
   )
-  declare SERVICE_API_GATEWAY_PORT: number
-
-  @Expose()
-  @IsInt()
-  @IsNotEmpty()
-  @Transform(({ value }: { value: string | undefined }) =>
-    value ? Number(value) : undefined,
-  )
   declare SERVICE_AFFILIATE_NETWORK_PORT: number
 
   @Expose()

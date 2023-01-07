@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { Args, Mutation, Query } from '@nestjs/graphql'
-import { CampaignService } from './campaign.service'
+import {
+  CampaignGroupService,
+  CampaignService,
+} from './modules/campaign/services'
 import { CampaignGroupSaveDTO, CampaignSaveDTO } from './dto'
 import { gql } from '@tds/contracts'
-import { CampaignGroupService } from './campaign-group.service'
 
 @Injectable()
 export class QueryService {
