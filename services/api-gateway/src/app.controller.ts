@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 import { ClickService } from './modules/click'
 
 @Controller()
-export class ClickController {
+export class AppController {
   constructor(private readonly clickService: ClickService) {}
 
   @Get('\\w{6}')

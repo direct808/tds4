@@ -3,7 +3,7 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloGatewayDriver, ApolloGatewayDriverConfig } from '@nestjs/apollo'
 import { readFileSync } from 'fs'
 import path from 'path'
-import { ClickController } from './click.controller'
+import { AppController } from './app.controller'
 import { ClickModule } from './modules/click'
 import { ConfigModule } from './modules/config'
 
@@ -24,6 +24,6 @@ import { ConfigModule } from './modules/config'
       },
     }),
   ],
-  controllers: [ClickController],
+  controllers: [AppController],
 })
 export class ApiGatewayModule {}
