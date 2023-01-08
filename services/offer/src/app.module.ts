@@ -10,8 +10,7 @@ import { contractsPath } from '@tds/common'
 import { AppController } from './app.controller'
 import { QueryService } from './query.service'
 import { OfferModule } from './modules/offer'
-import { ConfigModule } from './modules/config'
-import { TypeOrmConfigService } from './typeorm-config.service'
+import { ConfigModule, TypeOrmConfigService } from './modules/config'
 import { OfferResolver } from './resolvers'
 
 @Module({

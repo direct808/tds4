@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common'
 import { AffiliateNetworkModule } from './modules/affiliate-network'
-import { ConfigModule } from './modules/config'
+import { ConfigModule, TypeOrmConfigService } from './modules/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { TypeOrmConfigService } from './typeorm-config.service'
 import { GraphQLModule } from '@nestjs/graphql'
 import {
   ApolloFederationDriver,

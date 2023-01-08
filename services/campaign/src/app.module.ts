@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { ConfigModule } from './modules/config'
+import { ConfigModule, TypeOrmConfigService } from './modules/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { GraphQLModule } from '@nestjs/graphql'
 import {
@@ -9,7 +9,6 @@ import {
 import path from 'path'
 import { contractsPath } from '@tds/common'
 import { QueryService } from './query.service'
-import { TypeOrmConfigService } from './typeorm-config.service'
 import { AppController } from './app.controller'
 import { CampaignModule } from './modules/campaign'
 import { CampaignResolver, CampaignStreamResolver } from './resolvers'
