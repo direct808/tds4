@@ -5,22 +5,34 @@ import { readFileSync } from 'fs'
 import path from 'path'
 import { AppController } from './app.controller'
 import { ClickModule } from './modules/click'
-import { ConfigModule } from './modules/config'
+import { ConfigModule, ConfigService } from './modules/config'
+import { replaceSubgraphUrls } from './utils'
 
 @Global()
 @Module({
   imports: [
     ClickModule,
     ConfigModule,
-    GraphQLModule.forRoot<ApolloGatewayDriverConfig>({
+    GraphQLModule.forRootAsync<ApolloGatewayDriverConfig>({
       driver: ApolloGatewayDriver,
-      server: {
-        cors: true,
-      },
-      gateway: {
-        supergraphSdl: readFileSync(
-          path.join(__dirname, '../schema.graphql'),
-        ).toString(),
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory(config: ConfigService) {
+        return {
+          server: {
+            cors: true,
+            playground: true,
+            introspection: true,
+          },
+          gateway: {
+            supergraphSdl: replaceSubgraphUrls(
+              readFileSync(
+                path.join(__dirname, '../schema.graphql'),
+              ).toString(),
+              config.env,
+            ),
+          },
+        }
       },
     }),
   ],

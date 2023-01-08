@@ -12,4 +12,24 @@ export class AppEnvDTO {
   @IsNumberString()
   @IsNotEmpty()
   PORT!: string
+
+  @Expose()
+  @IsString()
+  @IsNotEmpty()
+  SERVICE_AFFILIATE_NETWORK_HOST!: string
+
+  @Expose()
+  @IsString()
+  @IsNotEmpty()
+  SERVICE_CAMPAIGN_HOST!: string
+
+  @Expose()
+  @IsString()
+  @IsNotEmpty()
+  SERVICE_OFFER_HOST!: string
+
+  @Expose()
+  @IsString()
+  @IsNotEmpty()
+  SERVICE_TRAFFIC_SOURCE_HOST!: string
 }
