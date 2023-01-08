@@ -1,4 +1,4 @@
-FROM node:18-alpine AS builder
+FROM node:18 AS builder
 
 WORKDIR /app
 
@@ -9,9 +9,15 @@ RUN yarn install && yarn cache clean
 COPY services services
 COPY libs libs
 COPY contracts contracts
-COPY tsconfig.json nest-cli.json .
+COPY tsconfig.json nest-cli.json supergraph-config.yaml .
+
+RUN yarn run supergraph:compose
 
 RUN yarn run nest build affiliate-network
+RUN yarn run nest build api-gateway
+RUN yarn run nest build campaign
+RUN yarn run nest build click
+RUN yarn run nest build offer
 RUN yarn run nest build traffic-source
 
 FROM node:18-alpine

@@ -3,3 +3,4 @@ dist
 node_modules
 .idea
 yarn-error.log
+docker-compose.override.yml
