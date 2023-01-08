@@ -1,7 +1,7 @@
 import { join } from 'path'
 import {
   contractsPath,
-  DatabaseEnvDTO,
+  DBEnvDTO,
   defaultDatabaseConfig,
   getEnvConfig,
   makeGrpcService,
@@ -20,12 +20,12 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
 
 @Injectable()
 export class ConfigService {
-  env: AppEnvDTO & DatabaseEnvDTO & EnvDTO
+  env: AppEnvDTO & DBEnvDTO & EnvDTO
 
   constructor() {
     this.env = {
       ...getEnvConfig(AppEnvDTO),
-      ...getEnvConfig(DatabaseEnvDTO),
+      ...getEnvConfig(DBEnvDTO),
       ...getEnvConfig(EnvDTO),
     }
   }

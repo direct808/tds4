@@ -1,6 +1,6 @@
 export * from './types'
 export * from './common'
+export * from './db-env.DTO'
 export * from './grpc-client'
-export * from './database.module'
 export * from './template-parser'
 export * from './grpc-validation-pipe'

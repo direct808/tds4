@@ -1,9 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import {
-  DatabaseEnvDTO,
-  defaultDatabaseConfig,
-  getEnvConfig,
-} from '@tds/common'
+import { DBEnvDTO, defaultDatabaseConfig, getEnvConfig } from '@tds/common'
 import { AppEnvDTO } from './app-env.DTO'
 import { join } from 'path'
 
@@ -16,12 +12,12 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
 
 @Injectable()
 export class ConfigService {
-  env: AppEnvDTO & DatabaseEnvDTO
+  env: AppEnvDTO & DBEnvDTO
 
   constructor() {
     this.env = {
       ...getEnvConfig(AppEnvDTO),
-      ...getEnvConfig(DatabaseEnvDTO),
+      ...getEnvConfig(DBEnvDTO),
     }
   }
 

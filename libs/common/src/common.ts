@@ -9,7 +9,7 @@ import * as process from 'process'
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { BaseDataSourceOptions } from 'typeorm/data-source/BaseDataSourceOptions'
-import { DatabaseEnvDTO } from '@tds/common/database.module'
+import { DBEnvDTO } from './db-env.DTO'
 
 export const contractsPath = join(__dirname, '../../../../contracts')
 
@@ -62,7 +62,7 @@ export const getEnvConfig = <T extends object>(
 }
 
 type DefaultDatabaseConfigOptions = {
-  dbEnv: DatabaseEnvDTO
+  dbEnv: DBEnvDTO
   schema: string
   entities: BaseDataSourceOptions['entities']
 }
