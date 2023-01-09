@@ -11,7 +11,7 @@ export class AppEnvDTO {
   @Expose()
   @IsNumberString()
   @IsNotEmpty()
-  PORT!: string
+  APP_PORT!: string
 
   @Expose()
   @IsString()

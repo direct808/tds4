@@ -8,7 +8,7 @@ async function bootstrap() {
   await app.init()
   const { env } = app.get(ConfigService)
   await app.set('etag', false)
-  await app.listen(env.PORT)
+  await app.listen(env.APP_PORT)
 }
 
 bootstrap()
