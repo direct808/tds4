@@ -20,7 +20,7 @@ async function bootstrap() {
   })
 
   await app.startAllMicroservices()
-  await app.listen(env.GQL_PORT)
+  await app.listen(env.APP_PORT)
 }
 
 bootstrap()

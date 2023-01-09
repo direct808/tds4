@@ -25,7 +25,7 @@ services:
       - .env.docker
     environment:
       - GRPC_URL=affiliate-network:3001
-      - GQL_PORT=3000
+      - APP_PORT=3000
     depends_on:
       - db
 
@@ -36,7 +36,7 @@ services:
       - .env.docker
     environment:
       - GRPC_URL=campaign:3001
-      - GQL_PORT=3000
+      - APP_PORT=3000
     depends_on:
       - db
 
@@ -47,7 +47,7 @@ services:
       - .env.docker
     environment:
       - GRPC_URL=click:3001
-      - GQL_PORT=3000
+      - APP_PORT=3000
     depends_on:
       - db
 
@@ -58,7 +58,7 @@ services:
       - .env.docker
     environment:
       - GRPC_URL=traffic-source:3001
-      - GQL_PORT=3000
+      - APP_PORT=3000
     depends_on:
       - db
 
@@ -69,6 +69,6 @@ services:
       - .env.docker
     environment:
       - GRPC_URL=offer:3001
-      - GQL_PORT=3000
+      - APP_PORT=3000
     depends_on:
       - db

@@ -16,5 +16,5 @@ export class AppEnvDTO {
   @Expose()
   @IsNumberString()
   @IsNotEmpty()
-  GQL_PORT!: string
+  APP_PORT!: string
 }
