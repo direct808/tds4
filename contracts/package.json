@@ -4,8 +4,14 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "gen:typings:grpc": "../node_modules/.bin/tsproto --path ./grpc --output ./src/grpc --template ./nestjs-grpc.hbs",
-    "gen:typings:gql": "../node_modules/.bin/graphql-codegen",
+    "gen:typings:grpc": "tsproto --path ./grpc --output ./src/grpc --template ./nestjs-grpc.hbs",
+    "gen:typings:gql": "graphql-codegen",
     "gen:typings": "yarn run gen:typings:grpc && yarn run gen:typings:gql"
+  },
+  "devDependencies": {
+    "@graphql-codegen/add": "^3.2.3",
+    "@graphql-codegen/cli": "^2.16.1",
+    "@graphql-codegen/typescript": "^2.8.5",
+    "nestjs-proto-gen-ts": "^1.0.21"
   }
 }
