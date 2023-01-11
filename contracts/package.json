@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "gen:typings:grpc": "tsproto --path ./grpc --output ./src/grpc --template ./nestjs-grpc.hbs",
+    "gen:typings:grpc:1": "pbjs -t static-module -w commonjs -o src/grpc/compiled.js grpc/*.proto",
+    "gen:typings:grpc:2": "pbts -o src/grpc/compiled.d.ts src/grpc/compiled.js",
+    "gen:typings:grpc": "yarn run gen:typings:grpc:1 && yarn run gen:typings:grpc:2",
     "gen:typings:gql": "graphql-codegen",
     "gen:typings": "yarn run gen:typings:grpc && yarn run gen:typings:gql"
   },
@@ -12,6 +14,6 @@
     "@graphql-codegen/add": "^3.2.3",
     "@graphql-codegen/cli": "^2.16.1",
     "@graphql-codegen/typescript": "^2.8.5",
-    "nestjs-proto-gen-ts": "^1.0.21"
+    "protobufjs-cli": "^1.0.2"
   }
 }

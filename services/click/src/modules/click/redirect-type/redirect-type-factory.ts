@@ -1,6 +1,6 @@
 import { ModuleRef } from '@nestjs/core'
 import { Injectable } from '@nestjs/common'
-import { tds } from '@tds/contracts/grpc/campaign'
+import { tds } from '@tds/contracts/grpc/compiled'
 import { RedirectType } from './redirect-type'
 import {
   CurlRedirectType,

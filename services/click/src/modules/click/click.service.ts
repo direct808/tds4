@@ -24,7 +24,7 @@ export class ClickService {
     private readonly templateService: TemplateService,
   ) {}
 
-  async add(): Promise<grpc.click.AddClickResponse> {
+  async add(): Promise<grpc.click.IAddClickResponse> {
     try {
       return await this.#add()
     } catch (e: unknown) {
@@ -38,7 +38,7 @@ export class ClickService {
     }
   }
 
-  async #add(): Promise<grpc.click.AddClickResponse> {
+  async #add(): Promise<grpc.click.IAddClickResponse> {
     const campaign = await this.#getCampaignByCode(this.clickInput.campaignCode)
 
     this.clickData.setFromCampaign(campaign)
@@ -47,8 +47,8 @@ export class ClickService {
   }
 
   async addByCampaign(
-    campaign: grpc.campaign.Campaign,
-  ): Promise<grpc.click.AddClickResponse> {
+    campaign: grpc.campaign.ICampaign,
+  ): Promise<grpc.click.IAddClickResponse> {
     if (!campaign.streams || !campaign.streams.length) {
       throw new Error('No streams')
     }
@@ -65,8 +65,8 @@ export class ClickService {
   }
 
   async #handleStreamSchema(
-    stream: grpc.campaign.CampaignStream,
-  ): Promise<grpc.click.AddClickResponse> {
+    stream: grpc.campaign.ICampaignStream,
+  ): Promise<grpc.click.IAddClickResponse> {
     if (stream.schema === undefined || stream.schema === null) {
       throw new Error('Stream not found')
     }
@@ -98,7 +98,7 @@ export class ClickService {
     return campaign
   }
 
-  #getSelectedStream<T extends grpc.campaign.CampaignStream>(streams: T[]): T {
+  #getSelectedStream<T extends grpc.campaign.ICampaignStream>(streams: T[]): T {
     if (streams.length === 0) {
       throw new Error('No streams')
     }
@@ -107,8 +107,8 @@ export class ClickService {
   }
 
   async #handleLandingsOffers(
-    stream: campaign.CampaignStream,
-  ): Promise<click.AddClickResponse> {
+    stream: campaign.ICampaignStream,
+  ): Promise<click.IAddClickResponse> {
     if (!stream.streamOffers || !stream.streamOffers.length) {
       throw new Error('No streamOffers')
     }
@@ -158,7 +158,7 @@ export class ClickService {
     }
   }
 
-  #selectStreamOffer<T extends grpc.campaign.StreamOffer>(
+  #selectStreamOffer<T extends grpc.campaign.IStreamOffer>(
     streamOffers: T[],
   ): T {
     if (streamOffers.length === 0) {
@@ -200,7 +200,7 @@ export class ClickService {
   }
 
   async #setOfferUrlParams(
-    offer: grpc.offer.Offer,
+    offer: grpc.offer.IOffer,
     inputUrl: string,
   ): Promise<string> {
     if (!offer.affiliateNetworkId) {

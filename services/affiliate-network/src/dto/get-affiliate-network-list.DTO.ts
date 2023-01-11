@@ -3,7 +3,7 @@ import { affiliateNetwork } from '@tds/contracts/grpc'
 
 export class GetAffiliateNetworkListDTO
   implements
-    Record<keyof affiliateNetwork.GetAffiliateNetworkListRequest, unknown>
+    Record<keyof affiliateNetwork.IGetAffiliateNetworkListRequest, unknown>
 {
   @IsInt()
   @IsOptional()

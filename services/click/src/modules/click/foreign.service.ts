@@ -17,20 +17,20 @@ export class ForeignService {
   }
 
   getCampaignFull(
-    args: campaign.GetCampaignFullRequest,
-  ): Promise<campaign.GetCampaignFullResponse> {
+    args: campaign.IGetCampaignFullRequest,
+  ): Promise<campaign.IGetCampaignFullResponse> {
     return firstValueFrom(this.campaignService.getCampaignFull(args))
   }
 
   getOfferList(
-    args: offer.GetOfferListRequest,
-  ): Promise<offer.GetOfferListResponse> {
+    args: offer.IGetOfferListRequest,
+  ): Promise<offer.IGetOfferListResponse> {
     return firstValueFrom(this.offerService.getOfferList(args))
   }
 
   getAffiliateNetworkList(
-    args: affiliateNetwork.GetAffiliateNetworkListRequest,
-  ): Promise<affiliateNetwork.GetAffiliateNetworkListResponse> {
+    args: affiliateNetwork.IGetAffiliateNetworkListRequest,
+  ): Promise<affiliateNetwork.IGetAffiliateNetworkListResponse> {
     return firstValueFrom(
       this.affiliateNetworkService.getAffiliateNetworkList(args),
     )

@@ -14,8 +14,8 @@ export class ForeignService {
   }
 
   async getTrafficSourceList(
-    args: trafficSource.GetTrafficSourceListRequest,
-  ): Promise<trafficSource.TrafficSource[]> {
+    args: trafficSource.IGetTrafficSourceListRequest,
+  ): Promise<trafficSource.ITrafficSource[]> {
     const result = await firstValueFrom(
       this.trafficSourceService.getTrafficSourceList(args),
     )
@@ -23,7 +23,9 @@ export class ForeignService {
     return result.result!
   }
 
-  async getOfferList(args: offer.GetOfferListRequest): Promise<offer.Offer[]> {
+  async getOfferList(
+    args: offer.IGetOfferListRequest,
+  ): Promise<offer.IOffer[]> {
     const { offers } = await firstValueFrom(
       this.offerService.getOfferList(args),
     )

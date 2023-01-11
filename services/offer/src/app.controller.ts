@@ -13,15 +13,14 @@ import {
 
 @Controller()
 @UsePipes(GrpcValidationPipe)
-export class AppController
-  implements Record<keyof offer.OfferService, unknown>
-{
+// implements Record<keyof offer.OfferService, unknown>
+export class AppController {
   constructor(private readonly offerService: OfferService) {}
 
   @GrpcMethod('OfferService')
   async getOfferList(
     args: GetOfferListDTO,
-  ): Promise<offer.GetOfferListResponse> {
+  ): Promise<offer.IGetOfferListResponse> {
     const offers = await this.offerService.find(args)
 
     return {

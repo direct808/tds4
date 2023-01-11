@@ -7,9 +7,8 @@ import { GetAffiliateNetworkListDTO } from './dto'
 
 @Controller()
 @UsePipes(GrpcValidationPipe)
-export class AppController
-  implements Record<keyof affiliateNetwork.AffiliateNetworkService, unknown>
-{
+// implements Record<keyof affiliateNetwork.AffiliateNetworkService, unknown>
+export class AppController {
   constructor(
     private readonly affiliateNetworkService: AffiliateNetworkService,
   ) {}
@@ -17,7 +16,7 @@ export class AppController
   @GrpcMethod('AffiliateNetworkService')
   async getAffiliateNetworkList(
     args: GetAffiliateNetworkListDTO,
-  ): Promise<affiliateNetwork.GetAffiliateNetworkListResponse> {
+  ): Promise<affiliateNetwork.IGetAffiliateNetworkListResponse> {
     console.log(args)
     const [result, totalCount] =
       await this.affiliateNetworkService.findAndCount(args)

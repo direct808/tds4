@@ -22,7 +22,7 @@ export class ToCampaignActionType implements ActionType {
     private readonly clickService: ClickService,
   ) {}
 
-  async handle(data: ActionTypeData): Promise<grpc.click.AddClickResponse> {
+  async handle(data: ActionTypeData): Promise<grpc.click.IAddClickResponse> {
     if (!data.actionCampaignId) {
       throw new Error('No actionCampaignId')
     }

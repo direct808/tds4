@@ -6,7 +6,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class RemoteRedirectType implements RedirectType {
-  async handle(url: string): Promise<click.AddClickResponse> {
+  async handle(url: string): Promise<click.IAddClickResponse> {
     const { data } = await axios.get<string>(url)
     const preparedUrl = data.trim()
 

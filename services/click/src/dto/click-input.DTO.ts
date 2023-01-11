@@ -12,7 +12,7 @@ import { click } from '@tds/contracts/grpc'
 import { Transform, Type } from 'class-transformer'
 
 export class ClickInputDTO
-  implements Record<keyof click.AddClickRequest, unknown>
+  implements Record<keyof click.IAddClickRequest, unknown>
 {
   @IsString()
   @Length(6, 6)
@@ -31,7 +31,7 @@ export class ClickInputDTO
   query = ''
 }
 
-export class HeaderDTO implements Record<keyof click.KeyVal, unknown> {
+export class HeaderDTO implements Record<keyof click.IKeyVal, unknown> {
   @IsString()
   @IsLowercase()
   @Transform((o) => o.value.toLowerCase())

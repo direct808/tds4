@@ -1,7 +1,7 @@
 import { ActionType } from './action-type'
 import { Inject, Injectable } from '@nestjs/common'
 import { ContextIdFactory, ModuleRef, REQUEST } from '@nestjs/core'
-import { tds } from '@tds/contracts/grpc/campaign'
+import { tds } from '@tds/contracts/grpc/compiled'
 import {
   NothingActionType,
   Show404ActionType,

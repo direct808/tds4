@@ -8,7 +8,7 @@ import { Injectable } from '@nestjs/common'
 export class Meta2RedirectType implements RedirectType {
   constructor(private readonly configService: ConfigService) {}
 
-  async handle(url: string): Promise<click.AddClickResponse> {
+  async handle(url: string): Promise<click.IAddClickResponse> {
     const token = sign({ url }, this.configService.env.SECRET, {
       noTimestamp: true,
     })

@@ -73,18 +73,18 @@ export class ClickData
     this.#setQueryParameters()
   }
 
-  public setFromCampaign(campaign: grpc.campaign.Campaign): void {
+  public setFromCampaign(campaign: grpc.campaign.ICampaign): void {
     this.campaignId = campaign.id!
     this.campaignName = campaign.name!
     this.campaignGroupId = campaign.groupId
     this.trafficSourceId = campaign.trafficSourceId
   }
 
-  public setFromStream(stream: grpc.campaign.CampaignStream): void {
+  public setFromStream(stream: grpc.campaign.ICampaignStream): void {
     this.streamId = stream.id
   }
 
-  public setFromOffer(offer: grpc.offer.Offer): void {
+  public setFromOffer(offer: grpc.offer.IOffer): void {
     this.offerId = offer.id
     this.affiliateNetworkId = offer.affiliateNetworkId
   }

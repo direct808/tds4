@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class WithoutRefererRedirectType implements RedirectType {
-  async handle(url: string): Promise<click.AddClickResponse> {
+  async handle(url: string): Promise<click.IAddClickResponse> {
     return {
       type: click.AddClickResponse.Type.CONTENT,
       content: `<!doctype html>

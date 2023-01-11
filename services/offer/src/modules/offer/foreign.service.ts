@@ -13,8 +13,8 @@ export class ForeignService {
   }
 
   async getAffiliateNetworkList(
-    args: affiliateNetwork.GetAffiliateNetworkListRequest,
-  ): Promise<affiliateNetwork.AffiliateNetwork[]> {
+    args: affiliateNetwork.IGetAffiliateNetworkListRequest,
+  ): Promise<affiliateNetwork.IAffiliateNetwork[]> {
     const result = await firstValueFrom(
       this.affiliateNetworkService.getAffiliateNetworkList(args),
     )

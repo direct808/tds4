@@ -1,9 +1,8 @@
 import { IsArray, IsOptional, IsUUID } from 'class-validator'
-import { tds } from '@tds/contracts/grpc/offer'
-import offer = tds.offer
+import { offer } from '@tds/contracts/grpc'
 
 export class GetOfferListDTO
-  implements Record<keyof offer.GetOfferListRequest, unknown>
+  implements Record<keyof offer.IGetOfferListRequest, unknown>
 {
   @IsArray()
   @IsOptional()

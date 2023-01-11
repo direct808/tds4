@@ -7,13 +7,12 @@ import { ClickService } from './modules/click'
 
 @Controller()
 @UsePipes(GrpcValidationPipe)
-export class AppController
-  implements Record<keyof click.ClickService, unknown>
-{
+// implements Record<keyof click.ClickService, unknown>
+export class AppController {
   constructor(protected readonly clickService: ClickService) {}
 
   @GrpcMethod('ClickService')
-  addClick(args: ClickInputDTO): Promise<click.AddClickResponse> {
+  addClick(args: ClickInputDTO): Promise<click.IAddClickResponse> {
     return this.clickService.add()
   }
 }

@@ -71,8 +71,8 @@ export class ClickService {
     }
   }
 
-  private makeKeyValHeaders(request: Request): grpc.click.KeyVal[] {
-    const headers: grpc.click.KeyVal[] = []
+  private makeKeyValHeaders(request: Request): grpc.click.IKeyVal[] {
+    const headers: grpc.click.IKeyVal[] = []
 
     for (let i = 0; i < request.rawHeaders.length; i += 2) {
       headers.push({

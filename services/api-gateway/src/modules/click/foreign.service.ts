@@ -11,7 +11,7 @@ export class ForeignService {
     this.clickService = this.configService.getGrpcClickService()
   }
 
-  addClick(args: click.AddClickRequest): Promise<click.AddClickResponse> {
+  addClick(args: click.IAddClickRequest): Promise<click.IAddClickResponse> {
     return firstValueFrom(this.clickService.addClick(args))
   }
 }
