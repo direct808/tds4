@@ -13,6 +13,9 @@ COPY tsconfig.json nest-cli.json supergraph-config.yaml .
 
 RUN yarn run supergraph:compose
 
+RUN cd contracts && yarn && yarn run gen:typings
+
+RUN yarn run nest build contracts
 RUN yarn run nest build affiliate-network
 RUN yarn run nest build api-gateway
 RUN yarn run nest build campaign
