@@ -5,6 +5,8 @@ services:
     image: postgres
     environment:
       POSTGRES_PASSWORD: postgres
+    volumes:
+      - db:/var/lib/postgresql/data
 
   api-gateway:
     entrypoint: ["node", "./dist/services/api-gateway/src/main.js"]
@@ -72,3 +74,6 @@ services:
       - APP_PORT=3000
     depends_on:
       - db
+
+volumes:
+  db:
