@@ -7,6 +7,7 @@ import { ConfigService } from './modules/config'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
+  app.enableShutdownHooks()
   await app.init()
   const { env } = app.get(ConfigService)
 

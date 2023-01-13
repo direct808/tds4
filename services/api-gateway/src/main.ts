@@ -5,6 +5,7 @@ import { ConfigService } from './modules/config'
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(ApiGatewayModule)
+  app.enableShutdownHooks()
   await app.init()
   const { env } = app.get(ConfigService)
   await app.set('etag', false)
