@@ -33,5 +33,3 @@ RUN yarn install --frozen-lockfile --prod && yarn cache clean
 
 COPY --from=builder /app/dist dist
 COPY --from=builder /app/contracts contracts
-
-#CMD ["node", "dist/services/affiliate-network/src/main.js"]

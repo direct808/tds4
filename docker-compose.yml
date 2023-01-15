@@ -9,7 +9,7 @@ services:
       - db:/var/lib/postgresql/data
 
   api-gateway:
-    entrypoint: ["node", "./dist/services/api-gateway/src/main.js"]
+    command: [ "./dist/services/api-gateway/src/main.js" ]
     build: .
     env_file:
       - .env.docker
@@ -21,7 +21,7 @@ services:
       - SERVICE_TRAFFIC_SOURCE_HOST=traffic-source
 
   affiliate-network:
-    entrypoint: ["node", "./dist/services/affiliate-network/src/main.js"]
+    command: [ "./dist/services/affiliate-network/src/main.js" ]
     build: .
     env_file:
       - .env.docker
@@ -32,7 +32,7 @@ services:
       - db
 
   campaign:
-    entrypoint: ["node", "./dist/services/campaign/src/main.js"]
+    command: [ "./dist/services/campaign/src/main.js" ]
     build: .
     env_file:
       - .env.docker
@@ -43,7 +43,7 @@ services:
       - db
 
   click:
-    entrypoint: ["node", "./dist/services/click/src/main.js"]
+    command: [ "./dist/services/click/src/main.js" ]
     build: .
     env_file:
       - .env.docker
@@ -54,7 +54,7 @@ services:
       - db
 
   traffic-source:
-    entrypoint: ["node", "./dist/services/traffic-source/src/main.js"]
+    command: [ "./dist/services/traffic-source/src/main.js" ]
     build: .
     env_file:
       - .env.docker
@@ -65,7 +65,7 @@ services:
       - db
 
   offer:
-    entrypoint: ["node", "./dist/services/offer/src/main.js"]
+    command: [ "./dist/services/offer/src/main.js" ]
     build: .
     env_file:
       - .env.docker
