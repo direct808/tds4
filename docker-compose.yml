@@ -1,5 +1,11 @@
 version: '3.9'
 
+x-backend: &base-backend
+  image: tds/base
+  build: .
+  env_file:
+    - .env.docker
+
 services:
   db:
     image: postgres
@@ -9,69 +15,46 @@ services:
       - db:/var/lib/postgresql/data
 
   api-gateway:
+    <<: *base-backend
     command: [ "./dist/services/api-gateway/src/main.js" ]
-    build: .
-    env_file:
-      - .env.docker
-    environment:
-      - APP_PORT=3000
-      - SERVICE_AFFILIATE_NETWORK_HOST=affiliate-network
-      - SERVICE_CAMPAIGN_HOST=campaign
-      - SERVICE_OFFER_HOST=offer
-      - SERVICE_TRAFFIC_SOURCE_HOST=traffic-source
 
   affiliate-network:
+    <<: *base-backend
     command: [ "./dist/services/affiliate-network/src/main.js" ]
-    build: .
-    env_file:
-      - .env.docker
     environment:
       - GRPC_URL=affiliate-network:3001
-      - APP_PORT=3000
     depends_on:
       - db
 
   campaign:
+    <<: *base-backend
     command: [ "./dist/services/campaign/src/main.js" ]
-    build: .
-    env_file:
-      - .env.docker
     environment:
       - GRPC_URL=campaign:3001
-      - APP_PORT=3000
     depends_on:
       - db
 
   click:
+    <<: *base-backend
     command: [ "./dist/services/click/src/main.js" ]
-    build: .
-    env_file:
-      - .env.docker
     environment:
       - GRPC_URL=click:3001
-      - APP_PORT=3000
     depends_on:
       - db
 
   traffic-source:
+    <<: *base-backend
     command: [ "./dist/services/traffic-source/src/main.js" ]
-    build: .
-    env_file:
-      - .env.docker
     environment:
       - GRPC_URL=traffic-source:3001
-      - APP_PORT=3000
     depends_on:
       - db
 
   offer:
+    <<: *base-backend
     command: [ "./dist/services/offer/src/main.js" ]
-    build: .
-    env_file:
-      - .env.docker
     environment:
       - GRPC_URL=offer:3001
-      - APP_PORT=3000
     depends_on:
       - db
 
