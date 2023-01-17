@@ -8,11 +8,8 @@ export class EnvDTO {
   declare SECRET: string
 
   @Expose()
-  @IsInt()
+  @IsNumberString()
   @IsNotEmpty()
-  @Transform(({ value }: { value: string | undefined }) =>
-    value ? Number(value) : undefined,
-  )
   declare SERVICE_AFFILIATE_NETWORK_PORT: number
 
   @Expose()

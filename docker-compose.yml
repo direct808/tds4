@@ -22,40 +22,30 @@ services:
   affiliate-network:
     <<: *base-backend
     command: [ "./dist/services/affiliate-network/src/main.js" ]
-    environment:
-      - GRPC_URL=affiliate-network:3001
     depends_on:
       - db
 
   campaign:
     <<: *base-backend
     command: [ "./dist/services/campaign/src/main.js" ]
-    environment:
-      - GRPC_URL=campaign:3001
     depends_on:
       - db
 
   click:
     <<: *base-backend
     command: [ "./dist/services/click/src/main.js" ]
-    environment:
-      - GRPC_URL=click:3001
     depends_on:
       - db
 
   traffic-source:
     <<: *base-backend
     command: [ "./dist/services/traffic-source/src/main.js" ]
-    environment:
-      - GRPC_URL=traffic-source:3001
     depends_on:
       - db
 
   offer:
     <<: *base-backend
     command: [ "./dist/services/offer/src/main.js" ]
-    environment:
-      - GRPC_URL=offer:3001
     depends_on:
       - db
 
