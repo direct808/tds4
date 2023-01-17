@@ -2,6 +2,7 @@ version: '3.9'
 
 x-backend: &base-backend
   image: tds/base
+  read_only: true
   build: .
   env_file:
     - .env.docker
