@@ -5,6 +5,7 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
+  "workspaces": ["contracts"],
   "scripts": {
     "supergraph:compose": "rover supergraph compose --elv2-license accept --config ./supergraph-config.yaml > ./services/api-gateway/schema.graphql",
     "supergraph:compose:dev": "nodemon -e graphql --watch contracts/graphql --exec \"yarn run supergraph:compose\"",
