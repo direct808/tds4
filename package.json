@@ -5,7 +5,9 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
-  "workspaces": ["contracts"],
+  "workspaces": [
+    "contracts"
+  ],
   "scripts": {
     "supergraph:compose": "rover supergraph compose --elv2-license accept --config ./supergraph-config.yaml > ./services/api-gateway/schema.graphql",
     "supergraph:compose:dev": "nodemon -e graphql --watch contracts/graphql --exec \"yarn run supergraph:compose\"",
@@ -53,7 +55,7 @@
     "nanoid-dictionary": "^4.3.0",
     "pg": "^8.7.3",
     "rxjs": "^7.8.0",
-    "typeorm": "^0.3.6",
+    "typeorm": "0.3.11",
     "typeorm-naming-strategies": "^4.1.0",
     "ua-parser-js": "^1.0.32",
     "weighted": "^1.0.0"
