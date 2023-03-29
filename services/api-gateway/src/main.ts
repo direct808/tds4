@@ -10,6 +10,9 @@ async function bootstrap() {
   const { env } = app.get(ConfigService)
   await app.set('etag', false)
   await app.listen(env.APP_PORT)
+  console.log(
+    'Api gateway listening http://localhost:' + env.APP_PORT + '/graphql',
+  )
 }
 
 bootstrap()
