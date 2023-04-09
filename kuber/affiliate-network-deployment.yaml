@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: affiliate-network
+  labels:
+    app: affiliate-network
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: affiliate-network
+  template:
+    metadata:
+      labels:
+        app: affiliate-network
+    spec:
+      containers:
+        - name: affiliate-network
+          image: tds/base
+          imagePullPolicy: IfNotPresent
+          command: ['node', './dist/services/affiliate-network/src/main.js']
+          envFrom:
+            - configMapRef:
+                name: app-config
+#          ports:
+#            - containerPort: 80
