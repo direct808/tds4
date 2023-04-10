@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: affiliate-network
+  name: offer
   labels:
-    app: affiliate-network
+    app: offer
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: affiliate-network
+      app: offer
   template:
     metadata:
       labels:
-        app: affiliate-network
+        app: offer
     spec:
       containers:
-        - name: affiliate-network
+        - name: offer
           image: tds/base
           imagePullPolicy: IfNotPresent
-          command: ['node', './dist/services/affiliate-network/src/main.js']
+          command: ['node', './dist/services/offer/src/main.js']
           envFrom:
             - configMapRef:
                 name: app-config
