@@ -19,6 +19,7 @@ metadata:
 spec:
   selector:
     app: api-gateway
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 4000
@@ -33,6 +34,7 @@ metadata:
 spec:
   selector:
     app: affiliate-network
+  type: LoadBalancer
   ports:
     - name: graphql
       protocol: TCP
@@ -52,6 +54,7 @@ metadata:
 spec:
   selector:
     app: campaign
+  type: LoadBalancer
   ports:
     - name: graphql
       protocol: TCP
@@ -71,6 +74,7 @@ metadata:
 spec:
   selector:
     app: click
+  type: LoadBalancer
   ports:
     - name: graphql
       protocol: TCP
@@ -90,6 +94,7 @@ metadata:
 spec:
   selector:
     app: offer
+  type: LoadBalancer
   ports:
     - name: graphql
       protocol: TCP
@@ -109,6 +114,7 @@ metadata:
 spec:
   selector:
     app: traffic-source
+  type: LoadBalancer
   ports:
     - name: graphql
       protocol: TCP
