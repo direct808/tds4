@@ -13,6 +13,8 @@ spec:
     metadata:
       labels:
         app: click
+      annotations:
+        linkerd.io/inject: enabled
     spec:
       containers:
         - name: click
