@@ -1,0 +1,29 @@
+{{- range .Values.services }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $.Release.Name}}-{{ . }}
+  labels:
+    app: {{ $.Release.Name}}-{{ . }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ $.Release.Name}}-{{ . }}
+  template:
+    metadata:
+      labels:
+        app: {{ $.Release.Name}}-{{ . }}
+      annotations:
+        linkerd.io/inject: enabled
+    spec:
+      containers:
+        - name: {{ $.Release.Name}}-{{ . }}
+          image: tds/base
+          imagePullPolicy: IfNotPresent
+          command: [ 'node', './dist/services/{{ . }}/src/main.js' ]
+          envFrom:
+            - configMapRef:
+                name: {{ $.Release.Name}}-config
+---
+{{- end }}

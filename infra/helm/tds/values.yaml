@@ -1,0 +1,7 @@
+services:
+  - affiliate-network
+  - api-gateway
+  - campaign
+  - click
+  - offer
+  - traffic-source

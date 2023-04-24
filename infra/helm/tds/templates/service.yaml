@@ -1,0 +1,19 @@
+{{- range .Values.services }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $.Release.Name}}-{{ . }}
+spec:
+  selector:
+    app: {{ $.Release.Name}}-{{ . }}
+      #type: LoadBalancer
+  ports:
+    - name: graphql
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
+    - name: grpc
+      protocol: TCP
+      port: 3001
+      targetPort: 3001
+{{- end }}
