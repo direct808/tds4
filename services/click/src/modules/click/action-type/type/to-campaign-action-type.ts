@@ -9,6 +9,7 @@ import {
   NotFoundException,
   Scope,
 } from '@nestjs/common'
+import { ClickData } from '../../click-data'
 
 const MAX_REDIRECTS = 1
 
@@ -22,7 +23,10 @@ export class ToCampaignActionType implements ActionType {
     private readonly clickService: ClickService,
   ) {}
 
-  async handle(data: ActionTypeData): Promise<grpc.click.IAddClickResponse> {
+  async handle(
+    data: ActionTypeData,
+    clickData: ClickData,
+  ): Promise<grpc.click.IAddClickResponse> {
     if (!data.actionCampaignId) {
       throw new Error('No actionCampaignId')
     }
@@ -36,7 +40,7 @@ export class ToCampaignActionType implements ActionType {
     this.redirectCount++
     console.log('To campaign', campaign, 'redirectCount', this.redirectCount)
 
-    return this.clickService.addByCampaign(campaign)
+    return this.clickService.addByCampaign(campaign, clickData)
   }
 
   private async getCampaignById(id: string) {

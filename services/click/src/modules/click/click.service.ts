@@ -19,14 +19,12 @@ export class ClickService {
     private readonly foreignService: ForeignService,
     private readonly actionTypeFactory: ActionTypeFactory,
     private readonly redirectTypeFactory: RedirectTypeFactory,
-    private readonly clickInput: ClickInputDTO,
-    private readonly clickData: ClickData,
     private readonly templateService: TemplateService,
   ) {}
 
-  async add(): Promise<grpc.click.IAddClickResponse> {
+  async add(input: ClickInputDTO): Promise<grpc.click.IAddClickResponse> {
     try {
-      return await this.#add()
+      return await this.#add(input)
     } catch (e: unknown) {
       if (e instanceof NotFoundException) {
         return {
@@ -38,16 +36,18 @@ export class ClickService {
     }
   }
 
-  async #add(): Promise<grpc.click.IAddClickResponse> {
-    const campaign = await this.#getCampaignByCode(this.clickInput.campaignCode)
+  async #add(input: ClickInputDTO): Promise<grpc.click.IAddClickResponse> {
+    const campaign = await this.#getCampaignByCode(input.campaignCode)
 
-    this.clickData.setFromCampaign(campaign)
+    const clickData = new ClickData(input)
+    clickData.setFromCampaign(campaign)
 
-    return this.addByCampaign(campaign)
+    return this.addByCampaign(campaign, clickData)
   }
 
   async addByCampaign(
     campaign: grpc.campaign.ICampaign,
+    clickData: ClickData,
   ): Promise<grpc.click.IAddClickResponse> {
     if (!campaign.streams || !campaign.streams.length) {
       throw new Error('No streams')
@@ -55,17 +55,18 @@ export class ClickService {
 
     const stream = this.#getSelectedStream(campaign.streams)
 
-    this.clickData.setFromStream(stream)
+    clickData.setFromStream(stream)
 
-    const response = await this.#handleStreamSchema(stream)
+    const response = await this.#handleStreamSchema(stream, clickData)
 
-    await this.entityManager.save(Click, this.clickData)
+    await this.entityManager.save(Click, clickData)
 
     return response
   }
 
   async #handleStreamSchema(
     stream: grpc.campaign.ICampaignStream,
+    clickData: ClickData,
   ): Promise<grpc.click.IAddClickResponse> {
     if (stream.schema === undefined || stream.schema === null) {
       throw new Error('Stream not found')
@@ -75,13 +76,13 @@ export class ClickService {
       case grpc.campaign.StreamSchema.ACTION:
         const at = await this.actionTypeFactory.create(stream.actionType!)
 
-        return at.handle(stream)
+        return at.handle(stream, clickData)
       case grpc.campaign.StreamSchema.DIRECT_URL:
         return this.redirectTypeFactory
           .create(stream.redirectType!)
           .handle(stream.redirectUrl!)
       case grpc.campaign.StreamSchema.LANDINGS_OFFERS:
-        return this.#handleLandingsOffers(stream)
+        return this.#handleLandingsOffers(stream, clickData)
       default:
         const s: never = stream.schema
         throw new Error('Unknown stream schema ' + s)
@@ -108,6 +109,7 @@ export class ClickService {
 
   async #handleLandingsOffers(
     stream: campaign.ICampaignStream,
+    clickData: ClickData,
   ): Promise<click.IAddClickResponse> {
     if (!stream.streamOffers || !stream.streamOffers.length) {
       throw new Error('No streamOffers')
@@ -120,7 +122,7 @@ export class ClickService {
     console.log('Selected offer', streamOffer.id, streamOffer.percent)
 
     const offer = await this.#getOfferById(streamOffer.offerId!)
-    this.clickData.setFromOffer(offer)
+    clickData.setFromOffer(offer)
 
     if (offer.type === undefined || offer.type === null) {
       throw new Error('offer.type not set')
@@ -130,11 +132,12 @@ export class ClickService {
       case grpc.offer.OfferType.ACTION:
         const action = await this.actionTypeFactory.create(offer.actionType!)
 
-        return action.handle(offer)
+        return action.handle(offer, clickData)
       case grpc.offer.OfferType.REDIRECT:
         const redirectUrl = await this.#setOfferUrlParams(
           offer,
           offer.redirectUrl!,
+          clickData,
         )
 
         return this.redirectTypeFactory
@@ -145,6 +148,7 @@ export class ClickService {
         const preloadUrl = await this.#setOfferUrlParams(
           offer,
           offer.preloadUrl!,
+          clickData,
         )
 
         return this.redirectTypeFactory
@@ -202,6 +206,7 @@ export class ClickService {
   async #setOfferUrlParams(
     offer: grpc.offer.IOffer,
     inputUrl: string,
+    clickData: ClickData,
   ): Promise<string> {
     if (!offer.affiliateNetworkId) {
       return inputUrl
@@ -213,7 +218,9 @@ export class ClickService {
       return inputUrl
     }
 
-    const res = this.templateService.parse(an.offerParam, { encodeUri: true })
+    const res = this.templateService.parse(an.offerParam, clickData, {
+      encodeUri: true,
+    })
 
     if (inputUrl.includes('?')) {
       return inputUrl + '&' + res

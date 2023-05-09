@@ -1,4 +1,3 @@
-import { Injectable, Scope } from '@nestjs/common'
 import { grpc } from '@tds/contracts'
 import { ClickInputDTO } from '../../dto'
 import UAParser from 'ua-parser-js'
@@ -6,9 +5,8 @@ import { findValues, queryParameters } from './helpers'
 import { parse } from 'node:querystring'
 import { camelCase, snakeCase } from 'lodash'
 
-@Injectable({ scope: Scope.REQUEST })
 export class ClickData
-  implements Record<typeof queryParameters[number], unknown>
+  implements Record<(typeof queryParameters)[number], unknown>
 {
   offerId?: string | null
   affiliateNetworkId?: string | null
@@ -128,7 +126,7 @@ export class ClickData
         continue
       }
 
-      const kk = camelCase(key) as typeof queryParameters[number]
+      const kk = camelCase(key) as (typeof queryParameters)[number]
 
       this[kk] = val
     }

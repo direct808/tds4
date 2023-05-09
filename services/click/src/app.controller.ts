@@ -13,6 +13,6 @@ export class AppController {
 
   @GrpcMethod('ClickService')
   addClick(args: ClickInputDTO): Promise<click.IAddClickResponse> {
-    return this.clickService.add()
+    return this.clickService.add(args)
   }
 }
