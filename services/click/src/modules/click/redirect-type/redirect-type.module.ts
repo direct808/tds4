@@ -12,9 +12,10 @@ import {
   WithoutRefererRedirectType,
 } from './type'
 import { ConfigModule } from '../../config'
+import { HttpModule } from '@nestjs/axios'
 
 @Module({
-  imports: [ConfigModule],
+  imports: [ConfigModule, HttpModule],
   providers: [
     RedirectTypeFactory,
     CurlRedirectType,

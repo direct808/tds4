@@ -42,6 +42,6 @@ export class RedirectTypeFactory {
     }
 
     const at: never = redirectType
-    throw new Error('Unknown actionType ' + at)
+    throw new Error(`Unknown redirectType: "${at}"`)
   }
 }

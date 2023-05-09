@@ -37,6 +37,7 @@
     "@apollo/subgraph": "^2.0.2",
     "@grpc/grpc-js": "^1.7.3",
     "@nestjs/apollo": "^10.0.11",
+    "@nestjs/axios": "^2.0.0",
     "@nestjs/common": "^9.2.0",
     "@nestjs/core": "^9.2.0",
     "@nestjs/graphql": "^10.0.11",
@@ -111,11 +112,12 @@
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
     "roots": [
-      "<rootDir>/apps/",
+      "<rootDir>/services/",
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@tds/common(|/.*)$": "<rootDir>/libs/common/src/$1"
+      "^@tds/common(|/.*)$": "<rootDir>/libs/common/src/$1",
+      "^@tds/contracts(|/.*)$": "<rootDir>/contracts/src/$1"
     }
   },
   "typeCoverage": {

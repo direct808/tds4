@@ -1,6 +1,6 @@
 import { ActionType } from './action-type'
-import { Inject, Injectable } from '@nestjs/common'
-import { ContextIdFactory, ModuleRef, REQUEST } from '@nestjs/core'
+import { Injectable } from '@nestjs/common'
+import { ModuleRef } from '@nestjs/core'
 import { tds } from '@tds/contracts/grpc/compiled'
 import {
   NothingActionType,
@@ -13,10 +13,7 @@ import Type = tds.global.ActionType
 
 @Injectable()
 export class ActionTypeFactory {
-  constructor(
-    @Inject(REQUEST) private request: Record<string, unknown>,
-    private readonly moduleRef: ModuleRef,
-  ) {}
+  constructor(private readonly moduleRef: ModuleRef) {}
 
   create(actionType: Type): Promise<ActionType> {
     switch (actionType) {
@@ -29,12 +26,10 @@ export class ActionTypeFactory {
       case Type.NOTHING:
         return this.moduleRef.get(NothingActionType)
       case Type.TO_CAMPAIGN:
-        const contextId = ContextIdFactory.getByRequest(this.request)
-
-        return this.moduleRef.resolve(ToCampaignActionType, contextId)
+        return this.moduleRef.get(ToCampaignActionType)
     }
 
     const at: never = actionType
-    throw new Error('Unknown actionType ' + at)
+    throw new Error(`Unknown actionType \`${at}\``)
   }
 }

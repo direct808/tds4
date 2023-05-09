@@ -69,7 +69,7 @@ export class ClickService {
     clickData: ClickData,
   ): Promise<grpc.click.IAddClickResponse> {
     if (stream.schema === undefined || stream.schema === null) {
-      throw new Error('Stream not found')
+      throw new Error('Stream schema not found')
     }
 
     switch (stream.schema) {

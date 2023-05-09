@@ -7,13 +7,12 @@ import {
   Inject,
   Injectable,
   NotFoundException,
-  Scope,
 } from '@nestjs/common'
 import { ClickData } from '../../click-data'
 
 const MAX_REDIRECTS = 1
 
-@Injectable({ scope: Scope.REQUEST })
+@Injectable()
 export class ToCampaignActionType implements ActionType {
   private redirectCount = 0
 
