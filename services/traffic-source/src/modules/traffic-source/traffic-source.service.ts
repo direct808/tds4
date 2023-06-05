@@ -21,7 +21,7 @@ export class TrafficSourceService {
     })
   }
 
-  async save(input: TrafficSourceSaveDTO) {
+  async save(input: TrafficSourceSaveDTO): Promise<TrafficSource> {
     if (input.id) {
       await this.entityManager.findOneByOrFail(TrafficSource, {
         id: input.id,

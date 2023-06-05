@@ -119,6 +119,21 @@
       "compilerOptions": {
         "tsConfigPath": "contracts/tsconfig.lib.json"
       }
+    },
+    "frontend-keitaro": {
+      "type": "application",
+      "root": "frontend-keitaro",
+      "entryFile": "src/main",
+      "sourceRoot": "frontend-keitaro",
+      "compilerOptions": {
+        "tsConfigPath": "frontend-keitaro/tsconfig.app.json",
+        "assets": [
+          {
+            "include": "assets",
+            "outDir": "dist/frontend-keitaro"
+          }
+        ]
+      }
     }
   }
 }

@@ -4,6 +4,7 @@ package tds.traffic_source;
 
 service TrafficSourceService {
   rpc GetTrafficSourceList(GetTrafficSourceListRequest) returns (GetTrafficSourceListResponse);
+  rpc TrafficSourceSave(TrafficSourceSaveRequest) returns (TrafficSourceSaveResponse);
 }
 
 message GetTrafficSourceListRequest {
@@ -20,4 +21,22 @@ message GetTrafficSourceListResponse {
 message TrafficSource {
   string id = 1;
   string name = 2;
+  bool accept_parameters = 3;
+  int32 traffic_loss = 4;
+  repeated string postback_statuses = 5;
+  string parameters = 6;
+  string created_at = 7;
+  string updated_at = 8;
+}
+
+message TrafficSourceSaveRequest {
+    string name = 1;
+    bool accept_parameters = 2;
+    int32 traffic_loss = 3;
+    repeated string postback_statuses = 4;
+    string parameters = 5;
+}
+
+message TrafficSourceSaveResponse {
+    TrafficSource result = 1;
 }
